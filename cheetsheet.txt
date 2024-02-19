@@ -1,0 +1,109 @@
+ip link show - pt a verifica dc o placa de retea este activa
+ip link set up dev [interfata] - pt a porni o interfata
+ip address show - pt a vedea adresele IP configurate pe interfe?ele de re?ea
+dhclient [interfata] - pt a obtine o adresa IP in mod dinamic pe o interfata
+ip address flush [interfata] - pt a sterge o adresa IP de pe o interfata
+ping -c [nr_pachete] [IP] - trimite pachete la o adresa IP(verifica conectivitatea la ac)
+ip route show - pt a identifica gateway-ul
+wget [link] - pt a descarca o pagina
+ssh [user]@[IP] - pt a ne conecta la o statie externa
+ssh root@10.10.10.3 ip address show
+ssh student@10.10.10.3 ls ~
+scp (-r, pt direcoare) /bin/bash student@10.10.10.3:~/ - secure copy (ex bash pe statia de la IP:10.10.10.3, in directorul ~)
+ssh-keygen - pt generarea unei perechi de chei
+ssh-copy-id [user]@[IP] - pt copierea cheii publice pe o statie
+tab completition
+history - istoricul comenziolor(ctrl+r pt a cauta o comanda, ctrl+g anulare cautare)
+man(/ pt cautare in sesiunea din man)
+globbing: *(inlocuie orice), [lista(ex[A-z0-9] sau lista de char[isj])], {lista de cuvinte pentru inlocuire}
+find [cale] -name "(ce vrem sa cautam)"
+locate "ce vrem sa cautam"
+cat /proc/meminfo | grep "Mem"
+head, tail(default afiseaza primele, resp ultimele 10 linii)
+ps -e -ouser,uid,pid,%mem,%cpu,rss,cmd --sort=(- pt sort desc si nimic pt cresc)%{mem, rss, cpu, cmd} :
+1. --sort cu argumentul %mem pentru a sorta procesele dup� procentul de memorie folosit�
+2. -ouser,uid,pid,%mem,%cpu,rss,cmd pentru a selecta coloanele pe care s� le afi?eze ps
+ps -e -ouser,uid,pid,%mem,%cpu,rss,cmd --sort=%mem | tail
+grep [OPTIONS] PATTERN [FILE...] (grep PATTERN cale/c�tre/fi?ier) 
+-n pt a afisa nr liniei pt ce cautam
+-i pt case-insensitive
+-v pt afisarea liniilor care nu contin patternul
+-r pt a cauta recursiv patternul intr o ierarhie(cand nu stim unde se afla patternul)
+echo $? - Pentru a vedea codul cu care ?i-a �ncheiat execu?ia o comand�
+*Folosim operatorul ; pentru a �nl�n?ui comenzi care sunt independente unele de altele, ?i deci execu?ia lor nu depinde de succesul unei comenzi precedente.
+*Operatorul binar && (?i logic) - execut� a doua comand� doar dac� precedenta s-a executat cu succes
+*Operatorul binar || (sau logic) - execut� a doua comand� doar dac� prima s-a terminat cu e?ec
+*Atunci c�nd folosim operatorul | prelu�m rezultatul comenzii din st�nga operatorului ?i �l oferim ca intrare comenzii aflate �n dreapta operatorului.
+*Fi?ierul /dev/null este un fi?ier care ignor� orice este scris �n el
+sudo apt {remove, purge, install, update, upgrade} [-y] [app]
+apt search [app]
+chmod +[xrw] [app]
+kill, killall
+pidof [process_name]
+htop
+ps -ef(F)
+pstree
+which [app] - pt a afisa calea appului
+who - pt a afisa utilizatorii
+free - pt a vedea memoria disponibila
+bg, fg
+dd if=/dev/urandom of=[name_output_file] count=100 bs=1M(count=block count, bs=block size in MB)
+/etc/passwd - contine informatii despre toti utilizatorii din sitem
+wc - utilitar pt numarare( word count)
+git config --global user.{name, email}
+git init - pt a initializa un repository local
+git remote add origin https://github.com/{username}/array-sorting-algorithms.git - pt a interconecta un repository local si unul remote
+git status - pt a verifica starea repositoryului
+git add {files} - pt a aduga fisiere in staging area
+git commit -m "Add README file"
+git log - pt a verifica istoricul de commituri
+git push origin master - pt a publica commiturile de pe branchul master
+su {user} - pt a schimba userul curent
+{id, finger} {user} - pt a afla info despre un anumit user
+whoami - pt a afisa userul curent
+users - pt a afisa userii logati
+pinky, w, who
+groups {user} - pt a afisa grupurile in care este userul
+sudo passwd {user} - pt a schimba parola userului
+sudo {useradd, adduser} - pt a adauga un user in sistem
+sudo {userdel, deluser} - well you can guess
+sudo {groupadd, addgroup} [nume_grup] - pt a aduga grupuri
+sudo {groupdel, delgroup}
+sudo usermod -d /home/marcela_dir marcela - pt a schimba home directoryul userului marcela
+sudo usermod -a -G studenti marcela - pt a adauga userul marcela la grupul studenti
+sudo groupmod -n absolventi studenti - pt a schimba numele grupului studenti
+udo chsh marcela - folosita pentru a schimba shell-ul de login al utilizatorului
+sudo chfn marcela - schimba informatii legate de contul de utilizator
+sudo chpasswd - schimba parolele mai multor useri in cadrul unei singure comenzi
+sudo chown student terminus - schimba utilizatorul care este owner pentru un fisier
+sudo chgrp student terminus - schimba grupul unui fisier
+sudo chmod [permisiuni] [fisier]
+seq -s "[delimitator]" [inceput:1] [ratia:2] [sfarsit:5] - secventa de numere
+seq -f "Star Wars Episode %01g" 3 - pt a afisa o secv intr un anumit format
+touch $(seq -f "file-%02g.txt" 1 20) - creeaza 20 de fisiere
+cut -d "[delimitator intre coloane]" -f [numarele coloanelor pe care le vrem:1] asok.txt 
+*comanda sed
+wc este folosit� pentru a num�ra liniile, cuvintele sau carcterele dintr-un input
+file [file]- determina tipul unui fisier
+uptime - daca dorim sa aflam de cat timp este pornit sistemul
+jobs - utilitar care afiseaza procesele pornite din terminalul actual si statusul lor
+ps -aux -pt o afisare mai detaliata a proceselor
+lsof - afl�m informa?ii despre fi?ierele deschise de fiecare proces din sistem
+pgrep ssh - pt a afisa procesele care contin in nume ssh
+pgrep -u student - pt a afisa procesele unui anumit utilizator
+top, htop
+git checkout -b cool_feature - creeaza un branch nou si ne muta automat pe el
+globbing :
+1. ? - 0 sau 1 caracter
+2. + - 1 sau mai multe
+3. * - 0 sau mai multe
+cat /etc/passwd | cut -f1 -d":" - afiseaza doar numele utilizatorilor
+
+tac � afieaza con?inutul fi?ierului �n ordinea invers� a liniilor
+rev � afi?eaza liniile inversate (primul element de pe linie devine ultimul)
+nl � afi?eaza num�rul liniei
+
+sort � sorteaz� intr�rile
+uniq � elimin� duplicatele din fi?ier
+wc � numar� elementele din fisier
+tr - elimina caractere

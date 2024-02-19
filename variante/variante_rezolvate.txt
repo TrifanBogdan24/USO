@@ -1,0 +1,1396 @@
+		VARIANTA 60
+
+1 (a) Creati urmatoarea ierarhie de directoare  si fisiere:
+
+	mkdir 'Spare Time'
+	cd 'Spare Time'/
+	mkdir Cartoons 'Social Networks'
+	cd Cartoons/
+	touch bugsbunny.mp4 bugsbunny.srt
+	cd ../'Social Networks'/
+	touch Facebook 'The Flinstons'.avi 'The Flinstons'.srt
+
+1 (b) Mutati fisierele "The Flinstons.avi" si "The Flinstons.srt" in directorul "Cartoons"
+
+	mv Spare\ Time/Social\ Networks/The\ Flinstons.avi Spare\ Time/Cartoons/
+	mv Spare\ Time/Social\ Networks/The\ Flinstons.srt Spare\ Time/Cartoons/
+	
+1 (c)  Stergeti directorul "Social Networks" din ierarhia de fisiere
+
+	rm -r Spare\ Time/Social\ Networks/
+	
+1 (d) Creati ı̂n cadrul directorului "Desktop" o legătură simbolică numită "Desene“ către directorul "Cartoons“
+
+	ln -sf /home/student/Desktop/USO/varianta_60/Spare\ Time/Cartoons/ /home/student/Desktop/Desene
+	
+2 (a) Creati utilizatorul"blossom"
+
+	sudo useradd blossom
+	
+V60 - 2 (b) Faceti modificarile necesare astfel directorul home al utilizatorul "blossom" să fie " /home/irls/blossom"
+
+	sudo usermod -d /home/girls/blossom -m blossom
+	
+2 (c) Afisati, pentru fiecare utilizator din sistem, numele si shell-ul implicit al acestora.
+
+2 (d)  Afisati numarul de utilizatori din sistem care au "/bin/false" configurat ca shell implicit.
+
+3 (a) Afisati adresa IP corespunzatoare adresei web "alf.cs.pub.ro".
+	
+	ping -c 1 elf.cs.pub.ro | awk 'NR==1' |awk '{print $3}' | sed 's:^.\(.*\).$:\1:'
+	Comanda care sterge primul si ultimul caracter al unei linii : sed 's:^.\(.*\).$:\1:'
+
+3 (b) Trimiteti 7 pachete catre "mamba.cs.pub.ro".
+
+	ping -c 7 mamba.cs.pub.ro
+	
+3 (c) Afisati gateway - ul implicit configurat pe sistem.
+
+	ip route show
+	
+3 (d) Aisati adresa IP configurata pe interfata "ens3" .
+
+4 (a) Clonati repository-ul de git de la adresa "https://github.com/AlexFazakas/var60“. In cadrul acestui repository veti gasi un fisier numit "main.c“.
+
+4 (b) 
+
+4 (c)
+
+4 (d)
+
+5 (a) Instalati utilitarul "cowsay".
+	
+		sudo apt install cowsay
+
+5 (b) Folosind utilitarul "cowsay", formatati textul "USO rulz!" folosind o forma de dragon.
+Hint! cautati sirul de caractere "-f" in cadrul paginii de manual al utilitarului "cowsay".
+
+	cowsay -f dragon "USO rulz!"
+	
+5 (c) Creati un alias numit "dragonsay" care sa afiseze textul primit ca argument folosind o froma de dragon.
+
+5 (d) Creati in directorul home al utilizatorului "student" un fisier numit "uso_5d" care are dimensiunea 420 K contine numai octeti aleatori.
+
+	head -c 430080 /dev/urandom > /home/student/uso_5d
+
+	420 Kb =420 *1024=430080 bytes
+	Afisam dimensiunea fisierului folosind comanda :  du -h /home/student/uso_5d
+	
+6 (a) Afisati toti utilizatorii din sistem, ordonati dupa numele de utilizator in ordine lexicografica. 
+
+6 (b) Scrieti un one-liner care afiseaza ultimele 3 comenzi rulate in shell-ul curent.
+Hint! man history
+
+	history 4
+	
+6 (c) Porniti procesul "slepp 1000" in background si afisati PID - ul acestuia.
+
+	In terminalul 1: sleep 1000
+	In terminalul 2: pidof sleep
+	Terminalul 2 va afisa un numar, in cazul meu 8476
+
+6 (d) Trimiteti semnalul SIGQUIT către procesul creat la subpunctul anterior.
+
+	In terminalul 1 : sleep 1000
+	In terminalul 2:
+	pidof sleep
+	Va scrie un numar, in cazul meu 8476
+	kill -KILL 8476
+
+	In terminalul 1 va aparea : Killed
+	
+	
+	
+	
+			VARIANTA 61
+			
+			
+1 (a) Creati urmatoarea ierarhie de directoare si fisiere:
+
+	mkdir Comedies
+	cd Comedies/
+	mkdir Friends 'The Big Bang Theory'
+	cd Friends/
+	touch Ross Monica Phoebe 'Rachel Green'
+	cd ../The\ Big\ Bang\ Theory/
+	touch Penny
+	mkdir Sheldon
+	cd Sheldon/
+	touch Amy Leonard
+	
+1 (b) Afisati dimensiunea utilitarului "tree".
+
+	Ruland comanda which tree , va afisa /usr/bin/tree
+	ls -lah /usr/bin/tree | awk '{print $5}'
+			
+1 (c) Listati sub forma arborescenta ierarhia de fisiere din directorul "Comedies" si redirectati output-ul intr-un fisier numit "database.txt".
+
+	tree Comedies/ > database.txt
+	
+1 (d) Mutati toate fisierele din directorul "Friends" in cadrul directorului "Sheldon" printr-o singura comanda.
+
+	mv Comedies/Friends/* Comedies/The\ Big\ Bang\ Theory/Sheldon/
+	
+2 (a) Afisati PID-ul shell-ului curet.
+	
+	echo $$
+	
+2 (b) Afisati numarul de procese pornite de catre utilizatorul "root".
+
+2 (c) Scrieti un one-liner care extrage PID-ul, comanda care a pornit procesul, utilizatorul si procentul de procesor utilizat pentur fiecare proces pornit in sistem.
+
+	ps -aux | awk '{print $2,$11,$1,$3}' 
+
+	$2 = al doilea cuvant = PID-ul
+	$11 = al unsprezecelea cuvant = comanda
+	$1 = primul cuvant = utilizatorul
+	$3 = al treilea cuvant = procentul de procesor
+	Vedem daca afiseaza in ordinea dorita, ruland comanda ps -aux | awk '{print $2,$11,$1,$3}' | awk 'NR==1'
+	
+2 (d) Afisati procesele din sistem care il au ca parinte pe procesul cu PID-ul 1.
+
+3 (a) Creatii utilizatorii "zeus" si "poseidon".
+
+	sudo useradd zeus
+	sudo useradd poseidon
+	
+3 (b) Creati grupul "gods" si adaugati la acesta utilizatorii creati la subpunctul anterior.
+	
+	sudo addgroup gods
+	sudo usermod -g gods zeus
+	sudo usermod -g gods poseidon
+
+3 (c) Faceti modificarile necesare astfel incât utilizatorul "poseidon" sa nu se poata autentifica.
+Hint! man usermod
+
+3 (d) Scrieti un one-liner care afiseaza mesajul "Yes" daca utilizatorul "hermes" exit in sistem, altfel afiseaza mesajul "No" . 
+
+4. Rulatti comanda "wget http://elf.cs.pub.ro/uso/res/midterm/61/var61.zip" pentru a descarca o arhiva cu fisiere sursa. Dezarhivati-o folosind "unzip var61.zip".
+
+4 (a) Adaugati in fisierul "Makefile" o regula numita run care ruleaza executabilul obtinut in urma rularii regulii build si redirecteaza output-ul acestuia in fisierul "surprise.log".
+
+4 (b) Mutati fisierele "surprise.c" si "Makefile" intr-un nou director numit "just_hello". Init ializati un repository de git ı̂n acest director. 
+
+4 (c) Faceti modificarile necesare in repository-ul creat la subpunctul anterior astfel incat fisierul "surprise.log" să fie ignorat la comiterea schimbarilor.
+
+4 (d) Creati un comit nou care sa contina toate fisierele relevante din directorul "just_hello".
+Folositi mesajul "Makefile nou".
+
+5 (a) 
+5 (b)
+5 (c)
+5 (d)
+
+6 (a) Afisati TOATE fisierele din ierarhia "/home/student".
+	
+	ls -ah /home/student/
+
+6 (b) 
+
+6 (c) Scrieti un one-liner care genereaza un sir de 16 caractere alfanumerice aleatoare.
+
+	tr -dc A-Za-z0-0 < /dev/urandom | head -c 16
+	
+6 (d) Creati un alias numit genpass care sa genereze o parola de 16 caractere alfanumerice aleatoare.
+
+	nano ~/.bashrc
+		In bash scriem : alias gempass='tr -dc A-Za-z0-0 < /dev/urandom | head -c 16'
+		^S 
+		^X
+	source ~/.bashrc
+	
+	
+	
+		VARIANTA 62
+		
+1 (a) Creati urmatoarea ierarhie de directoare si fisiere
+
+	mkdir abc def ; cd abc ; touch 'a b' c ; cd ../def/
+	mkdir 'd e f' ; cd 'd e f'/ ; touch abcdef
+	
+1 (b) Mutati directorul "d e f" in cadrul directorului "abc"
+
+	mv  litere/def/ litere/abc/
+	
+1 (c)  Stergeti directoul "def".
+	
+	rm -r litere/abc/def
+	
+1 (d) Afisati DOAR utilizatorul si grupul care detin fisierul "c".
+
+	ls -alh litere/abc/c | awk '{print $3, $4}'
+	
+2 (a) Afisati PID-ul shell-ului curent.
+
+	echo $$
+	
+2 (b) Afisati TOATE procesele de pe sistem sub forma arborescenta.
+
+	pstree -au
+	
+2 (c) 
+
+2 (d)
+
+3 (a)
+
+3 (b) Afisati fiecare utilizator al carui nume incepe cu caracterul 's'
+
+	cat /etc/passwd | grep '^s' | cut -d ':' -f1
+
+	Comanda grep '^s' afiseaza toate cuvintele -se intampla sa fie linii- care incep cu 's'
+	Comanda cut -d ':' -f1 separa fiecare linie prin ':' si afiseaza doar primul cuvant.
+	
+3 (c) Afisati numarul de caractere din fisierul /etc/group.
+
+	cat /etc/group | wc -m
+	
+3 (d) Afisati numarul grupurilor de pe sistem al caror nume incepe cu caracterul "a".
+
+	cat /etc/group | grep '^a' | wc -l
+
+	Comanda grepa '^a' afiseaza liniile care incep cu litera 'a'
+	Comanda wc -l returneaza numarul de linii.
+
+4 (a) Creati grupul "valorant".
+
+	sudo addgroup valorant
+	
+4 (b) Creati utilizatorul "killjoy" care face parte din grupul "valorant".
+
+	sudo useradd killjoy
+	sudo usermod -g valorant killjoy
+
+4 (c) Faceti modificarile necesare astfel incât directorul home al utilizatorului "killjoy" sa fie "/home/ascent/killjoy".
+
+	sudo usermod -d /home/ascent/killjoy/ -m killjoy
+	
+4 (d) 
+
+5 (a) Instalati utilitarul "cowsay".
+
+	sudo apt install cowsay
+	
+5 (b) Clonati repository-ul de la adresa "https://github.com/AlexFazakas/var62".
+
+	git clone https://github.com/AlexFazakas/var62
+	
+5 (c) 
+
+5 (d)
+
+6 (a) 
+
+6 (b) Generati o pereche de chei SSH.
+
+	ssh-keygen /home/student/.ssh/cheie_moodle
+	
+6 (c) Realizati modificarile necesare astfel incat autentificarea cu utilizatorul vostru pe statia de la adresa "fep.grid.pub.ro".
+
+	cd ~/.ssh
+	ssh-keygen
+	ssh-copy-id -i ~/.ssh/id_rsa.pub bogdan.trifan2412@fep.grid.pub.ro
+
+6 (d) 
+
+
+		
+		VARIANTA 63
+		
+		
+1 (a) Creati urmatoare ierahie de directoare si fisiere.
+
+	mkdir Movies
+	cd Movies/
+	mkdir Horror Action
+	cd Horror/
+	touch 'The Ring' "You're Next"
+	cd ../Action/
+	touch 'Kevin Hart' 'The Dark Knight'
+	
+1 (b) Mutati fisierul "Kevin Hart" in cadrul directorului "Actors".
+
+	mv Movies/Genre/Action/Kevin\ Hart Movies/Actors/
+	
+1 (c) Stergeti directorul "Genre".
+
+	rm -r Movies/Genre/
+	
+1 (d) Creati doua fisiere ascunce care sa contina in numele lor sirurile de caractere "find_me" si "i_am_ghost".
+
+	touch .'find_me' .'i_am_ghost'
+	ele pot fi vazute dand comanda : ls -a
+	
+2 (a) Creati utilizatorii "einstein" si "edison".
+
+	sudo useradd einstein
+	sudo useradd edison
+	
+2 (c) Instalati utilitarul "traceroute".
+
+	sudo apt install traceroute
+	
+2 (d) Aflati numarul total de hop-uri pana la adresa "elf.cs.pub.ro" si redirectionati raspunsul la fisierul "hops.txt".
+
+	traceroute -I elf.cs.pub.ro | awk 'NR>1' | wc -l
+	
+	awk 'NR>1' -> selecteaza toate liniile mai putin prima
+	wc -l -> afiseaza numarul de linii 
+	
+3 (a) Afisati numele modelului procesorului de pe sistem intr-un fisier numit "mycpu".
+
+	cat /proc/cpuinfo  | grep 'model name' | awk 'NR==1' > mycpu
+	
+3 (b) Scrieti un one-liner care sa afiseaza DOAR ora curenta in format 0-24h.
+
+	O comanda poate fi : date +"%H:%M"
+	O alta comanda poate fi : echo $(date +"%H:%M")
+	
+3 (c)
+
+3 (d)
+
+4 (a) Clonati repository-ul de la adresa "https://github.com/AlexFazakas/var63".
+
+	git clone https://github.com/AlexFazakas/var63
+	
+4 (b) 
+
+4 (c)
+
+4 (d)
+
+5 (a) Afisati numarul de cuvinte din fisierul "/etc/passwd".
+
+	cat /etc/passwd | wc -w
+	
+5 (b) Afisati DOAR dimensiunea fisierului "/etc/passwd" in format human-readable.
+
+	sudo ls -sh /etc/passwd | awk '{print $1}'
+	-s = size ; -h = human-readable
+	
+5 (c) Scrieti un one-liner care genereaza o parola formatata din 40 de cifre aleatoare.
+
+	tr -dc 0-9 < /dev/urandom | head -c 40 
+	
+5 (d) Creati un fisier numit "masterpiece.txt" care sa contina 1024 de linii cu continutul "Make each day your masterpiece".
+
+	for i in {1..1024}; do echo "Make each day your masterpiece." >> masterpiece.txt; done
+	
+
+6 (a) Afisati locatia utilitarului "pwd".
+
+	which pwd
+	
+6 (b) Afisati intreaga ierarhie de fisiere din directorul home al utilizatorului "student".
+
+	tree -a /home/student/
+	
+6 (c) Afisati toate fisierele cu extensia ".log" din directorul "/var/log".
+
+	ls /var/log | grep '.log'$
+	Comanda grep '.log'$ va cauta toate cuvintele care se termina cu '.log'
+	
+6 (d) Afisati in format human-readable dimensiunea totala a directorului "/var/log".
+
+	sudo du -sh /var/log | awk '{print $1}'
+	
+	du -> estimate file space usage 
+	awk '{print $1}' -> extrage primul cuvant de pe fiecare linie
+
+
+		VARIANTA 68
+		
+		
+1 (a) Creati urmatoarea ierarhie de directoare si fisiere.
+
+	mkdir 'TV Series'
+	cd 'TV Series'/
+	mkdir 'Bojack Horseman' 'Friends' Dark
+	cd 'Bojack Horseman'/
+	touch 'Mr. Peanutbutter' 'Princess Carolyn' Diane
+	cd ../Friends/
+	touch Monica Rachel Ross
+	
+1 (b) Mutati directorul "Bojack Horseman" in cadrul directorului "Dark".
+
+	mv  'TV Series'/'Bojack Horseman'/ 'TV Series'/Dark/
+	
+1 (c) Stergeti directorul "Friends".
+
+	rm -r TV\ Series/Friends/
+	
+1 (d) Redenumiti fisierul "Ross" in "Joey".
+
+	mv TV\ Series/Friends/Ross TV\ Series/Friends/Joey
+	
+2 (b) Porniti comanda "sleep" pentru 3000 de secunde si treceti procesul razultat in background.
+	
+	In terminalul 1 : sleep 3000s &
+
+2 (c) Afisati PID-ul procesului pornit la subpunctul anterior.
+
+	In terminalul 1 : sleep 3000s &
+	In terminalul 2 : pidof sleep
+	In cazul meu a afisat: 7136
+	
+2 (d) Opriti procesul "sleep" lansat anterior in executie.
+
+	In terminalul 1 : sleep 3000s &
+	In terminalul 2 : pidof sleep
+	In cazul meu a afisat: 7136
+	In terminalul 2: kill -KILL 7136
+	Terminalul 1 va afisa : Killed
+	
+3 (a) Afisati adresa IP corespunzatoare adresei web "koala.cs.pub.ro".
+
+	ping -c 1 koala.cs.pub.ro | awk 'NR==1' | awk '{print $3}' | sed 's:^.\(.*\).$:\1:'
+
+	awk 'NR==1' ->  extrage prima linie
+	awk '{print $3}' ->  extrage al treilea cuvant
+	sed 's:^.\(.*\).$:\1:' -> sterge primul si ultimul caracter 
+	
+3 (b) Adaugati in sistem utilizatorii "brad" si "leo".
+
+	sudo useradd brad
+	sudo useradd leo
+
+	Verificare:  cat /etc/passwd | grep "brad" ; cat /etc/passwd | grep "leo"
+	In /etc/passwd se afla informatiile despre utilizatorii din sistem, iar grep afiseaza liniile pe care se afla cuvintele date.
+	
+3 (c) Faceti modificariel necesare astfel incat directorul home al utilizatorului "brad" sa ife "/home/actors/brad"
+
+	sudo usermod -d /home/actors/brad -m brad
+	Verificare : cat /etc/passwd | grep "brad"
+	
+3 (d) Afisati data si ora ultimei autentificari a utilizatorului "student".
+Hint! man last
+
+	last -w | grep "student" | awk 'NR==1' | awk '{print $6,$5,$7}
+
+	grep "student" -> afiseaza liniile pe care se afla cuvantul "student"
+	awk 'NR==1' -> prima linie din fisier
+	awk '{print $6,$5,$7}' -> al saselea, al cincilea si al saptelea cuvant de pe fiecare linie
+	
+4 (a) Instalati utilitarele "cowsay" si "fortune".
+
+	sudo apt install cowsay
+	sudo apt install fortune
+
+4 (b) Aficati locatia utilitarului "fortune".
+
+	which fortune
+	
+4 (c) Formatati folosind "cowsay" un mesaj generat de "fortune".
+
+	fortune | cowsay
+	
+4 (d) Dezinstalati utilitarele "cowsay" si "fortune".
+
+	sudo apt remove cowsay
+	sudo apt purge cowsay
+	sudo apt remove fortune
+	sudo apt purge fortune
+
+5 (a) Clonati repository-ul de la adresa "https://github.com/AlexFazakas/var68".
+
+	git clone https://github.com/AlexFazakas/var68
+	
+6 (a) Scrieti de 500 de ori propozitia "Knock, knock! Who’s there?" intr-un fisier numit "joke".
+
+	for i in {1..500}; do echo "Knock, knock! Who’s there?" >> joke; done
+	Aflam numarul de linii folosind comanda : cat joke | wc -l
+
+6 (c) Afisati dimensiunea fisierului "/etc/passwd".
+
+	du -sh /etc/passwd | awk '{print $1}'
+
+	du -> estimate file space usage
+	awk '{print $1}' -> extrage primul cuvant de pe fiecare linie
+
+6 (d) Afisati ultimele 10 comenzi rulate.
+Hint! man history
+
+	history 11
+	
+	
+
+		VARIANTA 103
+		
+		
+1 (a) Creati urmatoarea structura de directoare si fisiere.
+
+	mkdir 'Become Human'
+	cd 'Become Human'
+	mkdir Characters Humans
+	cd Characters
+	mkdir CyberLife
+	cd CyberLife
+	touch Connor Marks Kara
+	mkdir Models
+	cd ../Humans
+	touch 'Hank Aderson' 'Carl Manfred'
+	
+1 (b) Adaugati in sistem utilizatorii "north" si "luther".
+
+	sudo useradd north
+	Verificare : cat /etc/passwd | grep 'north'
+	sudo useradd luther
+	Verificare : cat /etc/passwd | grep 'luther'
+	
+1 (c) Modificati directorul home al utilizatorului "luther" in "home/zlatko" si parola utilizatorului "north" in "jericho".
+	
+	sudo usermod -d /home/zlatko -m north
+	Varificare : cat /etc/passwd | grep 'north' | grep '/home/zlatko'
+	sudo passwd north
+	New password : jericho
+	Retype new password : jericho
+	
+1 (d) Creati in directorul "Models" o legatura simbloica ascunsa catre fisierul "Connor" din directorul "CyberLife". Numele legaturii trebuie sa contina sirul de caractere "RK800".
+
+	ln -sf 'Become Human'/Characters/CyberLife/Connor 'Become Human'/Characters/CyberLife/Models/.'RK800'
+
+	Verificam ruland comanda tree -al
+	
+2 (a) Testati conectivitatea la "elf.cs.pub.ro" prin trimiterea a 5 pachete la interval de 0.7 secunde. 
+
+	ping -c 5 -i 0.7 elf.cs.pub.ro
+	
+2 (b) Scrieti script-ul "2b.sh" care afiseaza doar numarul de hop-uri pana la o adreasa primita ca parametru.
+
+	touch 2b.sh
+	nano 2b.sh
+
+		#!/bin/bash
+		echo -n "Adresa : "
+		read ip_adr
+		traceroute -I $ip_adr | awk 'NR>1' | wc -l
+
+		^S
+		^X
+
+	chmod +x 2b.sh
+	./2b.sh
+	sau executam cu : bash 2b.sh
+	
+	awk 'NR>1' -> selecteaza toate liniile mai putin prima
+	wc -l -> afiseaza numarul de linii 
+	
+3 (a) Descarati si dezarhivati arhiva de la adresa "elf.cs.pub.ro/uso/res/final/20-ian/ex3.zip".
+
+	wget elf.cs.pub.ro/uso/res/final/20-ian/ex3.zip
+	unzip ex3.zip -d ex3/
+	
+4 (a) Creati fisieru-ul "filezero" de dimensiunea 100 M care contine numai octeti de zero.
+
+	head -c 10485700 /dev/zero > filezero
+	100MB = 1024 * 1024 * 100 = 104857600 bytes
+	Verificam :
+		ls -l filezero 
+		du -h filezero
+		
+
+4 (b) Formatati fisierul creat anterior in format "ext3".
+
+	mv filezero filezero.ext3
+	
+4 (c) Scrieti un script care primeste ca parametru calea catre un director si creeaza acel director. Daca directorul deja exista, se va afisa mesajul "Directory already exists".
+
+
+	touch direct.sh
+	nano direct.sh
+	 
+		#!/bin/bash
+		echo -n "Path to directory:"
+		read pth
+		if [ -d $pth ]; then
+			echo "Directory already exists"
+		else
+			mkdir $pth
+		fi
+		^S
+		^X
+
+	chmod +x direct.sh
+	./direct.sh
+	sau executam cu :bash direct.sh
+
+
+4 (d) Extindenti script-ul astfel incat sa monteze fisierul filezero in directorul primit ca parametru in linia de comanda.
+
+
+	touch direct.sh
+	nano direct.sh
+	 
+		#!/bin/bash
+		echo -n "Path to directory:"
+		read pth
+		if [ -d $pth ]; then
+			echo "Directory already exists"
+		else
+			mkdir $pth
+			head -c 104857600 /dev/zero > $pth/filezero
+		fi
+		^S
+		^X
+
+	chmod +x direct.sh
+	./direct.sh
+	sau executam cu : bash direct.sh
+	
+	
+4 (e) Extindeti scriptul adaugand un al doilea parametru in linia de comanda, astfel:
+- parametrul read-only va monta fisierul ı̂n format read-only
+- parametrul write-only va monta fisierul ı̂n format write-only
+
+	touch direct.sh
+	nano direct.sh
+	 
+		#!/bin/bash
+		echo -n "Path to directory:"
+		read pth
+		if [ -d $pth ]; then
+			echo "Directory already exists"
+		else
+			mkdir $pth
+			head -c 104857600 /dev/zero > $pth/filezero
+			echo -n "File permision (read-only or write-only):"
+			read permision
+			case $permision in
+				"read-only") 
+				        chmod -777 $path/filezero
+				        chmod +444 $path/filezero
+				        ;;
+				"write-only")
+				        chmod -777 $path/filezero
+				        chmod +222 $path/filezero
+				         ;;
+			esac
+		fi
+		^S
+		^X
+
+	chmod +x direct.sh
+	./direct.sh
+	sau executam cu : bash direct.sh
+	
+5 (a) Clonati repository-ul de la adresa "https://github.com/Sergiu121/test-repo".
+
+	git clone https://github.com/Sergiu121/test-repo
+	
+5 (b) Fisierul "docdMe" din repository-ul clonat este codificat in base32. Decodificati-l si afisati.
+
+	base32 -d test/repo/20-ian-2020/decodeMe > decodedMe
+	cat decodedMe
+	
+6 (a) Afisati dimensiunea toatala a directorului "/var/log" in format human-readable.
+	
+	sudo du -sh /var/log
+	du -> estimate file space usage
+	
+6 (b) Faceti ca la apelul comenzii "showTime" in terminal sa se afiseze ora curenta sub forma "Cureent tiem s hh:mm".
+
+	nano ~/.bashrc
+
+
+		In bash, pe ultima linie scriem :
+		alias showTime='date +Current\ time\ is\ %H:%M'
+
+	source ~/.bashrc
+	
+6 (c) Scrieti un script care genereaza un numar aleator cuprins in intervalul [0, 255].
+Hint: man shuf
+
+
+	touch nr_random.sh
+	nano nr_random.sh
+
+		#!/bin/bash
+		shuf -i 0-255 -n 1 
+		^S
+		^X
+		
+	chmod +x nr_random.sh
+	./nr_random.sh
+	sau executam cu : bash nr_random.sh
+	
+	
+6 (d) Creati fisierul "adrese.txt" de 500 de linii care sa contina pe ficare o adresa IPv4 generata aleator.
+
+	rm adrese.txt 
+	for i in {1..500}; do echo "$(shuf -i 0-255 -n 1).$(shuf -i 0-255 -n 1).$(shuf -i 0-255 -n 1).$(shuf -i 0-255 -n 1)" >> adrese.txt; done
+	
+6 (e) Sortati fisierul "adrese.txt" obtinut la subpunctul anterior descrescatir dupa al treilea camp al adresei IP.
+
+	sort -n -r -t. -k3,3 adrese.txt 
+	-n -> flagul indica sortare de numere
+	-r -> flagul indica sortare descrescatoare
+	-t. -> indica faptul ca termenii sunt separati prin caracterul '.'
+	-k3,3 -> sortarea se face dupa coloana 3
+	
+	
+		VARIANTA 104
+		
+		
+1 (a) Creati urmatoarea structura de directoare si fisiere
+
+	mkdir games
+	cd games
+	mkdir shooter rpg other
+	cd shooters
+	touch 'Counter Strike : Global Ofensive' 'Apex Legends' 'Portal 2'
+	cd ../rpg
+	touch 'Witcher 3' 'Outer Worlds'
+	cd ../other; touch 'Jump King'
+	
+1 (b) Creati o arhiva de tipul gzip numita "all_them_games.tar.gz" continand ierarhia de fisiere creata anterior.
+
+	tar cvf all_them_games.tar.gz games
+	
+1 (c) Adaugati utilizatorii "valve" si "cdpr".
+
+	sudo useradd valve
+	Verificare : cat /etc/passwd | grep 'valve'
+	sudo useradd cdpr
+	Verificare : cat /etc/passwd | grep 'cdpr'
+
+1 (e) In directorul "other" creatu un ciclue folosind 3 legaturi simbolice.
+
+	ln -sf 'Jump King' leg1
+	ln -sf leg2 leg1
+	ln -sf leg3 leg2
+	ln -sf leg1 leg3
+	
+2 (a) Afisati numarul de cuvinte din fisierul "/usr/include/termio.h".
+
+	cat /usr/include/termio.h | wc -w 
+	
+2 (b) Afisati numarul de aparitii ale caracterului "a" din fisierul "/etc/shadow".
+
+	sudo cat /etc/shadow | grep -o 'a' | wc -l
+	
+2 (c) Afisati numarul de aplicatii distince care sunt configurate ca shell implicit pentru utilizatorii din sistem.
+
+	cut -d: -f7 /etc/passwd | grep -v "nologin" | grep -v "/bin/false" | sort | uniq | wc -l
+	
+2 (d) Scrieti un one-liner care afiseaza suma tututor identificatorilor de pe sistem.
+
+	awk -F: '{ sum+=$3 } END { print sum }' /etc/passwd
+	
+3 (b) Creati un fisiser de dimensiune 10 M care sa contina DOAR litere mici ASCII aranjate in mod aleator.
+
+	tr -dc a-z < /dev/urandom | head -c 10485760 > litere_mici.txt
+	10Mb = 10*1024Kb = 1024 * 1024 * 10 = 10485760 bytes
+	Verificam :
+		du -sh litere_mici.txt
+		ls -l litere_mici.txt
+	
+3 (c) Formatati fisierul de 10 M de la subpunctul anterior in format "ext3".
+
+	mv litere_mici.txt  litere_mici.txt.ext3
+	
+3 (d) Afisati numarul celei de-a treia linii pe care se afla cuvantul "include" din fisierul "/usr/include/aio.h".
+
+	cat /usr/include/aio.h | grep -n "include" | awk 'NR==3' > extract
+	sed -i 's/:/ /g' extract 
+	awk '{print $1}' extract
+
+	awk 'NR==3' -> extrage doar a treia linie
+	sed -i 's/old_text/new_text/g' -> operatie de find-replace
+	awk '{print $1}' extract -> afiseaza doar primul cuvant de pe fiecare linie
+	
+	
+5 (b) Afisati DOAR numele utilizatorilor care au ca shell implicit "/usr/sbin/nologin".
+
+	cat /etc/passwd | grep '/usr/sbin/nologin' > users_with_spec_shel
+	sed -i 's/:/ /g' users_with_spec_shel
+	awk '{print $1}' users_with_spec_shel 
+
+	grep '/usr/sbin/nologin' -> selecteaza toate liniile care contin '/usr/sbin/nologin'
+	sed -i 's/old_text/new_text/g' -> find-replace
+	awk '{print $1}' -> afiseaza doar primul cuvant de pe fiecare linie
+
+6 (a) Descarcati arhiva de la urmatorul link si dezarhivati-o : "http://elf.cs.pub.ro/uso/res/final/20-ian/four.zip ".
+	
+	wget http://elf.cs.pub.ro/uso/res/final/20-ian/four.zip 
+	unzip four.zip -d four/
+	
+	
+		VARIANTA 116
+		
+5 (a) Creati un director gol numit "parsing" in directorul home al utilizatorului "student"/ Adaugati in acesta un fisier numit "multiple_lines.txt" care contine textul "I shall pass this!" scris de 100 de ori.
+
+	cd /home/student/
+	mkdir parsing
+	cd parsing/
+	for i in {1..100}; do echo "I shall pass this!" >> multiple_lines.txt; done
+
+	aflam numarul de linii al fisierului folosind comanda : cat multiple_lines.txt | wc -l
+
+5 (c) Afisati liniile 20-30 ale fisierului "/var/log/bootstrap.log" si salvati continutul in fisierul "bootstrap20-30.log".
+
+	sed -n '20,30p' /var/log/bootstrap.log > bootrap20-30.log
+	
+
+
+		VARIANTA 117
+		
+1 (a) Creati urmatoarea ierarhie de directoare si fisiere
+
+	mkdir "Queen's Gambit"
+	cd "Queen's Gambit"
+	mkdir Players Pieces; cd Players
+	touch Harmon Borgov
+	cd ../Pieces/ ; tocuh Pawn Rook Knight
+	
+1 (b) Scrieti in fisierul "Rook" calea absoluta a utilitarului "ls".
+
+	which ls > Rook
+	
+1 (c) Creati o ariva denumita "files.zip" care sa contina iararhia de fisiere de mai sus.
+
+	zip files.zip "Queen's Gambit"/
+	
+1 (d) Creati un fisier ascuns al carui nume sa contina sirul de caractere "scret&moves" in directorul home al utilizatorului "student".
+
+	echo "secret&moves" > /home/student/.'secret&moves'
+	
+2 (a) Adaugati in sistem utilizatorii "andrei" si "maria".
+
+	sudo useradd andrei
+	Verificare : cat /etc/passwd | grep 'andrei'
+	sudo useradd maria
+	Verificare : cat /etc/passwd | grep 'maria'
+	
+3 (a) Afisati gateway-ul implicit configurat pe sistem.
+
+	ip route show
+	
+3 (c) Scrieti un script care afiseaza DOAR adresa IPv4 a unui domeniue primit ca argument in linia de comanda.
+
+	touch IPv4_address.sh
+	nano IPv4_address.sh
+
+		#!/bin/bash
+		echo -n "Domeniul pentru care vrei sa afli adresa IPv4 : "
+		read addr
+		ping -c 1 -4 $addr | awk 'NR==1' | awk '{print $3}' | sed 's/^.\(.*\).$/\1/'
+		^S
+		^X
+
+	chmod +x IPv4_address.sh
+	./IPv4_address.sh
+	sau executam ruland : bash IPv4_address.sh
+
+4 (b) Scrieti un oneliner care genereaza o parola de 32 de caractere alfanumerica laeatoare si nu contine cifre pare.
+
+	tr -dc a-zA-Z1359 < /dev/urandom | head -c 32> parola; echo ""  >> parola	 
+	
+	
+4 (c) In directorul "security" creati un script "hash_it.sh" care primeste ca argument un sir de caractere, aplica algoritmul de encodare base64 pe acesta si scrie rezultatul la finalul unui fisier numit "passwords.txt".
+
+	cd security/
+	touch hash_it.sh
+	nano hash_it.sh
+		                        
+		#!/bin/bash
+		echo -n "Input to be docoded :"
+		read input
+		echo -n $input | base64 >> /home/student/Desktop/USO/varianta_117/passwords.txt
+		^S
+		^X
+
+	chmod +x hash_it.sh
+	./hash_it.sh
+	sau executam ruland : bash hash_it.sh
+	
+5 (a) Creati un fisier numit "leet.txt" care sa contina inia "I can do this all day" de 1337 de or.
+Hint! man yes
+	
+	for i in {1..1337}; do echo "I can do this all day" >> leet.txt; done
+
+folosind comanda "cat leet.txt | wc -l" aflam numarul de linii al fisierului.
+
+5 (b) Modificati fisierul "leet.txt", astfel incat in locul fiecarei aparitii al caracterului "spatiu" sa fie "tab".
+	
+	sed -i 's/ /      /g' leet.txt
+
+	Comanda operatiei de find-replace : sed -i 's/old-text/new-text/g' input.txt
+	
+5 (c) Afisati numarul de linii care contin sirul de caractere "#include <stdio.h>" din iarahia de fisiere "/usr/include".
+
+	cat /usr/include | grep "#include <stdio.h>" | wc -l
+	
+5 (d) Afisati primele 3 caractere de pe fiecare linie a fisierului "/etc/passwd"
+
+	cat /etc/passwd | cut -c 1-3
+
+	Afisam caracterele cuprinse intre pozitiile first si last : cut -c first last
+	
+6 (b) Descarcati arhiva de la adresa "http://elf.cs.pub.ro/usp.res.fina;/117/champons.zip" si dezarhivati-o in directorul home al utilizatorului "student".
+
+	cd /home/student
+	wget http://elf.cs.pub.ro/res/final/117 champions.zip
+	unzip champons.zip -d /home/student/
+	
+
+		
+		VARIANTA 118
+		
+
+1 (a) Creati urmatoare ierarhie de directoare si fisiere:
+
+	mkdir metin2
+	cd meti2
+	mkdir corp mental
+	cd corp
+	touch 'aura sabiei' 'vartejul sabiei'
+	cd ../mental
+	touch 'corp rezistent' izbitura
+	
+1 (b) Stergeti fisierul "izbitura" din directorul "mental".
+
+	rm metin2/mental/izbitura
+	
+1 (c) Scrieti un oneliner care sa scrie in fisierul "aura sabiei" primele 6 linii din fisieru; "/etc/passwd".
+
+	sed -n '1,5p' /etc/passwd > metin2/corp/'aura sabiei'
+	sed -n '1,5p' -> extrage liniile cu indicii cuprinsi intre 1 si 5
+	
+	
+1 (d) Faceti modificarile necesare astfel incat utilizatorul "student" sa nu mai aiba drepturi de scriere pe fisieruil "aura sabiei".
+
+	cd metin2/corp
+	chmod -777 'aura sabiei'
+	chmod +577 'aura sabiei'
+	
+	r = 4
+	w = 2
+	x = 1
+	rwx = 4+2+1 =7
+	-wx = 0 + 2 +1 =5
+
+	+ adauga permisiuni
+	- ia permisiuni
+
+2 (a) Scrieti un oneliner care adauga in sistem utilizatorul "grajdar" cu directorul home "/home/spatemap1".
+
+	sudo useradd grajdar; sudo usermod -d /home/spatemap1 -m grajdar
+	Verificare : cat /etc/passwd | grep 'grajdar'
+	
+2 (b) Creati grupul "npc" si adaugati utilizatorul "grajdar" in acest grup.
+
+	sudo groupadd npc; sudo usermod -a -G npc grajdar
+	
+2 (c) Faceti modificarile necesare astfel incat utilizatorul "grajdar" sa nu se poata autentifica in sistem.
+
+	sudo chsh -s /bin/false grajdar
+	
+2 (d) Scrieti un oneliner care afiseaza grupurile de pe sistem al caror nume ncepe uc caracterul "s", sortate descrescator duoa GID.
+
+	cat /etc/group | grep '^s' | sort -nr -t: -k3,3
+
+	Comanda cat /etc/group '^s' va afisa toate liniile din /etc/group care incep cu litera 's'
+	sort
+		-nr -> sortare descrescatoare de numere
+		-t: -> cuvintele sunt despartite de caracterul ':'
+		-k3,3 -> sorteaza doar a treia coloana, pe care se afla GID -ul
+		
+3 (a) Descarcati arhiva "pairs" de la adresa "http://elf.cs.pub.ro/uso/res/final/118/pairs.tar.gz" si dezarhivati-o.
+
+	wget http://elf.cs.pub.ro/uso/res/final/118/pairs.tar.gz
+	unzip pairs.tar.gz -d pairs/
+	
+4 (d) Creati un fisier numit "9kilo" de dimensiune 9K care sa contina NUMAI caracterul ASCII 6.
+Hint! man yes
+
+	tr -dc 6 </dev/urandom | head -c 9216 > 9kilo
+	9Kb = 9 * 1024 = 9216 bytes
+
+5 (a) Scrieti un script numit "5a.sh" care primeste ca argument numele unui fisier si afiseaza numarul toatal de linii al acestuia.
+
+	touch 5a.sh
+	nano 5a.sh
+
+		#!/bin/bash
+		echo -n "Care este calea absoluta catre fisier :"
+		read fis
+		if [ -f $fis ]; then
+			echo -n "Fisierul de la calea $fis are "
+			echo -n $(cat $fis | wc -w)
+			echo -n " linii"
+			echo ""
+			exit 1
+		else
+			echo "Fisierul nu exista"
+			exit 1
+		fi
+		^S
+		^X
+
+	chmod +x 5a.sh
+	./5a.sh
+	sau executam : bash 5a.sh
+	
+5 (b) Extindeti script-ul creat la subpunctul anterior astfel incat sa afiseze o linie aleasa aleator din fisierul primit ca argument.
+Hint! variabila de mediu $RANDOM
+
+	touch 5a.sh
+	nano 5a.sh
+
+		#!/bin/bash
+		echo -n "Care este calea absoluta catre fisier :"
+		read fis
+		if [ -f $fis ]; then
+			echo -n "Fisierul de la calea $fis are "
+			echo -n $(cat $fis | wc -w)
+			echo -n " linii"
+			echo ""
+			echo -n "O linie random din fisier : "
+			echo $(shuf -n 1 $fis)
+			exit 1
+		else
+			echo "Fisierul nu exista"
+			exit 1
+		fi
+		^S
+		^X
+
+	chmod +x 5a.sh
+	./5a.sh
+	sau : bash 5a.sh
+	
+5 (c) Creati un director numit "final". Initializati un reposiotry nou in cadrul acestuia si adaugati script-ul "5a.sh". Realizati un commit cu mesajul "Mare script".
+
+	mkdir final
+	cd final
+	cp ../5a.sh 5a.sh
+	git init
+	git add 5a.sh
+	git config --global user.email "trifanbogdan24@gmail.com"
+	git branch -m brenciu
+	git remote add origin https://github.com/TrifanBogdan24/uso_final_118.git
+	git push -u origin brenciu
+		
+	
+6 (a) Faceti modificarile necesare astfel incat sa va puteti conecta la contul personal de pe stati de la adresa "fep.grid.pub.ro" FARA PAROLA.
+Nota: pentru a va conecta la "fep.grid.pub.ro" folositi utilizatorul si parola de pe platforma Moodle.
+
+	cd ~/.ssh
+	ssh-keygen
+	ssh-copy-id -i ~/.ssh/id_rsa.pub bogdan.trifan2412@fep.grid.pub.ro
+	
+
+
+		VARIANTA 119
+		
+		
+1 (a) Creati urmatoare ierarhie de directoare si fisiere
+
+	mkdir Food; cd Food
+	mkdir Fruits Vegetables Misc; cd Fruits
+	touch Apples Strawberries Grapes
+	cd ../Vegetables/
+	touch Mushrooms Potatos Carrots
+	
+1 (b) Mutati toate fisierele din directorul "Frutis" in directorul "Misc".
+
+	mv Food/Fruits/* Food/Misc
+	
+1 (c) Creati in directorul "Misc" o legatura simbolica numitva "Favourtie" catre fisierul "Carrots".
+
+	ln -sf Food/Vegetables/Carrots Food/Misc/Favourite
+	
+2 (c) Afisati pentru toate procesele din sistem DOAR PID-ul, utilizatorul care le-a creat si comanda folosita.
+
+	ps aux | awk '{print $2,$1,$11}'
+
+	awk '{print $2,$1,$11}' -> extrage al doilea cuvant (PID), primul (user) si al unsprezecelea cuvant (comanda) de pe fiecare linie
+
+4 (a) Afisati DOAR adresa IPv4 care corespunde domeniului "uso.cs.pub.ro".
+
+	ping -c 1 -4 uso.cs.pub.ro | awk 'NR==1'| awk '{print $3}' | sed 's/^.\(.*\).$/\1/'
+
+	sed 's/^.\(.*\).$/\1/' s-> terge primul si ultimul caracter de pe o linie 
+	
+4 (b) Afisati DOAR adresa IPv6 configurata pe interfata "ens3".
+
+	ip addr show dev ens33 | awk 'NR ==2' | awk '{print $2}'
+
+	awk 'NR==2'  ->extrage doar a doua linie
+	awl '{print $2}'  -> extrage al doilea cuvant de pe fiecare linie
+	
+4 (c) Scrieti o comanda care verifica conectivitatea cu sistemul de la adresa "uso.cs.pub.ro" prin trimiterea a 4 pachete, cate unul la fiecare 200 de milisecunde.
+
+	ping -c 4 -i 0.2 uso.cs.pub.ro
+	
+5 (a) Descarcati fisierul "story" de la adresa "https://elf.cs.pub.ro/uso/res/final/119/story". Afisati numarul total de caractere ale fisierului.
+
+	wget http://elf.cs.pub.ro/uso/res/final/119/story
+	cat story | wc -w
+6 (c) Scrieti un oneliner care genereaza o parola de 24 de caractere ce contine DOAR litere, mai putin "b", "h" si "x" si cel putin o majuscula.
+
+	tr -dc ACDEFGIJKLMNOPQRSTUVWYZ < /dev/urandom | head -c 1 > parola.txt
+
+	Prima litera va fi obligatoriu o majuscula
+
+	tr -dc ACDEFGIJKLMNOPQRSTUVWYZacdefgijklmnopqrstuvwyz < /dev/urandom | head -c 24 >> parola.txt; echo "">> parola.txt	
+	
+6 (d) Afisati TOATE fisierele din ierarhie de fisiere "/var/log" cu dimensiunea mai mare de 1 Kb.
+
+	find /var/log -type f \( -name ".*" -o -not -name . \) -size +1k
+	f \( -name ".*" -o -not -name . \) -> afiseaza atat fisierele ascunse, cat si pe cele "ne-ascunse"
+	
+	
+	VARIANTA 120
+	
+1 (a) Creati urmatoare structura de directoare si fisiere:
+
+	mkdir Vehicles
+	cd Vehicles/
+	mkdir Cars Motorcycles
+	cd Cars; touch Audi.pdf BMW.pdf Mercedes-Benz.pdf
+	cd ../Motorcycles; touch Ducati.pptx Kawasaki.pdf Tesla Ford
+
+1 (b) Mutati fisierele "Tesla" si "Ford" din directorul "Motorcycles" in directorul "Cars" printr-o singura comanda.
+
+	mv Vehicles/Motorcycles/Tesla Vehicles/Motorcycles/Ford -t Vehicles/Cars
+	
+1 (c) Creati in directorul home al utilizatorului "student" o legatura simbolica, numita "3l0n_mu5k" catre fisierul "Tesla".
+
+	ln -sf Vehicles/Cars/Tesla /home/student/3l0n_mu5k
+	
+2 (a) Adaugati in sistem utilizatorii "elliott" si "mir".
+
+	sudo useradd elliot
+	Verificare : cat /etc/passwd | grep 'elliot'
+	sudo useradd mir
+	Verifcare : cat /etc/passwd | grep 'mir'
+	 
+2 (c) Descarcat fisierul "clients.txt" de la adresa "https://elf.cs.pub.ro/uso/res/restanta/120/clients.txt" si afisati continututl acestuia, sortat lexicografic.
+
+	wget https://elf.cs.pub.ro/uso/res/restanta/120/clients.txt
+	sort clients.txt
+
+2 (d) Afisati DOAR numarul de caractere din fisierul "clients.txt".
+
+	cat clients.txt | wc -m
+	
+3 (a) Clonati repository-ul de la adresa "https://github.com/Sergiu121/test-repo".
+
+	git clone https://github.com/Sergiu121/test-repo
+	
+3 (b) Fisierul "oups.base64", se afla in directorul "31-aug-2021" din repositroy-ul clonat este codificat in base64. Decodificati-l si afisati continutul acestuia.
+
+	base64 --decode test-repo/31-aug-2021/Oups.base64 > decoded.txt
+	cat decoded.txt
+	
+3 (d) Afisati toate fisierele din cadrul ierarhiei "/etc/" care au dimensiunea mai mica de 7 Mb.
+
+	find /etc/ -type f \( -name ".*" -o -not -name . \) -size -7M
+	f \( -name ".*" -o -not -name . \) -> afiseaza atat fisierele ascunse, cat si pe cele "ne-ascunse"
+
+4. (a) Afisati DOAR adresa IP corespunzatoare adresei web "fep.grid.pub.ro".
+
+	ping -c 1 fep.grid.pub.ro | awk '{print $3}' | awk 'NR==1' | sed 's/.$//; s/^.//'
+	
+4 (b) Scrieti un script care primeste ca argument un domeniu si trimite 7 pachte catre acesta.
+
+	touch send_packages.sh
+	nano send_packages.sh
+
+		#!/bin/bash
+		echo -n "Numele/IP-ul domeniului :"
+		read adresa
+		ping -c 7 $adresa
+
+		^S
+		^X
+
+	chmod +x send_packages.sh
+	./send_packages.sh
+	sau : bash send_packages.sh
+	
+4 (c) Modificati script-ul anterior astfel incat sa afiseze si numarul toatal de hop-uri pana la domeniu.
+
+	touch send_packages.sh
+	nano send_backages.sh
+
+		#!/bin/bash
+		echo -n "Numele/IP-ul domeniului :"
+		read adresa
+		ping -c 7 $adresa
+		echo  "Pana la adresa $adrsa se vor face $(traceroute -I $adresa | awk 'NR>1' | wc -l) hopuri "
+
+		^S
+		^X
+
+	chmod +x send_packages.sh
+	./send_packages.sh
+	sau : bash send_packages.sh
+	
+5 (a)  Descarcati arhiva "s5.zip" de la dresa "https://elf.cs.pub.ro/uso/res/restanta/120/s5.zip" si dezarhivati-o.
+
+	wget https://elf.cs.pub.ro/uso/res/restanta/120/s5.zip
+	unzip s5.zip -d s5/
+
+6 (b) Porniti procesul "sleep" pentr 10 secunde in BACKGROUND.
+
+	sleep 10s &
+	
+	
+	
+		VARIANTA 121
+		
+		
+1 (a) Creati urmatoare structura de directoare si fisiere.
+
+	mkdir Disenchantment
+	cd Disenchantment
+	mkdir 'Part1' 'Part2' 'Part 3'; cd 'Part 1'
+	touch 'A Princess an Elf and a demon Walk Into a Bar'; cd ../'Part 2'
+	touch 'Stairway to Hell' final-scene.mp3 script.txt; cd ../'Part3'
+
+1 (b) Mutati fisierul "soundtrack.mp3" in cadrul directoruli "Disenchantment".
+
+	mv Disenchantment/'Part 3'/"You’re the Bean"/soundtrack.mp3 Disenchantment/
+	
+1 (c) Arhivati directorul "Disenchantment" intr-o arhiva de tip "gzip" numita "series desenchantment.tar.gz".
+
+	tar cvf 'series disenchantment'.tar.gz Disenchantment/
+	
+1 (d) Scrieti un oneliner care sterge directorul "Part 1/"
+
+	rm -r Disenchantment/'Part 1'
+	
+2 (a) Adaugati in sistem utilizatorii "bean" si "elfo".
+
+	sudo useradd bean
+	Verificare : cat /etc/passwd | grep 'bean'
+	sudo useradd elfo
+	Verificare : cat /etc/passwd | grep 'elfo'
+
+2 (b) Mutati directoarele "home" astfel:
+- "elfo" : /home/private/elfo
+- "bean" : /home/public/bean
+
+	sudo usermod -d /home/private/elfo -m elfo
+	Verificare : cat /etc/passwd | grep 'elfo'
+	sudo usermod -d /home/public/bean -m bean
+	Verificare : cat /etc/passwd | grep 'bean'
+
+2 (c) Schimbati parola utilizatorului "bean" in "queen-D4gmar#".
+
+	sudo passw bean
+	New password :queen-D4gmar#
+	Retype new password :queen-D4gmar#
+
+4 (a) Afisati adresa IP care corespunde domeniului "uso.cs.pub.ro".
+
+	ping -c 1 uso.cs.pub.ro | awk '{print $3}' | awk 'NR==1' | sed 's/.$//; s/^.//'
+
+	awk '{print $3}' -> extrage al trilea cuvant de pe fiecare linie
+	awk 'NR==1' -> extrage prima linie
+	sed 's/.$//; s/^.//' -> sterge primul si ultimul caracter
+	
+4 (b) Faceti modificarile necesare astfel incat sa va puteti autentifica prin ssh cu utilizatorul vostru la statia de la adresa "fep.grid.pub.ro".
+
+	cd ~/.ssh
+	ssh-keygen
+	ssh-copy-id -i ~/.ssh/id_rsa.pub bogdan.trifan2412@fep.grid.pub.ro
+
+5 (b) Afisati DOAR numele fiecarui utilizator care are configurat ca shell implicit executabilul "/bin/false".	
+
+	cat /etc/passwd | grep '/bin/false' > bin_false.txt
+	sed -i 's/:/ /g' bin_false.txt
+	awk '{print $1}' bin_false.txt
+
+	grep '/bin/false' -> afiseaza liniile pe care se gaseste '/bin/false'
+	sed -i 's/oldtext/newtext/g' -> find replace
+	awk '{print $1}' -> afiseaza primul cuvant de pe fiecare linie
+
+5 (c) Creati un fisier numit random10M de dimensiune 10 Mb cu octeti aleatori.
+
+	head -c 10485760 /dev/urandom > random10M
+
+	10 Mb = 10 * 1024 * 1024 = 10485760 bytes
+	
+5 (d) Formatati fisierul creat anterior in format "ext4".
+
+	head -c 10485760 /dev/urandom > random10M
+
+	10 Mb = 10 * 1024 * 1024 = 10485760 bytes
+	
+6 (d) Descarcati si dezarhivati arhiva de la adresa "http://elf.cs.pub.ro/uso/res/final/121/enc.zip" . Decodati continutul fisierului "file.enc" folosind base64 si aplicati functia de encodare base32 pe rezultat. 
+
+	wget http://elf.cs.pub.ro/uso/res/final/121/enc.zip
+	unzip enc.zip -d enc/
+
+	trebuie aflata calea absoluta a lui file.enc
+
+	base --decode file.enc > rezultat
+	
+
+
+		VARIANTA 125
+		
+		
+1 (a) In directorul home al utilizatorului "studnet", creati urmatoarea ierarhie de fisiere
+
+	mkdir Avengers/
+	cd Avengers/
+	mkdir 'Phase 1'/ 'Phase 2'/
+	cd 'Phase 1'
+	mkdir Iron-Man/ Captain-America/
+	cd ../'Phase 2'/
+	mkdir 'Guardians of the Galaxy'
+	history 20 > ierarhie.txt
+
+1 (c) Instalati utilitarul "zsh".
+
+	sudo apt install zsh
+	
+2 (a) Descarcati fisierul de la adresa "https://elf.cs.pub.ro/uso/res/final/30-jan/users.csv" .
+
+	wget https://elf.cs.pub.ro/uso/res/final/30-jan/users.csv
+	
+2 (b) Creati un script care sa parseze fisierul "users.csv" si sa creeze cate un utilizator cu datele din fisier (nume si parola).
+
+	touch utilizatori_si_parole.sh
+	nano utilizatori_si_parole.sh
+
+
+		#!/bin/bash
+		awk 'NR > 1' /home/student/Desktop/USO/varianta_125/users.csv > /home/student/D>
+		cat /home/student/Desktop/USO/varianta_125/aux.csv | tr , " " > /home/student/D>
+		while read user password; do sudo useradd -p $password $user; done < /home/stud>
+
+		^S
+		^X
+
+	chmod +x utilizatori_si_parole.sh
+	./utilizatori_si_parole.sh
+	sau : bash utilizatori_si_parole.sh
+
+	Pentru a verifica daca au fost adaugati, rulam comanda : cat /etc/passwd
+	
+2 (c) Afisati liniile cu numar par din fisierul "user.csv".
+
+	cat users.csv | awk 'NR%2==0'
+	
+3 (a) Afisati modelul procorului de pe masina de lucru.
+
+	cat /proc/cpuinfo | grep 'model name' | awk 'NR==1'
+	
+	grep 'model name' -> selecteaza liniile pe care se afla 'model name'
+	awk 'NR==1' -> selecteaza doar prima linie 
+
+4 (b) Creati un one-liner care genereaza o parola de 10 carcatere care sa contina doar litere si cifre.
+
+	tr -dc a-zA-Z0-9 < /dev/urandom | head -c 10 > parola; echo "" >> parola
+	
+4 (d) Creati un fisier cu numele "hash_this" cu continutul "USO RLLZ!" . Calculati hash-ul md5 al fisierului creat.
+
+	sudo md5sum /home/student/Desktop/USO/varianta_125/hash_this
+
+	sudo md5sum /home/student/Desktop/USO/varianta_125/hash_this > md_five.txt

@@ -1,0 +1,28 @@
+sudo usermod -m -d /home/zlatko luther - modificati directorul home al utilizatorului luther in /home/zlatko
+sudo passwd north - schimbare parola utilizator
+grep luther /etc/passwd - vezi info despre util.
+ln -s ~/Become\ Human/Characters/CyberLife/Connor ~/Become\ Human/Characters/CyberLife/Models/RK800 - legatura simbolica catre fisier
+sudo chown north Characters/ - modificare drept utilizator
+sudo chmod 744 Characters/ -- read mode
+ping -c 5 -i 0.7 elf.cs.pub.ro - 
+ll - fisiere +  drepturi utilizatori
+truncate -s 100M filezero - creare fisier 100M numai cu octeti de zero
+cat decodeMe | base32 -d - decodificare și afisare
+cat part1 >> out
+    cat part2 >> out
+    cat part3 >> out
+    chmod 777 out
+    ./out = reface script si ruleaza
+find / -type f -size +10M = afiseaza fisierele de 10m din sistem
+sudo du /var/* -shc | grep "/var/log" = afisare dimensiune totala director
+alias showTime='echo "Current time is $(date +%H:%M)"' = oneliner
+alias showTime='date +Current\ time\ is\ %H:%M'
+nano .bashrc , ctrl+end, copiezi la final comanda ca sa se patreze dupa restart
+shuf -i 0-255 -n 1 = random number
+printf "%d.%d.%d.%d\n" "$((RANDOM % 256))" "$((RANDOM % 256))" "$((RANDOM % 256))" "$((RANDOM % 256))" + de facut for de la 1 la 500 = adrese random ipv4
+tar cvf all_them_games.tar.gz games/ = arhivare folder
+tar tf all_them_games.tar.gz = comanda control arhiva
+wc -w /usr/include/termio.h = numara cuvinte dintr-un fisier
+sudo cat /etc/shadow | grep -c a = numara aparitiile caracterului "a" dintr-un fisier
+cat /etc/passwd | cut -d':' -f3 | paste -sd+ | bc = calculeaza suma tuturor identificatorilor utilizatorilor de pe sistem (etc/passwd coloana 3)
+
