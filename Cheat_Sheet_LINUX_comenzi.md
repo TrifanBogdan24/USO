@@ -28,6 +28,12 @@ CTRL R 			= 	reverse search history
 
 !! 				=	repeat last command
 
+
+!N				= reperat the command having the index `N` in the bash command history
+
+
+!-N				= repeat the N-th previous command
+
 CTRL Z 			= 	stops the current command 
 				(resume with fg in foreground or bg in background)
 
@@ -2009,17 +2015,6 @@ $ git --amend [ENTER]			# deschide fisierul commit-urilor
 
 $ git checkout solutie
 $ git push origin solutie
-$ username : Bogdan-Cristian TRIFAN
-$ parola (token) : glpat-YZDZz7rpbqqNAhnyHyZB
-
-own - Owner : glpat-SCKdfjuRJ9urgNQ81A8G
-
-oop 1 token : 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
-
-oop 2 token : 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
-
-
-so tema 3 (owner) : glpat-NKvuzdNaynXzft3BNTxQ
 
 ## ACCCESS TOKENS
 
@@ -3568,6 +3563,10 @@ See something incorrectly described, buggy or outright wrong? Open an issue or s
 	- [Get the PID of the current shell](#get-the-pid-of-the-current-shell)
 	- [Get the current shell options](#get-the-current-shell-options)
 - [AFTERWORD](#afterword)
+- [PC POWER / ENERGY MANAGEMENT COMMANDS](#pc-power--energy-management-commands)
+- [ENVIRONMENT VARIABLES](#environment-variables)
+	- [DATE (environment variable)](#date-environment-variable)
+	- [HISTORY (environment variables)](#history-environment-variables)
 - [LABORATOARE](#laboratoare)
 - [VARIANTE](#variante)
 	- [VARIANTA 60](#varianta-60)
@@ -3646,7 +3645,7 @@ See something incorrectly described, buggy or outright wrong? Open an issue or s
 		- [5 (d) Adaugati regula `runred` in fisierul `Makefile` care ruleaza executabilul creat in urma rularii regulii `build` si formateaza mesajul afisat folosind utilitarul `cowsay`.](#5-d-adaugati-regula-runred-in-fisierul-makefile-care-ruleaza-executabilul-creat-in-urma-rularii-regulii-build-si-formateaza-mesajul-afisat-folosind-utilitarul-cowsay)
 		- [6 (a) Creati un fisier gol denumit `the_empty` si copiati-l in directorul home al utilizatorului vostru de pe statia de la adresa `fep.grid.pub.ro`.](#6-a-creati-un-fisier-gol-denumit-the_empty-si-copiati-l-in-directorul-home-al-utilizatorului-vostru-de-pe-statia-de-la-adresa-fepgridpubro)
 		- [6 (b) Generati o pereche de chei SSH.](#6-b-generati-o-pereche-de-chei-ssh)
-		- [6 (c) Realizati modificarile necesare astfel incat autentificarea cu utilizatorul vostru pe statia de la adresa "fep.grid.pub.ro".](#6-c-realizati-modificarile-necesare-astfel-incat-autentificarea-cu-utilizatorul-vostru-pe-statia-de-la-adresa-fepgridpubro)
+		- [6 (c) Realizati modificarile necesare astfel incat autentificarea cu utilizatorul vostru pe statia de la adresa `fep.grid.pub.ro`.](#6-c-realizati-modificarile-necesare-astfel-incat-autentificarea-cu-utilizatorul-vostru-pe-statia-de-la-adresa-fepgridpubro)
 		- [6 (d) Scrieti un one-liner care sa ruleze comanda `ls` in cadrul directorului home al utilizatorului vostru de pe statia de la adresa `fep.grid.pub.ro`.](#6-d-scrieti-un-one-liner-care-sa-ruleze-comanda-ls-in-cadrul-directorului-home-al-utilizatorului-vostru-de-pe-statia-de-la-adresa-fepgridpubro)
 	- [VARIANTA 63](#varianta-63)
 		- [1 (a) Creati urmatoare ierahie de directoare si fisiere.](#1-a-creati-urmatoare-ierahie-de-directoare-si-fisiere)
@@ -4020,6 +4019,79 @@ See something incorrectly described, buggy or outright wrong? Open an issue or s
 - [Abrevieri](#abrevieri)
 - [alte comenzi](#alte-comenzi)
 - [neofetch (system info)](#neofetch-system-info)
+- [LINUX interview questions](#linux-interview-questions)
+	- [1. How can you see which kernel version a system is currently running?](#1-how-can-you-see-which-kernel-version-a-system-is-currently-running)
+	- [2. How can you check a system's current IP Address?](#2-how-can-you-check-a-systems-current-ip-address)
+	- [3. How do you check for free disk space?](#3-how-do-you-check-for-free-disk-space)
+	- [4. How do you manage services on a system?](#4-how-do-you-manage-services-on-a-system)
+	- [5. How would you check the size of a directory's contents on disk?](#5-how-would-you-check-the-size-of-a-directorys-contents-on-disk)
+	- [6. How would you check for open ports on a LIUNUX machine?](#6-how-would-you-check-for-open-ports-on-a-liunux-machine)
+	- [7. How do you check CPU usage for a process?](#7-how-do-you-check-cpu-usage-for-a-process)
+	- [8. Dealing with Mounts?](#8-dealing-with-mounts)
+	- [9. How do you look up something you don't know?](#9-how-do-you-look-up-something-you-dont-know)
+	- [10. What do you do when you can't find an answer in a man page?](#10-what-do-you-do-when-you-cant-find-an-answer-in-a-man-page)
+- [70 LINUX QUESTIONS](#70-linux-questions)
+	- [1. What is `RHEL Linux` stands for?](#1-what-is-rhel-linux-stands-for)
+	- [2. Give some examples of Linux distibutions?](#2-give-some-examples-of-linux-distibutions)
+	- [3. What is `kernel`?](#3-what-is-kernel)
+	- [4. What is `swap space`?](#4-what-is-swap-space)
+	- [5. How to search a word in afile and replace it in entire file?](#5-how-to-search-a-word-in-afile-and-replace-it-in-entire-file)
+	- [6. What is use of `SCP` command?](#6-what-is-use-of-scp-command)
+	- [7. What is the use of `FTP` command?](#7-what-is-the-use-of-ftp-command)
+	- [8. What is `alias` and how to setup?](#8-what-is-alias-and-how-to-setup)
+	- [9. Difference between upgrade and update?](#9-difference-between-upgrade-and-update)
+	- [10. Name default ports used for `DNS`, `SMTP`, `FTP`, `SSH`, `DHCP` and squid.](#10-name-default-ports-used-for-dns-smtp-ftp-ssh-dhcp-and-squid)
+	- [11. How to check if a package is installed or not?](#11-how-to-check-if-a-package-is-installed-or-not)
+	- [12. Which of the following commands sends exactly three `ping` packets to google.com?](#12-which-of-the-following-commands-sends-exactly-three-ping-packets-to-googlecom)
+	- [13. Which file contains a list of `group names` and `GIDs`?](#13-which-file-contains-a-list-of-group-names-and-gids)
+	- [14. Which of the following contains the value of the `exit status` of the previously executed command?](#14-which-of-the-following-contains-the-value-of-the-exit-status-of-the-previously-executed-command)
+	- [15. Which command displays the number and type of processors used by Linux system?](#15-which-command-displays-the-number-and-type-of-processors-used-by-linux-system)
+	- [16. Which command should you use to get a list connected `USB` devices?](#16-which-command-should-you-use-to-get-a-list-connected-usb-devices)
+	- [17. Which environment variables is used as the default argument for the `cd` command when no directory is provided?](#17-which-environment-variables-is-used-as-the-default-argument-for-the-cd-command-when-no-directory-is-provided)
+	- [18. True of False. A command following a semicolon will be executed no matter the exit status of the command that preceded the simicolon?](#18-true-of-false-a-command-following-a-semicolon-will-be-executed-no-matter-the-exit-status-of-the-command-that-preceded-the-simicolon)
+	- [19. What are the valid vales of the `exit status`?](#19-what-are-the-valid-vales-of-the-exit-status)
+	- [20. According to the `FHS`, what is the correct directory for log files?](#20-according-to-the-fhs-what-is-the-correct-directory-for-log-files)
+	- [21. What `port` must be open to `ping` a given host?](#21-what-port-must-be-open-to-ping-a-given-host)
+	- [22. How will transfer file from a LINUX server to your windows OS and vice versa?](#22-how-will-transfer-file-from-a-linux-server-to-your-windows-os-and-vice-versa)
+	- [23. Can you split a file intro two? If yes, then how?](#23-can-you-split-a-file-intro-two-if-yes-then-how)
+	- [24. How you can get the unique values from a list?](#24-how-you-can-get-the-unique-values-from-a-list)
+	- [25. Using `VI` editor, how you will edit and save a file?](#25-using-vi-editor-how-you-will-edit-and-save-a-file)
+	- [26. What is the difference between `find` and `locate` command?](#26-what-is-the-difference-between-find-and-locate-command)
+	- [27. Wha t is the `tee` command used for?](#27-wha-t-is-the-tee-command-used-for)
+	- [28. What is `xargs` used for?](#28-what-is-xargs-used-for)
+	- [29. How can you find the number of files, folders in directory?](#29-how-can-you-find-the-number-of-files-folders-in-directory)
+	- [30. I want to read only line 25 to 30th line. How you will do it?](#30-i-want-to-read-only-line-25-to-30th-line-how-you-will-do-it)
+	- [31. What is the use of `tar` command?](#31-what-is-the-use-of-tar-command)
+	- [32. How to redirect both standard output and error to a file?](#32-how-to-redirect-both-standard-output-and-error-to-a-file)
+	- [33. Name some commands for `DNS` resolution.](#33-name-some-commands-for-dns-resolution)
+	- [34. What is the use of `at` command?](#34-what-is-the-use-of-at-command)
+	- [35. Which service is used by `at` command?](#35-which-service-is-used-by-at-command)
+	- [36. Which command assigns read only permission to everyone adn write permision to the owner of the file?](#36-which-command-assigns-read-only-permission-to-everyone-adn-write-permision-to-the-owner-of-the-file)
+	- [37. Which command changes the group ownership of the `/var/www` directory to the `nginx` group?](#37-which-command-changes-the-group-ownership-of-the-varwww-directory-to-the-nginx-group)
+	- [38. What is `chmod 777 file_name`?](#38-what-is-chmod-777-file_name)
+	- [39. What is `ACL` and it's advantage?](#39-what-is-acl-and-its-advantage)
+	- [40. Waht are `links` in LINUX and it's type?](#40-waht-are-links-in-linux-and-its-type)
+	- [41. Differecne between hard and soft (symbolic) links?](#41-differecne-between-hard-and-soft-symbolic-links)
+	- [42. What command you can use to see all the environment variables?](#42-what-command-you-can-use-to-see-all-the-environment-variables)
+	- [43. What are the different ways to set environment variables?](#43-what-are-the-different-ways-to-set-environment-variables)
+	- [44. How can you set environment variables in Linux?](#44-how-can-you-set-environment-variables-in-linux)
+	- [45. What command allows you to display all the process ID of te running `nginx` processes?](#45-what-command-allows-you-to-display-all-the-process-id-of-te-running-nginx-processes)
+	- [46. What is `nice value` of `process`?](#46-what-is-nice-value-of-process)
+	- [47. How to check the `nice value` of a `process`?](#47-how-to-check-the-nice-value-of-a-process)
+	- [48. You want a `process` with a `PID` of `8675` to complete its task fater than the default rate. Which command should you run to accomplish this goal?](#48-you-want-a-process-with-a-pid-of-8675-to-complete-its-task-fater-than-the-default-rate-which-command-should-you-run-to-accomplish-this-goal)
+	- [49. What command can be used to check the `%CPU` and `%Memory` of a `process`?](#49-what-command-can-be-used-to-check-the-cpu-and-memory-of-a-process)
+	- [50. If you want to run a task/script in `background` even if you clase your terminal, what is the way?](#50-if-you-want-to-run-a-taskscript-in-background-even-if-you-clase-your-terminal-what-is-the-way)
+	- [51. How to see la the active `jobs`?](#51-how-to-see-la-the-active-jobs)
+	- [52. How to resume a stopped `job` in `background` or `foreground`?](#52-how-to-resume-a-stopped-job-in-background-or-foreground)
+	- [53. Which command displays information about kernel-related messages along with hardware and system startup messages stored in kernel ring buffer?](#53-which-command-displays-information-about-kernel-related-messages-along-with-hardware-and-system-startup-messages-stored-in-kernel-ring-buffer)
+	- [54. In a directory you have a combination of files like xml, yml, scripts, logs etc. How to get/see only xml files?](#54-in-a-directory-you-have-a-combination-of-files-like-xml-yml-scripts-logs-etc-how-to-getsee-only-xml-files)
+	- [55. Create 100 files with nameing file1, file2, file3 .. file100.](#55-create-100-files-with-nameing-file1-file2-file3--file100)
+	- [56. How would you display all the files int the present working directory that start with either the letter `c` or `m`?](#56-how-would-you-display-all-the-files-int-the-present-working-directory-that-start-with-either-the-letter-c-or-m)
+	- [57. Run a command that show all the lines except any lines starting with the character `#` in a file?](#57-run-a-command-that-show-all-the-lines-except-any-lines-starting-with-the-character--in-a-file)
+	- [58. Which commands lists all files and directories except those beginning with the letter `a`?](#58-which-commands-lists-all-files-and-directories-except-those-beginning-with-the-letter-a)
+	- [59. Which bash command produces the output of `bat bet bit bot`?](#59-which-bash-command-produces-the-output-of-bat-bet-bit-bot)
+	- [60. What is a `VM`?](#60-what-is-a-vm)
+	- [61.](#61)
 
 <!-- vim-markdown-toc -->
 
@@ -4967,24 +5039,260 @@ Rock on.
 
 
 
-------------------------PC POWER / ENERGY COMMAND------------------------------------
+# PC POWER / ENERGY MANAGEMENT COMMANDS
 
 
-```bash
+```sh
 $ xdg-screensaver lock							# it will `lock` the screen
 
 $ systemctl suspend								# the computer will instantly enter `suspend` (the equvalent of `sleep` on Windows)
 $ sleep 300 && systemctl suspend				# the cumputer will enter `suspend` after 300 seconds
+
+
+$ reboot										# will `restart` the computer
 
 $ poweroff										# will instantly shut down the system
 $ sleep 300 && poweroff							# will shut down the system after 300 seconds
 ```
 
 
--------------------------------------------------------------------------------------
 
 
 
+
+
+
+
+
+# ENVIRONMENT VARIABLES
+
+```sh
+man env				# run a program in a modified environment
+
+env					# displays all environment variables
+
+env | fzf			# interactive filter selection
+
+
+
+
+
+
+
+man printenv		# print all or part of environment
+
+printenv			# displays all environment variables
+
+printenv | fzf		# interactive filter selection
+
+
+
+
+
+
+
+
+echo $HOME		# the current user's `home directory`
+cd				# uses the variable `$HOME`
+cd $HOME
+
+
+echo $PWD		# the `present` working directory
+pwd				# uses the variable `$PWD`
+
+
+echo $OLDPWD	# the `previous` working directory
+cd -			# uses the variable `$OLDPWD`
+cd $OLDPWD
+
+
+echo $PATH		# a colon-separate list of directories where the shell look for executable files
+
+
+echo $USER		# the `username` of the current user
+
+
+echo $LANG		# the default language and character enccoding for interpreting text and data
+
+
+echo $TERM		# the terminal type, helping programs determine how to interact with the terminal
+
+
+echo $SHELL		# the path to the current user's default `shell`
+
+
+echo $PS1		# the primary prompt `string, displaying information like the `username`, `hostname` and `current directory` in the shell prompt
+
+
+
+
+PS1='\[\]\[\e[1;39m\](\[\e[0;0m\] \[\e[1;34m\]\u\[\e[0;0m\]\[\e[1;39m\]@\[\e[0m\]\[\e[1;34m\]\h\[\e[0m\]\[\e[1;39m\] )\[\e[0m\] \[\e[1;39m\]: [ \[\e[1;96m\]\w\[\e[0m\] \[\e[1;39m\]]\[\e[0m\] \[\e[1;39m\]$(parse_git_branch)\[\e[0m\] \[\e[1;39m\]$\[\e[0m\]\n\[\e[1;96m\]$\[\e[0m\] \[\]'		# mine PS1 variable
+
+
+
+echo $PS2		# secondary prompt string, used when entering multiline commands
+
+
+echo $PS3		# the prompt string used for the `select` command in shell scripts 
+
+
+echo $PS4		# the prompt string sed for the `debugging` with `set -x` option
+
+
+echo $IFS		# `Internal Field Separator`, used by the shell for word splitting
+
+
+
+echo $BASH_VERSION		# stores the version number of the `bash` shell
+
+
+echo $HOSTNAME		# hostname of the comouter
+
+
+echo $UID			# the number `user ID` of the current user
+
+
+echo $EUID			# stores the `effective` numeric `user ID` of the current user
+
+
+
+
+echo $RANDOM		# generates a random integer between `0` and `32767`
+
+
+echo $OSTYPE		# specifies the operating system type
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## DATE (environment variable)
+
+```bash
+echo $(date)		# the current date
+echo $(date)		# the current date
+
+
+date +'%Y-%m-%d %H:%M:%S'    # Full year, month, day, hour, minute, second
+
+date +'%Y-%m-%d %H:%M:%S'    # Full year, month, day, hour, minute, second
+
+
+
+
+echo $(date +'%y-%m-%d %H:%M:%S')    # Two-digit year, month, day, hour, minute, second
+
+date +'%y-%m-%d %H:%M:%S'    # Two-digit year, month, day, hour, minute, second
+
+
+
+
+date +'%Y'			# full year: 2024
+
+date +'%y'			# two-digit year: 24
+
+date +'%m'			# month: 01-12
+
+date +'%d'			# day of the month: 01-31
+
+date +'%H'			# hour: 00-23
+
+date +'%M'			# minute: 00-59
+
+date +'%S'			# second: 00-59
+
+
+
+date +'text %Y text %H text'
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## HISTORY (environment variables)
+
+```bash
+history			# uses the `$HISTSIZE` environment variable
+
+history $HISTSIZE
+
+
+
+history 5		# displays the last 5 commands
+
+
+
+
+
+
+!!			# repeat the last command
+
+
+!N			# repeat the N-th command (look at the indexes on the left column)
+
+
+!-N			# reperat the N-th previous command
+
+
+
+
+
+
+
+echo $HISTSIZE		# the number of command that are saved in `memory`. Once you close the terminal or logout or power off, the in-memory history is typically lost
+
+
+
+
+
+echo $HISTFILE		# the file that saves history of bash commands on disk
+
+
+echo $HISTFILESIZE	# the maximum number of lines of commands stored in a file on a disk `cat ~/.bash_history`
+
+
+cat ~/.bash_history
+
+cat /dev/null > ~/.bash_history
+
+
+
+history -c			# clear the in-memory history, the one referred by the env varialbe `$$HISTSIZE`
+
+
+history -w			# writes the current in-memory history to a file, `$HISTFILE`
+
+
+cat $HISTFILE		# the history of commands saved on the disk
+
+
+
+
+# to sum up:
+# history  -> the in-memory commands history
+# cat $HISTFILE -> the history of commands saved on the disk
+```
 
 
 
@@ -5069,7 +5377,7 @@ sudo apt update					# instaleaza o aplicatie / un utilitar
 sudo apt install [app]			# instaleaza / updateaza daca e daja instalata
 apt search [param]				# gasire `app`
 sudo apt remove [app]			# uninstall a package (but keeps configuration files)
-sudo apt purge [app]			# ceopletely remove a package, including its configuration files
+sudo apt purge [app]			# completely remove a package, including its configuration files
 
 
 LAB 5:
@@ -5318,8 +5626,8 @@ echo | md5sum				# hashing
 
 
 # LAB 10:
-bas64						# encypt
-base64 -d					# decrypt
+bas64						# encypt (codifica)
+base64 -d					# decrypt (decodifica)
 
 
 # Jhon the Ripper
@@ -6389,18 +6697,18 @@ sl			# o animatie cu un trenulet
 	ssh-keygen /home/student/.ssh/cheie_moodle
 	```
 
-### 6 (c) Realizati modificarile necesare astfel incat autentificarea cu utilizatorul vostru pe statia de la adresa "fep.grid.pub.ro".
+### 6 (c) Realizati modificarile necesare astfel incat autentificarea cu utilizatorul vostru pe statia de la adresa `fep.grid.pub.ro`.
 
 	```sh
 	cd ~/.ssh
 	ssh-keygen
-	ssh-copy-id -i ~/.ssh/id_rsa.pub bogdan.trifan2412@fep.grid.pub.ro
+	ssh-copy-id -i ~/.ssh/id_rsa.pub [user-name]@fep.grid.pub.ro
 	```
 
 ### 6 (d) Scrieti un one-liner care sa ruleze comanda `ls` in cadrul directorului home al utilizatorului vostru de pe statia de la adresa `fep.grid.pub.ro`.
 
 	```sh
-	ssh utilizator@fep.grid.pub.ro 'ls ~'
+	ssh [utilizator]@fep.grid.pub.ro 'ls ~'
 	```
 
 
@@ -9336,8 +9644,8 @@ sl			# o animatie cu un trenulet
 ### 5 (d) Creati un branch numit `brenciu` si comutati din branch-ul principal in branch-ul nou creat.
 
 	```sh
-	git config --global user.email "trifanbogdan24@gmail.com"
-	git config --global user.name "TrifanBogdan24"
+	git config --global user.email "email GitHub"
+	git config --global user.name "user GitHub"
 	git config --list			# verificare
 
 	git branch -m brenciu
@@ -9358,7 +9666,7 @@ sl			# o animatie cu un trenulet
 	```sh
 	cd ~/.ssh
 	ssh-keygen
-	ssh-copy-id -i ~/.ssh/id_rsa.pub bogdan.trifan2412@fep.grid.pub.ro
+	ssh-copy-id -i ~/.ssh/id_rsa.pub [user-name]@fep.grid.pub.ro
 	```
 
 
@@ -9369,11 +9677,11 @@ sl			# o animatie cu un trenulet
 	# folosim un alias
 
 	# pentru bash
-	echo "alias fep='ssh bogdan.trifan2412@fep.grid.pub.ro'" >> ~/.bashrc
+	echo "alias fep='ssh [user-name]@fep.grid.pub.ro'" >> ~/.bashrc
 	source ~/.bashrc
 
 	# pentru zsh
-	echo "alias fep='ssh bogdan.trifan2412@fep.grid.pub.ro'" >> ~/.zshrc
+	echo "alias fep='ssh [user-name]@fep.grid.pub.ro'" >> ~/.zshrc
 	source ~/.zshrc
 	```
 
@@ -10475,7 +10783,7 @@ sl			# o animatie cu un trenulet
 	```sh
 	cd ~/.ssh
 	ssh-keygen
-	ssh-copy-id -i ~/.ssh/id_rsa.pub bogdan.trifan2412@fep.grid.pub.ro
+	ssh-copy-id -i ~/.ssh/id_rsa.pub [user-name]@fep.grid.pub.ro
 	```
 
 
@@ -13518,3 +13826,682 @@ $ free -h
 $ free -h | awk '/Mem:/ {print $3" / "$2}'
 ```
 
+
+
+
+
+
+
+
+
+
+
+# LINUX interview questions
+
+
+## 1. How can you see which kernel version a system is currently running?
+
+```sh
+uname		# kernel version, OS distro
+
+uname -a
+
+uname -v
+
+uname -r
+```
+
+
+
+## 2. How can you check a system's current IP Address?
+```sh
+ifconfig		# adresle IP
+
+ip addr show
+
+ip addr show [nume-retea]
+
+ip addr show eth1
+```
+
+
+
+
+
+## 3. How do you check for free disk space?
+```sh
+man df	# report file system disk space usage
+
+df		# `df` = disk free
+# `du` = disk usage
+
+df
+df -h
+```
+
+
+
+## 4. How do you manage services on a system?
+- How to see if a service is running?
+- How to start a service?
+- How to stop a service?
+- How to reload a service?
+
+
+```sh
+service [service-name] status
+service [service-name] start
+service [service-name] stop
+# etc.
+
+
+
+systemctl
+
+systemctl status [service-name]
+```
+
+
+
+## 5. How would you check the size of a directory's contents on disk?
+```sh
+man du		# `sh` = estimate file space usage
+
+du -sh
+# du -s		# dispaly only the total (sum) for each element
+# du -h		# human-readable
+```
+
+
+## 6. How would you check for open ports on a LIUNUX machine?
+```sh
+man netstat		# rint  network connections, routing tables, interface statistics, masquerade connections, and multicast memberships
+
+netstat
+
+netstat -tulpn
+
+netstat -n		# numeircal addresses
+
+netstat -l		# listening sockets (these are omitted by default)
+
+netstat -t		# TCP
+
+netstat -u		# UDP
+
+
+sudo netstat -tulpn
+```
+
+
+
+## 7. How do you check CPU usage for a process?
+```sh
+ps aux | grep 'nginx'
+
+# ps = report a snapshot of the current processes
+
+top			# live processes
+htop		# live processes
+bpytop		# live processes
+```
+
+
+
+
+## 8. Dealing with Mounts?
+```sh
+ls /mnt
+mount /dev/sda2 /mnt	# nu stiu
+mount
+
+
+cat /etc/fstab
+
+less /etc/fstab
+```
+
+
+## 9. How do you look up something you don't know?
+```sh
+man [commmand]
+
+man man
+```
+
+
+
+
+## 10. What do you do when you can't find an answer in a man page?
+- Google
+- Stack Overflow
+- Server Fault
+
+
+
+
+
+# 70 LINUX QUESTIONS
+
+
+## 1. What is `RHEL Linux` stands for?
+`RHEL` = Red Hat Enterprise Linux Operating System
+
+
+## 2. Give some examples of Linux distibutions?
+- Ubuntu
+- Debian
+- CentOS
+- Fedora
+- RedHat
+
+
+## 3. What is `kernel`?
+The Linux kernel is the main component of a Linux OS and
+is the core interface between a computer's hardware adn its processes
+
+It communicates between the 2, managing resources as efficiently as possible.
+
+
+
+## 4. What is `swap space`?
+`Swap space` in Linux is used when the amount of physical memory (RAM) is full.
+
+If the system needs more memory resources and the RAM is full,
+inactive pages in memory are moved to the swap space (disk).
+
+
+
+```sh
+free		# info despre memoria RAM
+free -h		# format human-readable
+
+
+free -h | grep -i 'swap'
+# sau
+free -h | grep -i 'Swap'
+```
+
+
+
+
+## 5. How to search a word in afile and replace it in entire file?
+Using `sed` command.
+
+`sed 's/find/replacement/g' file_name`
+
+
+## 6. What is use of `SCP` command?
+The `scp` command copies files or directories between a local
+and remote system or between two remote systems.
+
+`SCP` uses `SSH` for data transfer.
+
+scp — OpenSSH secure file copy
+
+
+
+## 7. What is the use of `FTP` command?
+`FTP` is the file transfer protocol to exchange files to and from a remote computer or network.
+
+
+
+## 8. What is `alias` and how to setup?
+```sh
+alias d="ls -ltr | awk '{print $9}'"
+
+type d		# checking
+
+unalias d
+```
+
+
+
+## 9. Difference between upgrade and update?
+
+`Update` = updates all the presently installed packages to their lates versions that are availabel in the repositories
+
+`Upgrade` = performs the same action as `yum update`, but once finished it also removes all the obsolete packages from the system
+
+
+
+## 10. Name default ports used for `DNS`, `SMTP`, `FTP`, `SSH`, `DHCP` and squid.
+
+`DNS` = 53
+`SMTP` = 25
+`SSH` = 22
+`DHCP` = 67, 68
+`squid` = 3128
+`HTTP` = 80
+`HTTPS` = 443
+
+
+## 11. How to check if a package is installed or not?
+```sh
+# for ubuntu:
+dpkg -l
+
+dpkg -l | grep 'package-name'
+```
+
+
+
+## 12. Which of the following commands sends exactly three `ping` packets to google.com?
+```sh
+ping -c 3 google.com
+```
+
+
+## 13. Which file contains a list of `group names` and `GIDs`?
+GID = group ID
+
+/etc/group
+
+```sh
+cat /etc/group
+```
+
+
+
+## 14. Which of the following contains the value of the `exit status` of the previously executed command?
+
+`$?` = exit code the last command
+	= 0, if the last command executed succesfully
+	= 0, if the last command failed
+
+
+```sh
+echo $?
+```
+
+
+## 15. Which command displays the number and type of processors used by Linux system?
+```sh
+cat /proc/cpuinfo
+# or
+lscpu
+```
+
+
+
+## 16. Which command should you use to get a list connected `USB` devices?
+```sh
+lsusb
+```
+
+
+## 17. Which environment variables is used as the default argument for the `cd` command when no directory is provided?
+
+- HOME
+
+```sh
+echo $HOME
+
+cd			# changes to the `home` directory of the current user
+cd $HOME	# changes to the `home` directory of the current user
+```
+
+
+## 18. True of False. A command following a semicolon will be executed no matter the exit status of the command that preceded the simicolon?
+Example:
+```sh
+cd /root ; cat /etc/passwd
+```
+
+TRUE
+
+
+
+## 19. What are the valid vales of the `exit status`?
+`0-255`.
+
+Integer numbers from `0` to `255`, including them.
+
+
+## 20. According to the `FHS`, what is the correct directory for log files?
+
+`FHS` = Filesystem Hierarchy Standard
+
+/var/log/
+
+
+```sh
+ls /var/log/
+# or
+cd /var/log/ && ls
+```
+
+
+## 21. What `port` must be open to `ping` a given host?
+Ping don't use port.
+
+ 
+
+## 22. How will transfer file from a LINUX server to your windows OS and vice versa?
+
+Windows <-> file in server <-> Linux
+
+
+Using `SSH`, `FTP`, `SFTP`.
+Toolos like `WinSCP`, `FileZilla`.
+
+
+## 23. Can you split a file intro two? If yes, then how?
+```sh
+man split 		# split a file into pieces
+split -l 3 [file-name]
+```
+
+
+## 24. How you can get the unique values from a list?
+```sh
+sort [file-name] | uniq
+# or
+cat [file-name] | sort | uniq
+```
+
+
+
+## 25. Using `VI` editor, how you will edit and save a file?
+```sh
+vi [file-name]
+
+`i` = for insert mode
+`ESC` = to came out of insert mode
+`wq` = to save and exit
+
+`w` = to save (write)
+`q` = to exit (quit)
+```
+
+
+
+## 26. What is the difference between `find` and `locate` command?
+
+`locate` = searchs in it's own database and you will need to keep updating the database
+
+`find` = search in the entire file system
+
+
+
+
+## 27. Wha t is the `tee` command used for?
+`tee` - read from standard input and write to standard output and files
+
+```sh
+pwd | tee file1		# echivalent cu pwd > file1
+```
+
+
+
+## 28. What is `xargs` used for?
+`xargs` - build and execute command lines from standard input
+
+`xargs` = it converts the `stdin` into command line arguments
+
+```sh
+cat filelist.txt | xargs wc -l
+```
+
+
+
+## 29. How can you find the number of files, folders in directory?
+```sh
+ls -1 | wc -l
+
+tree -L 1 | wc -l
+```
+
+
+`ls -1` -> prints each directory and each file on its own line
+`tree -L [number-of-levels]`
+
+`wc` = word counts
+`wc -l` = the number of lines of a file
+
+
+
+
+## 30. I want to read only line 25 to 30th line. How you will do it?
+```sh
+head -30 file_name | tail -5
+# sau
+awk '25 <= NR && NR <= 30' file.txt 
+```
+
+
+## 31. What is the use of `tar` command?
+The `tar` command is used to compress a group of files into a archive.
+
+`tar` archives combine multiple files and/or directories together into a single file.
+
+
+
+## 32. How to redirect both standard output and error to a file?
+```sh
+command > file 2>&1
+```
+
+
+## 33. Name some commands for `DNS` resolution.
+```sh
+ping
+nslookup
+dig
+host
+```
+
+
+## 34. What is the use of `at` command?
+Command `at` is used to schedule a task once.
+
+
+## 35. Which service is used by `at` command?
+atd
+
+
+## 36. Which command assigns read only permission to everyone adn write permision to the owner of the file?
+```sh
+chmod u+w file		# `u` = user
+chmod a+r file		# `a` = all (group, user, owner)
+```
+
+## 37. Which command changes the group ownership of the `/var/www` directory to the `nginx` group?
+```sh
+chgrp nginx /var/www	# changes group ownership of a file/dir
+```
+
+
+## 38. What is `chmod 777 file_name`?
+This is a way of changing permission using numeric mode.
+
+`777` means provide all the permission `rwx` to user (`u`), group (`g`) and other users (`o`).
+
+
+
+## 39. What is `ACL` and it's advantage?
+`ACL` = Access Control List
+`ACL` is used to modify the permission of files.
+For this we use `setfacl` and `gerfacl` commands.
+
+Advantage: We can provide permission to a specific user.
+
+
+
+
+## 40. Waht are `links` in LINUX and it's type?
+A connection between a file name and the actual data on the disk.
+
+We can call it a shortcut
+
+
+## 41. Differecne between hard and soft (symbolic) links?
+- `symbolic link`: link will be removed if original file removed or deleted (`ln -s`)
+
+- `hard link`: renaming, deleting or removing the file will not affect the link `ln`
+
+
+
+## 42. What command you can use to see all the environment variables?
+```sh
+env
+printenv
+```
+
+
+
+## 43. What are the different ways to set environment variables?
+- At user level:
+  1. temporary
+  2. permanent
+
+- At `global` level
+
+
+
+## 44. How can you set environment variables in Linux?
+- using `export` command
+- to set variable for the current user `~/.bashrc`
+- set variable for globally `/etc/bashrc` or `/etc/profile`
+
+
+## 45. What command allows you to display all the process ID of te running `nginx` processes?
+```sh
+pidof httpd
+```
+
+
+## 46. What is `nice value` of `process`?
+
+Niceness scale goes from -20 to 19.
+
+The lower the number, the more priority that task gets.
+
+Process prority = `nice`
+
+`nice` = run a program with modified scheduling priority
+
+```sh
+nice -n 5 process
+```
+
+
+## 47. How to check the `nice value` of a `process`?
+```sh
+ps -l PID
+```
+
+
+## 48. You want a `process` with a `PID` of `8675` to complete its task fater than the default rate. Which command should you run to accomplish this goal?
+```sh
+renice -20 -p 8675		# this can be done by top command also
+```
+
+
+## 49. What command can be used to check the `%CPU` and `%Memory` of a `process`?
+```sh
+top
+```
+
+
+## 50. If you want to run a task/script in `background` even if you clase your terminal, what is the way?
+`nohup` = if you want your prcess keep running even after cloging the terminal, you can use `nohup`
+
+
+```sh
+nohup process &
+nohup proccess > /dev/null 2>&1 &
+```
+
+
+`&` = runs a process in background
+
+`> file 2>&1` = redirects both `stdout` and `stderr`
+
+
+
+## 51. How to see la the active `jobs`?
+```sh
+jobs
+```
+
+
+## 52. How to resume a stopped `job` in `background` or `foreground`?
+```sh
+fg
+```
+
+
+## 53. Which command displays information about kernel-related messages along with hardware and system startup messages stored in kernel ring buffer?
+```sh
+sudo dmesg
+```
+
+## 54. In a directory you have a combination of files like xml, yml, scripts, logs etc. How to get/see only xml files?
+```sh
+# recursively (including subdirectories)
+find . -type f -name "*.xml"		# `.` = the current directory
+find [dir] -type f -name '*.extension'
+
+# or
+
+
+# in the current directory:
+
+ls -l *.xml
+# or
+ls *.xml
+```
+
+
+## 55. Create 100 files with nameing file1, file2, file3 .. file100.
+```sh
+touch file{1..100}
+```
+
+
+
+
+## 56. How would you display all the files int the present working directory that start with either the letter `c` or `m`?
+
+```sh
+ls -1 | grep '^[cm]'
+# or
+ls [cm]*
+```
+
+`ls -1` -> prints each directory and each file on its own line
+
+
+
+## 57. Run a command that show all the lines except any lines starting with the character `#` in a file?
+```sh
+grep -v '^#' file
+# or
+cat file | grep -v '^#'
+```
+
+
+grep '^expression' -> returns the lines for which the expression is at the beginning
+
+grep -v	, or grep --invert-match -> invert the sense of matching, to select non-matching lines
+
+
+## 58. Which commands lists all files and directories except those beginning with the letter `a`?
+```sh
+ls -1 | grep -v '^a'
+```
+
+
+
+## 59. Which bash command produces the output of `bat bet bit bot`?
+```sh
+echo b{a,e,i,o}t
+```
+
+
+## 60. What is a `VM`?
+a virtual machine `VM` is a virtual environment that functions as a vritual computer system with its own CPU, memory, network interface, and storage created on a physical hardware system.
+
+
+## 61.
