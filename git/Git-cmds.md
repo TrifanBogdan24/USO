@@ -22,43 +22,46 @@ $ git status
 
 
 ## GIT STAGING FILES
-
+```sh
 $ git add <file-name>
 $ git add <file-name> <another-file-name> <another-file-name>
 
 $ git add .	# stages everything in the current directory and its subdirectories, including hidden files
 
 $ git add * 	# stages files and directories in the current directory only (excluding hidden files) but not those in subdirectories
+```
 
 .	-> adauga si fisiere ascunse
 *	-> nu adauga fisiere ascunse
 
 
-
+```sh
 $ git add --all
 $ git add -A
 $ git rm --cached <file-name>
 $ git reset <file-name>
+```
 
-/* comenzi de dat in terminal
 
+```sh
 $ git config --global user.name "John Doe"		# set git name
 $ git config --global user.email johndoe@example.com	# set git email
-
+```
 
 
 ## GIT COMMITTING TO A REPOSITORY
 
-
+```sh
 $ git remote add origin <link>
 $ git push -u origin <branch-name>
 $ git clone <GitHub-repo-link>
 $ git pull	# este folosita pentru a aduce schimbarile dintr-un depozit Git remote si pentru a le integra în ramura locala
+```
 
 
 
 ## GIT BRANCHING
-
+```sh
 $ git branch		# va afisa toate branch-urile curente
 $ git branch		# cu verde si cu o steluta inatine va aparea branch-ul curent
 $ git branch -- list	# acelasi rezultat ca git branch
@@ -68,24 +71,30 @@ $ git branch <new-branch>	# creaza un nou branch
 $ git checkout <branch-name>	# comuta pe un branch existent
 $ git merge <branch-name>	# integreaza schimbari dintr-un branch in altul
 $ git checkout -b <branch-name>	# creaza un branch nou si comuta pe el
-
+```
 
 ## OTHERS
+```sh
 $ # afiseaza branch-ul si schimbarile
-$ git status 	
+$ git status 
+```	
+
 On branch solutie
 Changes not staged for commit:
   (use "git add <file>..." to update what will be committed)
   (use "git restore <file>..." to discard changes in working directory)
         modified:   src/mm/mmap.c
 
-
+```sh
 $ # afiseaza toate branch-urile locale :
 $ git branch
   checkout
   master
 * solutie
+```
 
+
+```sh
 $ # creaza un branch nou
 $ # face switch pe el
 $ git checkout -b new_branch
@@ -98,8 +107,18 @@ $ git add .
 $ git commit -m "mesaj"
 $ git checkout solutie
 $ git push origin solutie
-$ username : Bogdan-Cristian TRIFAN
-$ parola (token) : 0glpat-UqQUzLpApkW6bAEa-JsN
+username : -
+parola (token) : -
+```
+
+
+
+```sh
+$ git remote get-url origin		# the remote URL link to the GitHub repository
+
+$ git remote -v					# displays all remote repositories and their URL links 
+```
+
 
 
 ## ACCCESS TOKENS
@@ -130,21 +149,20 @@ GitHub uses a role-based access control system to manage permissions within a re
 
 
 
-
+```sh
 git config --global user.{name, email}
 
-git init 	=	 pt a initializa un repository local
+git init 	#	 pt a initializa un repository local
 
-git remote add origin https://github.com/{username}/array-sorting-algorithms.git 	=	 pt a interconecta un repository local si unul remote
+git remote add origin https://github.com/{username}/array-sorting-algorithms.git 	#	 pt a interconecta un repository local si unul remote
 
-git status 		=	 pt a verifica starea repositoryului
+git status 		#	 pt a verifica starea repositoryului
 
-git add {files} 	=	 pt a aduga fisiere in staging area
+git add {files} 	#	 pt a aduga fisiere in staging area
 
 git commit -m "Add README file"
 
-git log 	=	 pt a verifica istoricul de commituri
+git log 	#	 pt a verifica istoricul de commituri
 
-git push origin master 		=	 pt a publica commiturile de pe branchul master
-
-
+git push origin master 		#	 pt a publica commiturile de pe branchul master
+```

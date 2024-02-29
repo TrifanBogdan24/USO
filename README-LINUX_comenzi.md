@@ -550,6 +550,11 @@ find -type f    =    files
 
 # EXPRESII REGULATE `REGEX`
 
+[Cheat Sheet](regex/REGEX-Cheat-Sheet.jpeg )
+
+[REGEX 101 expression testet](https://regex101.com/)
+
+
 mod de a potrivi (match) mai multe siruri
 
 Caracter	Efect in exprsia regulata (regex)
@@ -576,6 +581,117 @@ Caracter	Efect in exprsia regulata (regex)
 
 	*[cC][hH][eE][aeAE][tT].*[sS][Hh][eE][aeEA]?[tT].*
 	face matching pe 'Cheat Sheet' cu greseli de scriere
+
+
+
+
+
+
+`\d`    matches a digit
+
+
+`\D`    matches a non-digit
+
+
+`\w`    mataches a word character (alfanumeric or underscore)
+
+
+`\W`    matches a non-word character
+
+
+`\s`    matches a switespace character
+
+
+`\S`    matches a non-whitespace character
+
+
+`.`     matches ANY character (expect new line)
+
+
+`^`     matches the START of a string / line
+^Hello
+
+
+`$`     matches the END of a string / line
+Hello$
+
+
+`[]`    matches any single character WITHIN the brackets
+
+
+`[^]`   matches any single character NOT WITHIN the brackets
+
+
+`*`     matches zero or more occurences of the preceding character
+go*d -> gd, god, good
+
+
+
+`+`     matches one ore more occurences of the preceding character
+go+d -> god, good
+
+
+`?`     matches zero or one occurences of the preceding character
+go?d -> gd, god
+
+
+`{n}`   matches the exactly `n` occurences of the preceding character
+go{2}d -> good
+\d{10} -> orice secventa de 10 cifre
+
+
+`{n,}`  matches at least `n` occurences of the preceding character
+go{2,}d -> good, goood, gooood
+
+`{m, n}` matches between `m` and `n` occurences of the preceding character
+
+go{1, 3}d -> god, good, goood
+
+
+`!`     matches either the left or the right pattern
+apple!orrange -> apple, orrange
+
+
+
+`()`    groups multiple patterns together
+(ab)+ -> ab, abab, ababab
+
+
+
+`\b`    matches a word boundary
+
+
+
+`\B`    matches a non-word boundary
+
+
+
+`{?=...}`   POSITIVE LOOKAHEAD
+foo(?=bar) -> foobar, foobaz
+
+
+
+`{?!...}`   NEGATIVE LOOKAHEAD
+foo(?!bar) -> foobaz, foobat
+
+
+
+`\A`    matches the start of string
+not avaialable in `JavaScript`
+
+
+
+`\Z`    matches the end of a string
+not avaialable in `JavaScript`
+
+
+
+`(?i)`  case-insensitive matching
+not avaialable in `JavaScript`
+
+
+
+
 
 
 
@@ -661,8 +777,10 @@ $ awk 'NR==10 || NR==15' file.txt 	# the 10-th and 15-th lines of a file
 ```
 
 
-'{print $...} is for columns
+`{print $...}` is for columns
  
+
+
 ```sh
 $ awk '{print $1}' file.txt	# gets the first column of a file
 $ awk '{print $1, $2}' file.txt	# gets the first column, the second one
@@ -670,6 +788,11 @@ $ akw '{print $2, $1}' file.txt	# gets the second column, the the first one
 $ awk '{print $NF}' file.txt	# gets the last column of a file
 $ awk '{print $(NF-1), $NF}' file.txt	# gets the last two column of a file
 ```
+
+
+
+
+
 
 
 # CHEET SHEET
@@ -1920,56 +2043,60 @@ shopt -s globstar    # Allow ** for recursive matches ('lib/**/*.rb' => 'lib/a/b
 
 Comenzi Cheat Sheet GitHub: https://ndpsoftware.com/git-cheatsheet.html#loc=index
 
+
 ## GIT CONFIGURATIONS
 
+```bash
 $ git config --global user.name "FirstName LastName"
 $ git config --global user.email "your-email@email-provider.com"
 $ git config --global color.ui true	# va afisa text colorat in terminal
 $ git config --list		# va afisa toate optiunile configuratiei curente
 $ git config --list		# va afisa userul si email-ul acestuia
-
+```
 
 ## GIT STARTING A REPOSITORY
-
+```bash
 $ git init
 $ git status
-
+```
 
 ## GIT STAGING FILES
-
+```bash
 $ git add <file-name>
 $ git add <file-name> <another-file-name> <another-file-name>
 
 $ git add .	# stages everything in the current directory and its subdirectories, including hidden files
 
 $ git add * 	# stages files and directories in the current directory only (excluding hidden files) but not those in subdirectories
+```
+
 
 `.`	-> adauga si fisiere ascunse
 `*`	-> nu adauga fisiere ascunse
 
 
-
+```bash
 $ git add --all
 $ git add -A
 $ git rm --cached <file-name>
 $ git reset <file-name>
 
-/* comenzi de dat in terminal
+
 
 $ git config --global user.name "John Doe"		# set git name
 $ git config --global user.email johndoe@example.com	# set git email
-
+```
 
 ## GIT COMMITTING TO A REPOSITORY
-
-
+```bash
 $ git remote add origin <link>
 $ git push -u origin <branch-name>
 $ git clone <GitHub-repo-link>
 $ git pull	# este folosita pentru a aduce schimbarile dintr-un depozit Git remote si pentru a le integra în ramura locala
+```
 
 ## GIT BRANCHING
-
+```bash
 $ git branch		# va afisa toate branch-urile curente
 $ git branch		# cu verde si cu o steluta inatine va aparea branch-ul curent
 $ git branch -- list	# acelasi rezultat ca git branch
@@ -1979,11 +2106,12 @@ $ git branch <new-branch>	# creaza un nou branch
 $ git checkout <branch-name>	# comuta pe un branch existent
 $ git merge <branch-name>	# integreaza schimbari dintr-un branch in altul
 $ git checkout -b <branch-name>	# creaza un branch nou si comuta pe el
+```
 
 
 ## OTHERS
 
-
+```bash
 $ # afiseaza branch-ul si schimbarile
 $ git status 	
 On branch solutie
@@ -2015,6 +2143,21 @@ $ git --amend [ENTER]			# deschide fisierul commit-urilor
 
 $ git checkout solutie
 $ git push origin solutie
+username : -
+parola (token) : -
+```
+
+
+
+
+
+```sh
+$ git remote get-url origin		# the remote URL link to the GitHub repository
+
+$ git remote -v					# displays all remote repositories and their URL links 
+```
+
+
 
 ## ACCCESS TOKENS
 
@@ -2022,9 +2165,9 @@ $ git push origin solutie
 GitHub uses a role-based access control system to manage permissions within a repository. Here are the common roles or access levels on GitHub, and their associated permissions:
 
 1. Owner:
-	- Full control over the repository.
-	- Can add collaborators, change repository settings, transfer the repository, and delete it.
-	- Can push code, manage issues, and perform administrative tasks.
+   - Full control over the repository.
+   - Can add collaborators, change repository settings, transfer the repository, and delete it.
+   - Can push code, manage issues, and perform administrative tasks.
 
 2. Collaborator/Developer:
 	- Can clone, pull, and push to the repository.
@@ -2043,27 +2186,33 @@ GitHub uses a role-based access control system to manage permissions within a re
 
 
 
-*/
 
 
-git config --global user.{name, email}
+```bash
+$ git config --global user.{name, email}
 
-git init 	=	 pt a initializa un repository local
+$ git init 	#	 pt a initializa un repository local
 
-git remote add origin https://github.com/{username}/array-sorting-algorithms.git 	=	 pt a interconecta un repository local si unul remote
+$ git remote add origin https://github.com/{username}/array-sorting-algorithms.git 	#	 pt a interconecta un repository local si unul remote
 
-git status 		=	 pt a verifica starea repositoryului
+$ git status 		#	 pt a verifica starea repositoryului
 
-git add {files} 	=	 pt a aduga fisiere in staging area
+$ git add {files} 	#	 pt a aduga fisiere in staging area
 
-git commit -m "Add README file"
+$ git commit -m "Add README file"
 
-git log 	=	 pt a verifica istoricul de commituri
+$ git log 	#	 pt a verifica istoricul de commituri
 
-git push origin master 		=	 pt a publica commiturile de pe branchul master
+$ git push origin master 		#	 pt a publica commiturile de pe branchul master
+```
 
 
-# END GIT
+
+# OTHER COMMANDS
+
+
+
+
 
 su {user} 	=	 pt a schimba userul curent
 
@@ -3375,7 +3524,7 @@ Some useful `bash` commmands:
 
 
 
-============= PURE SH BIBLE =================
+# PURE SH BIBLE
 GitHub : https://github.com/dylanaraps/pure-sh-bible.git
 
 
@@ -3493,8 +3642,8 @@ See something incorrectly described, buggy or outright wrong? Open an issue or s
 	- [GIT BRANCHING](#git-branching)
 	- [OTHERS](#others)
 	- [ACCCESS TOKENS](#acccess-tokens)
-- [END GIT](#end-git)
 - [OTHER COMMANDS](#other-commands)
+- [OTHER COMMANDS](#other-commands-1)
 - [LEETCODE](#leetcode)
 	- [193. Valid Phone Number](#193-valid-phone-number)
 	- [195. Tenth line](#195-tenth-line)
@@ -3502,6 +3651,7 @@ See something incorrectly described, buggy or outright wrong? Open an issue or s
 - [APLICATII](#aplicatii)
 - [CONFIGURARE VIZUALA (VARIABILA DE MEDIU `PS1`)](#configurare-vizuala-variabila-de-mediu-ps1)
 - [CONFIGURARE VIZUALA (LS)](#configurare-vizuala-ls)
+- [PURE SH BIBLE](#pure-sh-bible)
 - [Table of Contents](#table-of-contents)
 - [STRINGS](#strings)
 	- [Strip pattern from start of string](#strip-pattern-from-start-of-string)
@@ -5551,6 +5701,9 @@ find -size
 				# Port port
 
 # LAB 8 (GIT):
+# Comenzi Cheat Sheet GitHub: https://ndpsoftware.com/git-cheatsheet.html#loc=index
+
+
 
 git config --global user.name "Prenume Nume"
 git config --global user.email "mail@...."
@@ -5957,6 +6110,7 @@ sl			# o animatie cu un trenulet
 	# find .		# cauta in ierarhia directorului curent
 	```
 
+
 ### 4 (b) In interiorul acestui repository, creati un fisier `Makefile` care contine oregula numita `buid` care compileaza fisierul `main.c` intr-un executabil numit `main`.
 
 	```sh
@@ -6000,6 +6154,11 @@ sl			# o animatie cu un trenulet
 	git commit -m "Makefile nou"
 	git push origing [branch-name]		# a se inlocui branch-name cu un nume concret
 	```
+
+
+	Comenzi Cheat Sheet GitHub: https://ndpsoftware.com/git-cheatsheet.html#loc=index
+
+
 
 ### 5 (a) Instalati utilitarul `cowsay`.
 
@@ -6340,6 +6499,10 @@ sl			# o animatie cu un trenulet
 	git add *
 	```
 
+	Comenzi Cheat Sheet GitHub: https://ndpsoftware.com/git-cheatsheet.html#loc=index
+
+
+
 
 ### 4 (c) Faceti modificarile necesare in repository-ul creat la subpunctul anterior astfel incat fisierul `surprise.log` sa fie ignorat la comiterea schimbarilor.
 
@@ -6380,6 +6543,11 @@ sl			# o animatie cu un trenulet
 
 	git commit --amend -m "an updated commit message"   # modifica mesajul ultimului commit
 	```
+
+
+	Comenzi Cheat Sheet GitHub: https://ndpsoftware.com/git-cheatsheet.html#loc=index
+
+
 
 
 
@@ -7189,13 +7357,20 @@ sl			# o animatie cu un trenulet
 	```
 
 
+	Comenzi Cheat Sheet GitHub: https://ndpsoftware.com/git-cheatsheet.html#loc=index
+
 
 
 ### 5 (d) Afisati lista tuturor commit-urilor.
 
 	```sh
 	git log
+
+	git log > istoric-commit-urilor.txt
 	```
+
+	Comenzi Cheat Sheet GitHub: https://ndpsoftware.com/git-cheatsheet.html#loc=index
+
 
 
 ### 6 (a) Listati toti utilizatorii care au configurat ca shell implicit `/bin/bash`.
@@ -8827,6 +9002,8 @@ sl			# o animatie cu un trenulet
 
 
 
+	Comenzi Cheat Sheet GitHub: https://ndpsoftware.com/git-cheatsheet.html#loc=index
+
 
 
 
@@ -8861,6 +9038,11 @@ sl			# o animatie cu un trenulet
 
 	awk 'NR == 3' 	-> extrage linia a 3-a
 	awk '{print $5}' -> extrage coloana a 5-a
+
+
+
+	Comenzi Cheat Sheet GitHub: https://ndpsoftware.com/git-cheatsheet.html#loc=index
+
 
 
 
@@ -9132,6 +9314,9 @@ sl			# o animatie cu un trenulet
 	git commit --amend -m "an updated commit message"   # modifica mesajul ultimului commit
 	```
 
+
+
+	Comenzi Cheat Sheet GitHub: https://ndpsoftware.com/git-cheatsheet.html#loc=index
 
 
 
@@ -9640,6 +9825,9 @@ sl			# o animatie cu un trenulet
 
 
 
+	Comenzi Cheat Sheet GitHub: https://ndpsoftware.com/git-cheatsheet.html#loc=index
+
+
 
 ### 5 (d) Creati un branch numit `brenciu` si comutati din branch-ul principal in branch-ul nou creat.
 
@@ -9657,6 +9845,9 @@ sl			# o animatie cu un trenulet
 	git remote add origin [link]
 	git push -u origin brenciu
 	```
+
+
+	Comenzi Cheat Sheet GitHub: https://ndpsoftware.com/git-cheatsheet.html#loc=index
 
 
 
@@ -9921,6 +10112,8 @@ sl			# o animatie cu un trenulet
 	```
 
 
+	Comenzi Cheat Sheet GitHub: https://ndpsoftware.com/git-cheatsheet.html#loc=index
+
 
 
 
@@ -9950,6 +10143,8 @@ sl			# o animatie cu un trenulet
 	```
 
 
+
+	Comenzi Cheat Sheet GitHub: https://ndpsoftware.com/git-cheatsheet.html#loc=index
 
 
 
@@ -11387,6 +11582,10 @@ sl			# o animatie cu un trenulet
 	```
 
 
+	Comenzi Cheat Sheet GitHub: https://ndpsoftware.com/git-cheatsheet.html#loc=index
+
+
+
 ### 5 (b) Faceti modificarile necesare astfel incat comanda `la` sa nu mai functioneze.
 
 	```sh
@@ -12129,6 +12328,10 @@ sl			# o animatie cu un trenulet
 
 
 
+	Comenzi Cheat Sheet GitHub: https://ndpsoftware.com/git-cheatsheet.html#loc=index
+
+
+
 ### 4 (c) Creati un fisier nou numit `main.c` si faceti un commit cu el.
 
 	```sh
@@ -12171,6 +12374,9 @@ sl			# o animatie cu un trenulet
 
 
 
+	Comenzi Cheat Sheet GitHub: https://ndpsoftware.com/git-cheatsheet.html#loc=index
+
+
 
 ### 4 (d) Adauagati un fisier `.gitignore` care ignoare fisierele cu extensia `.old` sau `.tmp`.
 
@@ -12200,6 +12406,10 @@ sl			# o animatie cu un trenulet
 	git commit --amend -m "an updated commit message"   # modifica mesajul ultimului commit
 	```
 
+
+
+
+	Comenzi Cheat Sheet GitHub: https://ndpsoftware.com/git-cheatsheet.html#loc=index
 
 
 
@@ -12616,6 +12826,10 @@ Good job!
 
 	git commit --amend -m "an updated commit message"   # modifica mesajul ultimului commit
 	```
+
+
+
+	Comenzi Cheat Sheet GitHub: https://ndpsoftware.com/git-cheatsheet.html#loc=index
 
 
 
@@ -13790,7 +14004,7 @@ $ man uptime
 $ uptime
 $ uptime -p			# uptime
 
-$ man dpkg
+$ man dpkg						# package manager for Debian
 $ dpkg -l | grep -c '^ii'		# Number of Installed Packages (dpkg)
 
 $ snap list
