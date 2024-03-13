@@ -1,0 +1,14 @@
+miercuri 13 martie 2024, 23:07:24 +0200
+up 44 minutes
+Battery 0: Discharging, 54%, 01:48:55 remaining
+Thermal 0: ok, 27.8 degrees C
+CPU
+Core 0:        +53.0°C  (high = +100.0°C, crit = +100.0°C)
+Core 1:        +54.0°C  (high = +100.0°C, crit = +100.0°C)
+Core 2:        +53.0°C  (high = +100.0°C, crit = +100.0°C)
+Core 3:        +53.0°C  (high = +100.0°C, crit = +100.0°C)
+RAM
+               total        used        free      shared  buff/cache   available
+Mem:           7,5Gi       2,9Gi       1,0Gi       482Mi       3,6Gi       3,9Gi
+Swap:          2,0Gi          0B       2,0Gi
+

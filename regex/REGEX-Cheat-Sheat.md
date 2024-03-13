@@ -38,6 +38,7 @@ Caracter	Efect in exprsia regulata (regex)
 
 
 
+
 `\d`    matches a digit
 
 

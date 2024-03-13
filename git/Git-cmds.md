@@ -40,6 +40,9 @@ $ git add --all
 $ git add -A
 $ git rm --cached <file-name>
 $ git reset <file-name>
+
+$ git log	# istoricul commit-urilor
+$ git rest --hard [hash-of-commit]		# revenim la stara unui commit anterior
 ```
 
 
@@ -166,3 +169,8 @@ git log 	#	 pt a verifica istoricul de commituri
 
 git push origin master 		#	 pt a publica commiturile de pe branchul master
 ```
+
+
+
+
+# CTF

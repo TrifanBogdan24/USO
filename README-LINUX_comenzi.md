@@ -414,6 +414,11 @@ ls -l *.jpg 	= 	list jpeg files only
 
 ls -lh <fileName> 	= 	result for file only
 
+
+lsof		= list open files
+
+lsof | awk 'NR==1'
+
 cd <folderName>		= 	change directory (if folder name has spaces use "folderName")
 
 cd / 	= 	go to root
@@ -874,7 +879,14 @@ sudo apt {remove, purge, install, update, upgrade} [-y] [app]
 
 apt search [app]
 
-chmod +[xrw] [app]
+chmod +[rwx] [app]
+chmod -[rwx] [app]
+
+chmod [ugo]+[rwx] [app]
+chmod [ugo]-[rwx] [app]
+
+chmod a-[rwx] [app]
+
 
 kill, killall
 
@@ -893,6 +905,7 @@ free 	=	 pt a vedea memoria disponibila
 
 
 
+sleep infinity		-> ruleaza comanda sleep la infinit
 
 
 
@@ -1360,7 +1373,10 @@ Daca `nu` foloseste `return` functia va intoarce valoarea de retur a ultimei com
 
 
 
+
 # Bash scripting cheatsheet
+
+[Bash Scripting Cheat Sheet](https://devhints.io/bash)
 
 ## Intorduction
 This is a quick efernce to getting started with Bash scripting
@@ -2081,6 +2097,9 @@ $ git add -A
 $ git rm --cached <file-name>
 $ git reset <file-name>
 
+$ git log	# istoricul commit-urilor
+$ git rest --hard [hash-of-commit]		# revenim la starea unui commit anterior
+
 
 
 $ git config --global user.name "John Doe"		# set git name
@@ -2340,7 +2359,15 @@ sudo chmod 744 Characters/    =    read mode
 
 ping -c 5 -i 0.7 elf.cs.pub.ro    =    trimite 5 pachete la 0.7 secunde la site - ul lef.cs.pub.ro
 
-speedtest			testeaza viteza internetului
+
+speedtest					testeaza viteza internetului
+speedtest --simple			testeaza viteza internetului
+
+
+pip3 install speedtest-cli	testeaza viteza internetului
+speedtest-cli				testeaza viteza internetului
+speedtest-cli --simple		testeaza viteza internetului
+
 
 
 ll    =   afiseaza toate fisiere si drepturile utilizatorilor
@@ -2761,7 +2788,7 @@ $ nano  -l colors.sh		# cu -l, liniile vor fi numerotate
 
 
 
-	# DARK YELOOW fereground : \e[33m
+	# DARK YELLOW fereground : \e[33m
 
 	D_YELLOW_ON_BLACK='\e[33;40m'
 	D_YELLOW_ON_WHITE='\e[33;107m'
@@ -3549,709 +3576,9 @@ See something incorrectly described, buggy or outright wrong? Open an issue or s
 
 <br>
 
-# Table of Contents
+## STRINGS
 
-<!-- vim-markdown-toc GFM -->
-
-- [BASIC TERMINAL SHORTCUTS](#basic-terminal-shortcuts)
-- [TERMINAL](#terminal)
-- [MULTIPLEXOARE DE TERMINAL](#multiplexoare-de-terminal)
-	- [TMUX](#tmux)
-	- [ZELLIJ](#zellij)
-- [TEXT EDITORS](#text-editors)
-	- [NANO](#nano)
-	- [VIM](#vim)
-		- [Modes](#modes)
-		- [Exiting Vim](#exiting-vim)
-		- [Movement](#movement)
-		- [Toggling Case](#toggling-case)
-		- [Undo/Redo](#undoredo)
-		- [Search](#search)
-		- [Copy-Pasting](#copy-pasting)
-		- [Find-and-Replace](#find-and-replace)
-		- [Important Regular Expression (REGEX) Characters](#important-regular-expression-regex-characters)
-	- [HELIX](#helix)
-- [TERMINAL NAVIGATION](#terminal-navigation)
-- [FILE MANIPULATON](#file-manipulaton)
-- [RESEARCHING FILES](#researching-files)
-- [EXPRESII REGULATE `REGEX`](#expresii-regulate-regex)
-- [EXTRACT, SORT AND FILTER DATA](#extract-sort-and-filter-data)
-- [AWK COMMAND](#awk-command)
-- [CHEET SHEET](#cheet-sheet)
-- [SHELL Scripting (BASH Scripting)](#shell-scripting-bash-scripting)
-	- [Caractere speciale Bash](#caractere-speciale-bash)
-	- [Rularea unui script Bash](#rularea-unui-script-bash)
-	- [Variabile Bash. Variabile speciale](#variabile-bash-variabile-speciale)
-	- [Instructiune decizionala `if`](#instructiune-decizionala-if)
-	- [Bucle `for`, `while`](#bucle-for-while)
-	- [Definire functii `function`](#definire-functii-function)
-- [Bash scripting cheatsheet](#bash-scripting-cheatsheet)
-	- [Intorduction](#intorduction)
-	- [String quotes](#string-quotes)
-	- [Variables](#variables)
-	- [Example](#example)
-	- [Shell execution](#shell-execution)
-	- [Functions](#functions)
-	- [Strict mode](#strict-mode)
-	- [Conditionals](#conditionals)
-	- [Brace expansion](#brace-expansion)
-	- [Parameter Exppansions](#parameter-exppansions)
-		- [Basics](#basics)
-		- [Substrings (slicing)](#substrings-slicing)
-		- [Length](#length)
-		- [Default values](#default-values)
-		- [PRefix name expansion](#prefix-name-expansion)
-		- [Indirection](#indirection)
-		- [Substitution](#substitution)
-		- [Comments](#comments)
-		- [Manipulation](#manipulation)
-	- [Loops](#loops)
-		- [Basic `for` loop](#basic-for-loop)
-		- [Ranges](#ranges)
-		- [C-like `for` loop](#c-like-for-loop)
-		- [Reading lines](#reading-lines)
-		- [Forever](#forever)
-	- [Functions](#functions-1)
-		- [Defining functions](#defining-functions)
-		- [Arguments](#arguments)
-		- [Returning values](#returning-values)
-		- [Raising errors](#raising-errors)
-	- [Conditionals](#conditionals-1)
-- [Conditions](#conditions)
-	- [Fill conditions](#fill-conditions)
-	- [Example](#example-1)
-	- [Arrays](#arrays)
-		- [Defining arrays](#defining-arrays)
-		- [Operations](#operations)
-		- [Worling with arrays](#worling-with-arrays)
-		- [Iteration](#iteration)
-	- [Dictionaries](#dictionaries)
-		- [Defining a dictionary](#defining-a-dictionary)
-		- [Working with dictionaries](#working-with-dictionaries)
-		- [Iteration](#iteration-1)
-	- [Options](#options)
-		- [Options](#options-1)
-		- [Glob options](#glob-options)
-	- [History](#history)
-		- [Commands History](#commands-history)
-- [GIT](#git)
-	- [GIT CONFIGURATIONS](#git-configurations)
-	- [GIT STARTING A REPOSITORY](#git-starting-a-repository)
-	- [GIT STAGING FILES](#git-staging-files)
-	- [GIT COMMITTING TO A REPOSITORY](#git-committing-to-a-repository)
-	- [GIT BRANCHING](#git-branching)
-	- [OTHERS](#others)
-	- [ACCCESS TOKENS](#acccess-tokens)
-- [OTHER COMMANDS](#other-commands)
-- [OTHER COMMANDS](#other-commands-1)
-- [LEETCODE](#leetcode)
-	- [193. Valid Phone Number](#193-valid-phone-number)
-	- [195. Tenth line](#195-tenth-line)
-	- [195.  Tenth Line](#195--tenth-line)
-- [APLICATII](#aplicatii)
-- [CONFIGURARE VIZUALA (VARIABILA DE MEDIU `PS1`)](#configurare-vizuala-variabila-de-mediu-ps1)
-- [CONFIGURARE VIZUALA (LS)](#configurare-vizuala-ls)
-- [PURE SH BIBLE](#pure-sh-bible)
-- [Table of Contents](#table-of-contents)
-- [STRINGS](#strings)
-	- [Strip pattern from start of string](#strip-pattern-from-start-of-string)
-	- [Strip pattern from end of string](#strip-pattern-from-end-of-string)
-	- [Trim leading and trailing white-space from string](#trim-leading-and-trailing-white-space-from-string)
-	- [Trim all white-space from string and truncate spaces](#trim-all-white-space-from-string-and-truncate-spaces)
-	- [Check if string contains a sub-string](#check-if-string-contains-a-sub-string)
-	- [Check if string starts with sub-string](#check-if-string-starts-with-sub-string)
-	- [Check if string ends with sub-string](#check-if-string-ends-with-sub-string)
-	- [Split a string on a delimiter](#split-a-string-on-a-delimiter)
-	- [Trim quotes from a string](#trim-quotes-from-a-string)
-- [FILES](#files)
-	- [Parsing a `key=val` file.](#parsing-a-keyval-file)
-	- [Get the first N lines of a file](#get-the-first-n-lines-of-a-file)
-	- [Get the number of lines in a file](#get-the-number-of-lines-in-a-file)
-	- [Count files or directories in directory](#count-files-or-directories-in-directory)
-	- [Create an empty file](#create-an-empty-file)
-- [FILE PATHS](#file-paths)
-	- [Get the directory name of a file path](#get-the-directory-name-of-a-file-path)
-	- [Get the base-name of a file path](#get-the-base-name-of-a-file-path)
-- [LOOPS](#loops-1)
-	- [Loop over a (*small*) range of numbers](#loop-over-a-small-range-of-numbers)
-	- [Loop over a variable range of numbers](#loop-over-a-variable-range-of-numbers)
-	- [Loop over the contents of a file](#loop-over-the-contents-of-a-file)
-	- [Loop over files and directories](#loop-over-files-and-directories)
-- [VARIABLES](#variables-1)
-	- [Name and access a variable based on another variable](#name-and-access-a-variable-based-on-another-variable)
-- [ESCAPE SEQUENCES](#escape-sequences)
-	- [Text Colors](#text-colors)
-	- [Text Attributes](#text-attributes)
-	- [Cursor Movement](#cursor-movement)
-	- [Erasing Text](#erasing-text)
-- [PARAMETER EXPANSION](#parameter-expansion)
-	- [Prefix and Suffix Deletion](#prefix-and-suffix-deletion)
-	- [Length](#length-1)
-	- [Default Value](#default-value)
-- [CONDITIONAL EXPRESSIONS](#conditional-expressions)
-	- [File Conditionals](#file-conditionals)
-	- [Variable Conditionals](#variable-conditionals)
-	- [Variable Comparisons](#variable-comparisons)
-- [ARITHMETIC OPERATORS](#arithmetic-operators)
-	- [Assignment](#assignment)
-	- [Arithmetic](#arithmetic)
-	- [Bitwise](#bitwise)
-	- [Logical](#logical)
-	- [Miscellaneous](#miscellaneous)
-- [ARITHMETIC](#arithmetic-1)
-	- [Ternary Tests](#ternary-tests)
-	- [Check if a number is a float](#check-if-a-number-is-a-float)
-	- [Check if a number is an integer](#check-if-a-number-is-an-integer)
-- [TRAPS](#traps)
-	- [Do something on script exit](#do-something-on-script-exit)
-	- [Ignore terminal interrupt (CTRL+C, SIGINT)](#ignore-terminal-interrupt-ctrlc-sigint)
-- [OBSOLETE SYNTAX](#obsolete-syntax)
-	- [Command Substitution](#command-substitution)
-- [INTERNAL AND ENVIRONMENT VARIABLES](#internal-and-environment-variables)
-	- [Open the user's preferred text editor](#open-the-users-preferred-text-editor)
-	- [Get the current working directory](#get-the-current-working-directory)
-	- [Get the PID of the current shell](#get-the-pid-of-the-current-shell)
-	- [Get the current shell options](#get-the-current-shell-options)
-- [AFTERWORD](#afterword)
-- [PC POWER / ENERGY MANAGEMENT COMMANDS](#pc-power--energy-management-commands)
-- [ENVIRONMENT VARIABLES](#environment-variables)
-	- [DATE (environment variable)](#date-environment-variable)
-	- [HISTORY (environment variables)](#history-environment-variables)
-- [LABORATOARE](#laboratoare)
-- [VARIANTE](#variante)
-	- [VARIANTA 60](#varianta-60)
-		- [1 (a) Creati urmatoarea ierarhie de directoare  si fisiere:](#1-a-creati-urmatoarea-ierarhie-de-directoare--si-fisiere)
-		- [1 (b) Mutati fisierele `The Flinstons.avi` si `The Flinstons.srt` in directorul `Cartoons`.](#1-b-mutati-fisierele-the-flinstonsavi-si-the-flinstonssrt-in-directorul-cartoons)
-		- [1 (c)  Stergeti directorul `Social Networks` din ierarhia de fisiere](#1-c--stergeti-directorul-social-networks-din-ierarhia-de-fisiere)
-		- [1 (d) Creati in cadrul directorului `Desktop` o legatura simbolica numita `Desene` catre directorul `Cartoons`.](#1-d-creati-in-cadrul-directorului-desktop-o-legatura-simbolica-numita-desene-catre-directorul-cartoons)
-		- [2 (a) Creati utilizatorul `blossom`.](#2-a-creati-utilizatorul-blossom)
-		- [2 (b) Faceti modificarile necesare astfel directorul home al utilizatorul `blossom` sa fie `/home/irls/blossom`.](#2-b-faceti-modificarile-necesare-astfel-directorul-home-al-utilizatorul-blossom-sa-fie-homeirlsblossom)
-		- [2 (c) Afisati, pentru fiecare utilizator din sistem, numele si shell-ul implicit al acestora.](#2-c-afisati-pentru-fiecare-utilizator-din-sistem-numele-si-shell-ul-implicit-al-acestora)
-		- [2 (d)  Afisati numarul de utilizatori din sistem care au `/bin/false` configurat ca shell implicit.](#2-d--afisati-numarul-de-utilizatori-din-sistem-care-au-binfalse-configurat-ca-shell-implicit)
-		- [3 (a) Afisati adresa IP corespunzatoare adresei web `alf.cs.pub.ro`.](#3-a-afisati-adresa-ip-corespunzatoare-adresei-web-alfcspubro)
-		- [3 (b) Trimiteti 7 pachete catre `mamba.cs.pub.ro`.](#3-b-trimiteti-7-pachete-catre-mambacspubro)
-		- [3 (c) Afisati gateway-ul implicit configurat pe sistem.](#3-c-afisati-gateway-ul-implicit-configurat-pe-sistem)
-		- [3 (d) Aisati adresa IP configurata pe interfata `ens3`.](#3-d-aisati-adresa-ip-configurata-pe-interfata-ens3)
-		- [4 (a) Clonati repository-ul de git de la adresa `https://github.com/AlexFazakas/var60`. In cadrul acestui repository veti gasi un fisier numit `main.c`.](#4-a-clonati-repository-ul-de-git-de-la-adresa-httpsgithubcomalexfazakasvar60-in-cadrul-acestui-repository-veti-gasi-un-fisier-numit-mainc)
-		- [4 (b) In interiorul acestui repository, creati un fisier `Makefile` care contine oregula numita `buid` care compileaza fisierul `main.c` intr-un executabil numit `main`.](#4-b-in-interiorul-acestui-repository-creati-un-fisier-makefile-care-contine-oregula-numita-buid-care-compileaza-fisierul-mainc-intr-un-executabil-numit-main)
-		- [4 (c) Adaugati fisierului `Makefile` creat anterior o regula numita `clean` care sterge fisierul `main`, rezultat in ruma rularii regulii `build`.](#4-c-adaugati-fisierului-makefile-creat-anterior-o-regula-numita-clean-care-sterge-fisierul-main-rezultat-in-ruma-rularii-regulii-build)
-		- [4 (d) Creati un commit nout care sa contina noul fisier `Makefile` cu mesajul `Makefile nou`.](#4-d-creati-un-commit-nout-care-sa-contina-noul-fisier-makefile-cu-mesajul-makefile-nou)
-		- [5 (a) Instalati utilitarul `cowsay`.](#5-a-instalati-utilitarul-cowsay)
-		- [5 (b) Folosind utilitarul `cowsay`, formatati textul `USO rulz!` folosind o forma de dragon. `Hint!` cautati sirul de caractere `-f` in cadrul paginii de manual al utilitarului `cowsay`.](#5-b-folosind-utilitarul-cowsay-formatati-textul-uso-rulz-folosind-o-forma-de-dragon-hint-cautati-sirul-de-caractere--f-in-cadrul-paginii-de-manual-al-utilitarului-cowsay)
-		- [5 (c) Creati un alias numit `dragonsay` care sa afiseze textul primit ca argument folosind o froma de dragon.](#5-c-creati-un-alias-numit-dragonsay-care-sa-afiseze-textul-primit-ca-argument-folosind-o-froma-de-dragon)
-		- [5 (d) Creati in directorul home al utilizatorului `student` un fisier numit `uso_5d` care are dimensiunea 420 K contine numai octeti aleatori.](#5-d-creati-in-directorul-home-al-utilizatorului-student-un-fisier-numit-uso_5d-care-are-dimensiunea-420-k-contine-numai-octeti-aleatori)
-		- [6 (a) Afisati toti utilizatorii din sistem, ordonati dupa numele de utilizator in ordine lexicografica.](#6-a-afisati-toti-utilizatorii-din-sistem-ordonati-dupa-numele-de-utilizator-in-ordine-lexicografica)
-		- [6 (b) Scrieti un one-liner care afiseaza ultimele 3 comenzi rulate in shell-ul curent. `Hint!` `man history`.](#6-b-scrieti-un-one-liner-care-afiseaza-ultimele-3-comenzi-rulate-in-shell-ul-curent-hint-man-history)
-		- [6 (c) Porniti procesul `slepp 1000` in background si afisati PID - ul acestuia.](#6-c-porniti-procesul-slepp-1000-in-background-si-afisati-pid---ul-acestuia)
-		- [6 (d) Trimiteti semnalul `SIGQUIT` catre procesul creat la subpunctul anterior.](#6-d-trimiteti-semnalul-sigquit-catre-procesul-creat-la-subpunctul-anterior)
-	- [VARIANTA 61](#varianta-61)
-		- [1 (a) Creati urmatoarea ierarhie de directoare si fisiere:](#1-a-creati-urmatoarea-ierarhie-de-directoare-si-fisiere)
-		- [1 (b) Afisati dimensiunea utilitarului `tree`.](#1-b-afisati-dimensiunea-utilitarului-tree)
-		- [1 (c) Listati sub forma arborescenta ierarhia de fisiere din directorul `Comedies` si  redirectati output-ul intr-un fisier numit `database.txt`.](#1-c-listati-sub-forma-arborescenta-ierarhia-de-fisiere-din-directorul-comedies-si--redirectati-output-ul-intr-un-fisier-numit-databasetxt)
-		- [1 (d) Mutati toate fisierele din directorul `Friends` in cadrul directorului `Sheldon` printr-o singura comanda.](#1-d-mutati-toate-fisierele-din-directorul-friends-in-cadrul-directorului-sheldon-printr-o-singura-comanda)
-		- [2 (a) Afisati PID-ul shell-ului curent.](#2-a-afisati-pid-ul-shell-ului-curent)
-		- [2 (b) Afisati numarul de procese pornite de catre utilizatorul `root`.](#2-b-afisati-numarul-de-procese-pornite-de-catre-utilizatorul-root)
-		- [2 (c) Scrieti un one-liner care extrage PID-ul, comanda care a pornit procesul, utilizatorul si procentul de procesor utilizat pentur fiecare proces pornit in sistem.](#2-c-scrieti-un-one-liner-care-extrage-pid-ul-comanda-care-a-pornit-procesul-utilizatorul-si-procentul-de-procesor-utilizat-pentur-fiecare-proces-pornit-in-sistem)
-		- [2 (d) Afisati procesele din sistem care il au ca parinte pe procesul cu PID-ul 1.](#2-d-afisati-procesele-din-sistem-care-il-au-ca-parinte-pe-procesul-cu-pid-ul-1)
-		- [3 (a) Creatii utilizatorii `zeus` si `poseidon`.](#3-a-creatii-utilizatorii-zeus-si-poseidon)
-		- [3 (b) Creati grupul `gods` si adaugati la acesta utilizatorii creati la subpunctul anterior.](#3-b-creati-grupul-gods-si-adaugati-la-acesta-utilizatorii-creati-la-subpunctul-anterior)
-		- [3 (c) Faceti modificarile necesare astfel incat utilizatorul `poseidon` sa nu se poata autentifica. `Hint!` `man usermod`.](#3-c-faceti-modificarile-necesare-astfel-incat-utilizatorul-poseidon-sa-nu-se-poata-autentifica-hint-man-usermod)
-		- [3 (d) Scrieti un one-liner care afiseaza mesajul `Yes` daca utilizatorul `hermes` exit in sistem, altfel afiseaza mesajul `No`.](#3-d-scrieti-un-one-liner-care-afiseaza-mesajul-yes-daca-utilizatorul-hermes-exit-in-sistem-altfel-afiseaza-mesajul-no)
-		- [4. Rulatti comanda `wget http://elf.cs.pub.ro/uso/res/midterm/61/var61.zip` pentru a descarca o arhiva cu fisiere sursa. Dezarhivati-o folosind `unzip var61.zip`.](#4-rulatti-comanda-wget-httpelfcspubrousoresmidterm61var61zip-pentru-a-descarca-o-arhiva-cu-fisiere-sursa-dezarhivati-o-folosind-unzip-var61zip)
-		- [4 (a) Adaugati in fisierul `Makefile` o regula numita run care ruleaza executabilul obtinut in urma rularii regulii build si redirecteaza output-ul acestuia in fisierul `surprise.log`.](#4-a-adaugati-in-fisierul-makefile-o-regula-numita-run-care-ruleaza-executabilul-obtinut-in-urma-rularii-regulii-build-si-redirecteaza-output-ul-acestuia-in-fisierul-surpriselog)
-		- [4 (b) Mutati fisierele `surprise.c` si `Makefile` intr-un nou director numit `just_hello`. Initializati un repository de git in acest director.](#4-b-mutati-fisierele-surprisec-si-makefile-intr-un-nou-director-numit-just_hello-initializati-un-repository-de-git-in-acest-director)
-		- [4 (c) Faceti modificarile necesare in repository-ul creat la subpunctul anterior astfel incat fisierul `surprise.log` sa fie ignorat la comiterea schimbarilor.](#4-c-faceti-modificarile-necesare-in-repository-ul-creat-la-subpunctul-anterior-astfel-incat-fisierul-surpriselog-sa-fie-ignorat-la-comiterea-schimbarilor)
-		- [4 (d) Creati un comit nou care sa contina toate fisierele relevante din directorul `just_hello`. Folositi mesajul `Makefile nou`.](#4-d-creati-un-comit-nou-care-sa-contina-toate-fisierele-relevante-din-directorul-just_hello-folositi-mesajul-makefile-nou)
-		- [5 Rulati comanda `wget http://elf.cs.pub.ro/uso/res/midterm/61/poems.txt` pentru a descarca fisierul `poems.txt`.](#5-rulati-comanda-wget-httpelfcspubrousoresmidterm61poemstxt-pentru-a-descarca-fisierul-poemstxt)
-		- [5 (a) Afisati liniile din fisierul `poems.txt` care nu contin sirul de caractere `GARBAGE`.](#5-a-afisati-liniile-din-fisierul-poemstxt-care-nu-contin-sirul-de-caractere-garbage)
-		- [5 (b) Afisati numarul de aparitii ale sirului de caractere `William Shakespeare` din fisierul `poems.txt`.](#5-b-afisati-numarul-de-aparitii-ale-sirului-de-caractere-william-shakespeare-din-fisierul-poemstxt)
-		- [5 (c) Afisati numarul de linii unice din fisierul `poems.txt`.](#5-c-afisati-numarul-de-linii-unice-din-fisierul-poemstxt)
-		- [5 (d) Afisati toate fisierele cu extenstia ".conf" din directorul "/etc" fara sa fie afisate mesaje de eroare.](#5-d-afisati-toate-fisierele-cu-extenstia-conf-din-directorul-etc-fara-sa-fie-afisate-mesaje-de-eroare)
-		- [6 (a) Afisati TOATE fisierele din ierarhia "/home/student".](#6-a-afisati-toate-fisierele-din-ierarhia-homestudent)
-		- [6 (b) Scrieti un one-liner care sa afiseze memoria RAM folosita de sistem in format human-readable.](#6-b-scrieti-un-one-liner-care-sa-afiseze-memoria-ram-folosita-de-sistem-in-format-human-readable)
-		- [6 (c) Scrieti un one-liner care genereaza un sir de 16 caractere alfanumerice aleatoare.](#6-c-scrieti-un-one-liner-care-genereaza-un-sir-de-16-caractere-alfanumerice-aleatoare)
-		- [6 (d) Creati un alias numit genpass care sa genereze o parola de 16 caractere alfanumerice aleatoare.](#6-d-creati-un-alias-numit-genpass-care-sa-genereze-o-parola-de-16-caractere-alfanumerice-aleatoare)
-	- [VARIANTA 62](#varianta-62)
-		- [1 (a) Creati urmatoarea ierarhie de directoare si fisiere](#1-a-creati-urmatoarea-ierarhie-de-directoare-si-fisiere-1)
-		- [1 (b) Mutati directorul `d e f` in cadrul directorului `abc`.](#1-b-mutati-directorul-d-e-f-in-cadrul-directorului-abc)
-		- [1 (c) Stergeti directoul `def`.](#1-c-stergeti-directoul-def)
-		- [1 (d) Afisati DOAR utilizatorul si grupul care detin fisierul `c`.](#1-d-afisati-doar-utilizatorul-si-grupul-care-detin-fisierul-c)
-		- [2 (a) Afisati PID-ul shell-ului curent.](#2-a-afisati-pid-ul-shell-ului-curent-1)
-		- [2 (b) Afisati TOATE procesele de pe sistem sub forma arborescenta.](#2-b-afisati-toate-procesele-de-pe-sistem-sub-forma-arborescenta)
-		- [2 (c) Afisati toate procesele din sistem so ordonati-le descrescator dipa procentul de memorie folosit.](#2-c-afisati-toate-procesele-din-sistem-so-ordonati-le-descrescator-dipa-procentul-de-memorie-folosit)
-		- [2 (d) Afisati, pentru fiecare proces al utilizatorului `root`, urmatoarele atribute: PID-ul, PPID-ul, comanda cu care a fost pronit si procentul de memorie pe care il consuma.](#2-d-afisati-pentru-fiecare-proces-al-utilizatorului-root-urmatoarele-atribute-pid-ul-ppid-ul-comanda-cu-care-a-fost-pronit-si-procentul-de-memorie-pe-care-il-consuma)
-		- [3 (a) Afisati toate intrarile din fisierul `/etc/shadow` care contin sirul de caractere `99999`.](#3-a-afisati-toate-intrarile-din-fisierul-etcshadow-care-contin-sirul-de-caractere-99999)
-		- [3 (b) Afisati fiecare utilizator al carui nume incepe cu caracterul `s`.](#3-b-afisati-fiecare-utilizator-al-carui-nume-incepe-cu-caracterul-s)
-		- [3 (c) Afisati numarul de caractere din fisierul `/etc/group`.](#3-c-afisati-numarul-de-caractere-din-fisierul-etcgroup)
-		- [3 (d) Afisati numarul grupurilor de pe sistem al caror nume incepe cu caracterul `a`.](#3-d-afisati-numarul-grupurilor-de-pe-sistem-al-caror-nume-incepe-cu-caracterul-a)
-		- [4 (a) Creati grupul `valorant`.](#4-a-creati-grupul-valorant)
-		- [4 (b) Creati utilizatorul `killjoy` care face parte din grupul `valorant`.](#4-b-creati-utilizatorul-killjoy-care-face-parte-din-grupul-valorant)
-		- [4 (c) Faceti modificarile necesare astfel incat directorul home al utilizatorului "killjoy" sa fie "/home/ascent/killjoy".](#4-c-faceti-modificarile-necesare-astfel-incat-directorul-home-al-utilizatorului-killjoy-sa-fie-homeascentkilljoy)
-		- [4 (d) Afisati data si ora ultimei autentificari a utilizatorului `student`.](#4-d-afisati-data-si-ora-ultimei-autentificari-a-utilizatorului-student)
-		- [`Hint!` `man last`.](#hint-man-last)
-		- [5 (a) Instalati utilitarul `cowsay`".](#5-a-instalati-utilitarul-cowsay-1)
-		- [5 (b) Clonati repository-ul de la adresa "https://github.com/AlexFazakas/var62".](#5-b-clonati-repository-ul-de-la-adresa-httpsgithubcomalexfazakasvar62)
-		- [5 (c) Adaugati regula `clean` in fisierul `Makefile` care sterge fisierele create in urma rularii regulii `build`.](#5-c-adaugati-regula-clean-in-fisierul-makefile-care-sterge-fisierele-create-in-urma-rularii-regulii-build)
-		- [5 (d) Adaugati regula `runred` in fisierul `Makefile` care ruleaza executabilul creat in urma rularii regulii `build` si formateaza mesajul afisat folosind utilitarul `cowsay`.](#5-d-adaugati-regula-runred-in-fisierul-makefile-care-ruleaza-executabilul-creat-in-urma-rularii-regulii-build-si-formateaza-mesajul-afisat-folosind-utilitarul-cowsay)
-		- [6 (a) Creati un fisier gol denumit `the_empty` si copiati-l in directorul home al utilizatorului vostru de pe statia de la adresa `fep.grid.pub.ro`.](#6-a-creati-un-fisier-gol-denumit-the_empty-si-copiati-l-in-directorul-home-al-utilizatorului-vostru-de-pe-statia-de-la-adresa-fepgridpubro)
-		- [6 (b) Generati o pereche de chei SSH.](#6-b-generati-o-pereche-de-chei-ssh)
-		- [6 (c) Realizati modificarile necesare astfel incat autentificarea cu utilizatorul vostru pe statia de la adresa `fep.grid.pub.ro`.](#6-c-realizati-modificarile-necesare-astfel-incat-autentificarea-cu-utilizatorul-vostru-pe-statia-de-la-adresa-fepgridpubro)
-		- [6 (d) Scrieti un one-liner care sa ruleze comanda `ls` in cadrul directorului home al utilizatorului vostru de pe statia de la adresa `fep.grid.pub.ro`.](#6-d-scrieti-un-one-liner-care-sa-ruleze-comanda-ls-in-cadrul-directorului-home-al-utilizatorului-vostru-de-pe-statia-de-la-adresa-fepgridpubro)
-	- [VARIANTA 63](#varianta-63)
-		- [1 (a) Creati urmatoare ierahie de directoare si fisiere.](#1-a-creati-urmatoare-ierahie-de-directoare-si-fisiere)
-		- [1 (b) Mutati fisierul "Kevin Hart" in cadrul directorului "Actors".](#1-b-mutati-fisierul-kevin-hart-in-cadrul-directorului-actors)
-		- [1 (c) Stergeti directorul "Genre".](#1-c-stergeti-directorul-genre)
-		- [1 (d) Creati doua fisiere ascunce care sa contina in numele lor sirurile de caractere "find\_me" si "i\_am\_ghost".](#1-d-creati-doua-fisiere-ascunce-care-sa-contina-in-numele-lor-sirurile-de-caractere-find_me-si-i_am_ghost)
-		- [2 (a) Creati utilizatorii "einstein" si "edison".](#2-a-creati-utilizatorii-einstein-si-edison)
-		- [2 (b) Creait grupul `science` si aduagati in acesta utlizatorii creati la subpunctul anterior.](#2-b-creait-grupul-science-si-aduagati-in-acesta-utlizatorii-creati-la-subpunctul-anterior)
-		- [2 (c) Instalati utilitarul "traceroute".](#2-c-instalati-utilitarul-traceroute)
-		- [2 (d) Aflati numarul total de hop-uri pana la adresa `elf.cs.pub.ro` si redirectionati raspunsul la fisierul `hops.txt`.](#2-d-aflati-numarul-total-de-hop-uri-pana-la-adresa-elfcspubro-si-redirectionati-raspunsul-la-fisierul-hopstxt)
-		- [3 (a) Afisati numele modelului procesorului de pe sistem intr-un fisier numit `mycpu`.](#3-a-afisati-numele-modelului-procesorului-de-pe-sistem-intr-un-fisier-numit-mycpu)
-		- [3 (b) Scrieti un one-liner care sa afiseaza DOAR ora curenta in format 0-24h.](#3-b-scrieti-un-one-liner-care-sa-afiseaza-doar-ora-curenta-in-format-0-24h)
-		- [3 (c) Afisati toate procesle care `nu` au fost lansate in executie de utilizatorul `student`. Hint! cautati `-N` in pagina de manual a comenzii `ps`.](#3-c-afisati-toate-procesle-care-nu-au-fost-lansate-in-executie-de-utilizatorul-student-hint-cautati--n-in-pagina-de-manual-a-comenzii-ps)
-		- [3 (d) Afisati toate procele de pe sistem, ordonate crescator dupa consuuml de memorie rezidenta.](#3-d-afisati-toate-procele-de-pe-sistem-ordonate-crescator-dupa-consuuml-de-memorie-rezidenta)
-		- [4 (a) Clonati repository-ul de la adresa `https://github.com/AlexFazakas/var63`.](#4-a-clonati-repository-ul-de-la-adresa-httpsgithubcomalexfazakasvar63)
-		- [4 (b) Creati fisireul `Makefile` si scrieti o regula `prepare` care creaza un director numit `prep`.](#4-b-creati-fisireul-makefile-si-scrieti-o-regula-prepare-care-creaza-un-director-numit-prep)
-		- [4 (c) Extindeti fisierul `Makefile` creat anterior cu regula `build` care compileaz fisierul sursa `program.c`.](#4-c-extindeti-fisierul-makefile-creat-anterior-cu-regula-build-care-compileaz-fisierul-sursa-programc)
-		- [4 (d) Extidenti fisierul `Makefile` creat anterior cu regula `install` care copiaza in directorul `usr/bin/` executabilul obintinut in urma rularii regulii `build`.](#4-d-extidenti-fisierul-makefile-creat-anterior-cu-regula-install-care-copiaza-in-directorul-usrbin-executabilul-obintinut-in-urma-rularii-regulii-build)
-		- [5 (a) Afisati numarul de cuvinte din fisierul `/etc/passwd`.](#5-a-afisati-numarul-de-cuvinte-din-fisierul-etcpasswd)
-		- [5 (b) Afisati DOAR dimensiunea fisierului `/etc/passwd` in format human-readable.](#5-b-afisati-doar-dimensiunea-fisierului-etcpasswd-in-format-human-readable)
-		- [5 (c) Scrieti un one-liner care genereaza o parola formatata din 40 de cifre aleatoare.](#5-c-scrieti-un-one-liner-care-genereaza-o-parola-formatata-din-40-de-cifre-aleatoare)
-		- [5 (d) Creati un fisier numit `masterpiece.txt` care sa contina 1024 de linii cu continutul `Make each day your masterpiece`.](#5-d-creati-un-fisier-numit-masterpiecetxt-care-sa-contina-1024-de-linii-cu-continutul-make-each-day-your-masterpiece)
-		- [6 (a) Afisati locatia utilitarului `pwd`.](#6-a-afisati-locatia-utilitarului-pwd)
-		- [6 (b) Afisati intreaga ierarhie de fisiere din directorul home al utilizatorului `student`.](#6-b-afisati-intreaga-ierarhie-de-fisiere-din-directorul-home-al-utilizatorului-student)
-		- [6 (c) Afisati toate fisierele cu extensia `.log` din directorul `/var/log`.](#6-c-afisati-toate-fisierele-cu-extensia-log-din-directorul-varlog)
-		- [6 (d) Afisati in format human-readable dimensiunea totala a directorului `/var/log`.](#6-d-afisati-in-format-human-readable-dimensiunea-totala-a-directorului-varlog)
-	- [VARIANTA 68](#varianta-68)
-		- [1 (a) Creati urmatoarea ierarhie de directoare si fisiere.](#1-a-creati-urmatoarea-ierarhie-de-directoare-si-fisiere-2)
-		- [1 (b) Mutati directorul `Bojack Horseman` in cadrul directorului `Dark`.](#1-b-mutati-directorul-bojack-horseman-in-cadrul-directorului-dark)
-		- [1 (c) Stergeti directorul `Friends`.](#1-c-stergeti-directorul-friends)
-		- [1 (d) Redenumiti fisierul `Ross` in `Joey`.](#1-d-redenumiti-fisierul-ross-in-joey)
-		- [2 (a) Afisati toate procesel pornite de utilizatorul `root`.](#2-a-afisati-toate-procesel-pornite-de-utilizatorul-root)
-		- [2 (b) Porniti comanda `sleep` pentru 3000 de secunde si treceti procesul razultat in background.](#2-b-porniti-comanda-sleep-pentru-3000-de-secunde-si-treceti-procesul-razultat-in-background)
-		- [2 (c) Afisati PID-ul procesului pornit la subpunctul anterior.](#2-c-afisati-pid-ul-procesului-pornit-la-subpunctul-anterior)
-		- [2 (d) Opriti procesul `sleep` lansat anterior in executie.](#2-d-opriti-procesul-sleep-lansat-anterior-in-executie)
-		- [3 (a) Afisati adresa IP corespunzatoare adresei web `koala.cs.pub.ro`.](#3-a-afisati-adresa-ip-corespunzatoare-adresei-web-koalacspubro)
-		- [3 (b) Adaugati in sistem utilizatorii `brad` si `leo`.](#3-b-adaugati-in-sistem-utilizatorii-brad-si-leo)
-		- [3 (c) Faceti modificariel necesare astfel incat directorul home al utilizatorului `brad` sa ife `/home/actors/brad`.](#3-c-faceti-modificariel-necesare-astfel-incat-directorul-home-al-utilizatorului-brad-sa-ife-homeactorsbrad)
-		- [3 (d) Afisati data si ora ultimei autentificari a utilizatorului `student`.](#3-d-afisati-data-si-ora-ultimei-autentificari-a-utilizatorului-student)
-		- [`Hint!` `man last`.](#hint-man-last-1)
-		- [4 (a) Instalati utilitarele `cowsay` si `fortune`.](#4-a-instalati-utilitarele-cowsay-si-fortune)
-		- [4 (b) Aficati locatia utilitarului `fortune`.](#4-b-aficati-locatia-utilitarului-fortune)
-		- [4 (c) Formatati folosind `cowsay` un mesaj generat de `fortune`.](#4-c-formatati-folosind-cowsay-un-mesaj-generat-de-fortune)
-		- [4 (d) Dezinstalati utilitarele `cowsay` si `fortune`.](#4-d-dezinstalati-utilitarele-cowsay-si-fortune)
-		- [5 (a) Clonati repository-ul de la adresa `https://github.com/AlexFazakas/var68`.](#5-a-clonati-repository-ul-de-la-adresa-httpsgithubcomalexfazakasvar68)
-		- [5 (b) Compilati fisierul sursa `hello.c` intr-un executabil numit `hello`.](#5-b-compilati-fisierul-sursa-helloc-intr-un-executabil-numit-hello)
-		- [5 (c) Creati un nou commit, ce contine fisierul creat cu mesajul `Adaug executabilul`.](#5-c-creati-un-nou-commit-ce-contine-fisierul-creat-cu-mesajul-adaug-executabilul)
-		- [5 (d) Afisati lista tuturor commit-urilor.](#5-d-afisati-lista-tuturor-commit-urilor)
-		- [6 (a) Listati toti utilizatorii care au configurat ca shell implicit `/bin/bash`.](#6-a-listati-toti-utilizatorii-care-au-configurat-ca-shell-implicit-binbash)
-		- [6 (b) Scrieti de `500` de ori propozitia `Knock, knock! Who's there?` intr-un fisier numit `joke`.](#6-b-scrieti-de-500-de-ori-propozitia-knock-knock-whos-there-intr-un-fisier-numit-joke)
-		- [6 (c) Afisati dimensiunea fisierului `/etc/passwd`.](#6-c-afisati-dimensiunea-fisierului-etcpasswd)
-		- [6 (d) Afisati ultimele 10 comenzi rulate. `Hint!` `man history`.](#6-d-afisati-ultimele-10-comenzi-rulate-hint-man-history)
-	- [VARIANTA 103](#varianta-103)
-		- [1 (a) Creati urmatoarea structura de directoare si fisiere.](#1-a-creati-urmatoarea-structura-de-directoare-si-fisiere)
-		- [1 (b) Adaugati in sistem utilizatorii `north` si `luther`.](#1-b-adaugati-in-sistem-utilizatorii-north-si-luther)
-		- [1 (c) Modificati directorul home al utilizatorului `luther` in `home/zlatko` si parola utilizatorului `north` in `jericho`.](#1-c-modificati-directorul-home-al-utilizatorului-luther-in-homezlatko-si-parola-utilizatorului-north-in-jericho)
-		- [1 (d) Creati in directorul `Models` o legatura simbloica ascunsa catre fisierul `Connor` din directorul `CyberLife`. Numele legaturii trebuie sa contina sirul de caractere `RK800`.](#1-d-creati-in-directorul-models-o-legatura-simbloica-ascunsa-catre-fisierul-connor-din-directorul-cyberlife-numele-legaturii-trebuie-sa-contina-sirul-de-caractere-rk800)
-		- [2 (a) Testati conectivitatea la `elf.cs.pub.ro` prin trimiterea a `5` pachete la interval de `0.7` secunde.](#2-a-testati-conectivitatea-la-elfcspubro-prin-trimiterea-a-5-pachete-la-interval-de-07-secunde)
-		- [2 (b) Scrieti script-ul `2b.sh` care afiseaza doar numarul de hop-uri pana la o adreasa primita ca parametru.](#2-b-scrieti-script-ul-2bsh-care-afiseaza-doar-numarul-de-hop-uri-pana-la-o-adreasa-primita-ca-parametru)
-		- [2 (c) Scrieti `doar` adresele `IPv4` de pe toate interfetele de retea ale sistemului intr-un fisier numit `adrese.txt`.](#2-c-scrieti-doar-adresele-ipv4-de-pe-toate-interfetele-de-retea-ale-sistemului-intr-un-fisier-numit-adresetxt)
-		- [2 (d) Copiati fisierul creat anterior in directorul `home` al utilizatorului `student` de pe statia de la adresa `172.17.0.2`.](#2-d-copiati-fisierul-creat-anterior-in-directorul-home-al-utilizatorului-student-de-pe-statia-de-la-adresa-1721702)
-		- [3 (a) Descarati si dezarhivati arhiva de la adresa `elf.cs.pub.ro/uso/res/final/20-ian/ex3.zip`.](#3-a-descarati-si-dezarhivati-arhiva-de-la-adresa-elfcspubrousoresfinal20-ianex3zip)
-		- [3 (b) Afisati continutul fisierul `airports.csv`, sortat numeric dupa a 4-a coloana.](#3-b-afisati-continutul-fisierul-airportscsv-sortat-numeric-dupa-a-4-a-coloana)
-		- [3 (c) Screit un script care afiseaza doar ultima coloana dintr-un fisier `.csv` primit ca argument.](#3-c-screit-un-script-care-afiseaza-doar-ultima-coloana-dintr-un-fisier-csv-primit-ca-argument)
-		- [`Nota:` Scriptul trebuie sa functioneaza cu orice fisier, indiferent de numarul de coloane. Testati cu cele 2 fisiere dezarhivate anterior.](#nota-scriptul-trebuie-sa-functioneaza-cu-orice-fisier-indiferent-de-numarul-de-coloane-testati-cu-cele-2-fisiere-dezarhivate-anterior)
-		- [3 (d) Scrieti un script care primeste ca parametru un fisier `.csv` si creaza un alt fisier care are acelasi continut, dar adauga la sfarsitul fiecarei linii numarul de caractere de pe acea linie.](#3-d-scrieti-un-script-care-primeste-ca-parametru-un-fisier-csv-si-creaza-un-alt-fisier-care-are-acelasi-continut-dar-adauga-la-sfarsitul-fiecarei-linii-numarul-de-caractere-de-pe-acea-linie)
-		- [4 (a) Creati fisieru-ul `filezero` de dimensiunea 100 M care contine numai octeti de zero.](#4-a-creati-fisieru-ul-filezero-de-dimensiunea-100-m-care-contine-numai-octeti-de-zero)
-		- [4 (b) Formatati fisierul creat anterior in format `ext3`.](#4-b-formatati-fisierul-creat-anterior-in-format-ext3)
-		- [4 (c) Scrieti un script care primeste ca parametru calea catre un director si creeaza acel director. Daca directorul deja exista, se va afisa mesajul `Directory already exists`.](#4-c-scrieti-un-script-care-primeste-ca-parametru-calea-catre-un-director-si-creeaza-acel-director-daca-directorul-deja-exista-se-va-afisa-mesajul-directory-already-exists)
-		- [4 (d) Extindenti script-ul astfel incat sa monteze fisierul `filezero` in directorul primit ca parametru in linia de comanda.](#4-d-extindenti-script-ul-astfel-incat-sa-monteze-fisierul-filezero-in-directorul-primit-ca-parametru-in-linia-de-comanda)
-		- [4 (e) Extindeti scriptul adaugand un al doilea parametru in linia de comanda, astfel:](#4-e-extindeti-scriptul-adaugand-un-al-doilea-parametru-in-linia-de-comanda-astfel)
-		- [5 (a) Clonati repository-ul de la adresa `https://github.com/Sergiu121/test-repo`.](#5-a-clonati-repository-ul-de-la-adresa-httpsgithubcomsergiu121test-repo)
-		- [5 (b) Fisierul `docdMe` din repository-ul clonat este codificat in `base32`. Decodificati-l si afisati.](#5-b-fisierul-docdme-din-repository-ul-clonat-este-codificat-in-base32-decodificati-l-si-afisati)
-		- [5 (c) Criptati fisierul `encryptMe` din repository folosind protocolul `AES-128-CFB` si parola `gingerbread`.](#5-c-criptati-fisierul-encryptme-din-repository-folosind-protocolul-aes-128-cfb-si-parola-gingerbread)
-		- [5 (d) Cele 3 fisiere `part1`, `part2` si `part3`, di reopostiry, reprezinta, in aceasta ordine, 3 parti ale unui executabil. Refacti executabilul si rulati-l.](#5-d-cele-3-fisiere-part1-part2-si-part3-di-reopostiry-reprezinta-in-aceasta-ordine-3-parti-ale-unui-executabil-refacti-executabilul-si-rulati-l)
-		- [5 (e) Afisati toate fisierele din sistem care au dimensiunea mai mare de `10 M`.](#5-e-afisati-toate-fisierele-din-sistem-care-au-dimensiunea-mai-mare-de-10-m)
-		- [6 (a) Afisati dimensiunea toatala a directorului `/var/log` in format human-readable.](#6-a-afisati-dimensiunea-toatala-a-directorului-varlog-in-format-human-readable)
-		- [6 (b) Faceti ca la apelul comenzii `showTime` in terminal sa se afiseze ora curenta sub forma `Current time is hh:mm`.](#6-b-faceti-ca-la-apelul-comenzii-showtime-in-terminal-sa-se-afiseze-ora-curenta-sub-forma-current-time-is-hhmm)
-		- [6 (c) Scrieti un script care genereaza un numar aleator cuprins in intervalul \[0, 255\]. `Hint:` `man shuf`](#6-c-scrieti-un-script-care-genereaza-un-numar-aleator-cuprins-in-intervalul-0-255-hint-man-shuf)
-		- [6 (d) Creati fisierul `adrese.txt` de 500 de linii care sa contina pe ficare o adresa `IPv4` generata aleator.](#6-d-creati-fisierul-adresetxt-de-500-de-linii-care-sa-contina-pe-ficare-o-adresa-ipv4-generata-aleator)
-		- [6 (e) Sortati fisierul `adrese.txt` obtinut la subpunctul anterior descrescatir dupa al treilea camp al adresei IP.](#6-e-sortati-fisierul-adresetxt-obtinut-la-subpunctul-anterior-descrescatir-dupa-al-treilea-camp-al-adresei-ip)
-	- [VARIANTA 104](#varianta-104)
-		- [1 (a) Creati urmatoarea structura de directoare si fisiere.](#1-a-creati-urmatoarea-structura-de-directoare-si-fisiere-1)
-		- [1 (b) Creati o arhiva de tipul gzip numita `all_them_games.tar.gz` continand ierarhia de fisiere creata anterior.](#1-b-creati-o-arhiva-de-tipul-gzip-numita-all_them_gamestargz-continand-ierarhia-de-fisiere-creata-anterior)
-		- [1 (d) Faceti modificarile necesare astfel incat asupra directorului `shooters` si a tuturor fisierelor din acesta utilizatorul `valve` sa aiba drepturi de scriere si citire, iar utilizatorul `cdpr` doar drepturi de scriere.](#1-d-faceti-modificarile-necesare-astfel-incat-asupra-directorului-shooters-si-a-tuturor-fisierelor-din-acesta-utilizatorul-valve-sa-aiba-drepturi-de-scriere-si-citire-iar-utilizatorul-cdpr-doar-drepturi-de-scriere)
-		- [1 (c) Adaugati utilizatorii `valve` si `cdpr`.](#1-c-adaugati-utilizatorii-valve-si-cdpr)
-		- [1 (d) Faceti modificarile necesare astfel incat asupra directorului `shooters` si a tuturor fisierelor din acesta utilizatorul `valve` sa aiba drepturi de scriere si citire, iar utilizatorul `cdpr` doar drepturi de `scriere`.](#1-d-faceti-modificarile-necesare-astfel-incat-asupra-directorului-shooters-si-a-tuturor-fisierelor-din-acesta-utilizatorul-valve-sa-aiba-drepturi-de-scriere-si-citire-iar-utilizatorul-cdpr-doar-drepturi-de-scriere-1)
-		- [1 (e) In directorul `other` creati un ciclu folosind 3 legaturi simbolice.](#1-e-in-directorul-other-creati-un-ciclu-folosind-3-legaturi-simbolice)
-		- [2 (a) Afisati numarul de cuvinte din fisierul `/usr/include/termio.h`.](#2-a-afisati-numarul-de-cuvinte-din-fisierul-usrincludetermioh)
-		- [2 (b) Afisati numarul de aparitii ale caracterului `a` din fisierul `/etc/shadow`.](#2-b-afisati-numarul-de-aparitii-ale-caracterului-a-din-fisierul-etcshadow)
-		- [2 (c) Afisati numarul de aplicatii distincte care sunt configurate ca shell implicit pentru utilizatorii din sistem.](#2-c-afisati-numarul-de-aplicatii-distincte-care-sunt-configurate-ca-shell-implicit-pentru-utilizatorii-din-sistem)
-		- [2 (d) Scrieti un one-liner care afiseaza suma tututor identificatorilor de pe sistem.](#2-d-scrieti-un-one-liner-care-afiseaza-suma-tututor-identificatorilor-de-pe-sistem)
-		- [3 (a) Afisati toate dispozitivele de tip caracter de pe sistem.](#3-a-afisati-toate-dispozitivele-de-tip-caracter-de-pe-sistem)
-		- [3 (b) Creati un fisiser de dimensiune 10 M care sa contina DOAR litere mici ASCII aranjate in mod aleator.](#3-b-creati-un-fisiser-de-dimensiune-10-m-care-sa-contina-doar-litere-mici-ascii-aranjate-in-mod-aleator)
-		- [3 (c) Formatati fisierul de 10 M de la subpunctul anterior in format `ext3`.](#3-c-formatati-fisierul-de-10-m-de-la-subpunctul-anterior-in-format-ext3)
-		- [3 (d) Afisati numarul celei de-a treia linii pe care se afla cuvantul `include` din fisierul `/usr/include/aio.h`.](#3-d-afisati-numarul-celei-de-a-treia-linii-pe-care-se-afla-cuvantul-include-din-fisierul-usrincludeaioh)
-		- [4 (a) Scrieti un script numit `4a.sh` care primeste ca argument o adresa si afiseaza adresa IP asociata acesteia. Script-ul va intoarce codul de eroare 1 daca va primi mai multe sau mai putin de un argument.](#4-a-scrieti-un-script-numit-4ash-care-primeste-ca-argument-o-adresa-si-afiseaza-adresa-ip-asociata-acesteia-script-ul-va-intoarce-codul-de-eroare-1-daca-va-primi-mai-multe-sau-mai-putin-de-un-argument)
-		- [`Nota:` testati folosind adresa `elf.cs.pub.ro`.](#nota-testati-folosind-adresa-elfcspubro)
-		- [4 (b) Modificati script-ul astfel incat acesta sa afiseze si al doilea hop prin care trec pachetele in drum spre adresa respectiva.](#4-b-modificati-script-ul-astfel-incat-acesta-sa-afiseze-si-al-doilea-hop-prin-care-trec-pachetele-in-drum-spre-adresa-respectiva)
-		- [4 (c) Modificati script-ul astfel incat acesta sa scrie toate hop-urile in afara de al doilea in fisierul `extra.txt`.](#4-c-modificati-script-ul-astfel-incat-acesta-sa-scrie-toate-hop-urile-in-afara-de-al-doilea-in-fisierul-extratxt)
-		- [4 (d) Modificati script-ul astfel incat acesta sa trimita `3 pachete` catre adresa primita ca argument la interval de `0.3 secunde`. Fiecare pachte trebuie sa aiba ca padding doar `biti de 1`.](#4-d-modificati-script-ul-astfel-incat-acesta-sa-trimita-3-pachete-catre-adresa-primita-ca-argument-la-interval-de-03-secunde-fiecare-pachte-trebuie-sa-aiba-ca-padding-doar-biti-de-1)
-		- [5 (a) Afisati de cate ori apare in fisierul `/etc/passwd` fiecare program care este configurat ca shell implicit.](#5-a-afisati-de-cate-ori-apare-in-fisierul-etcpasswd-fiecare-program-care-este-configurat-ca-shell-implicit)
-		- [5 (b) Afisati `DOAR` numele utilizatorilor care au ca shell implicit `/usr/sbin/nologin`.](#5-b-afisati-doar-numele-utilizatorilor-care-au-ca-shell-implicit-usrsbinnologin)
-		- [5 (c) Pentru primele 10 procese ordonate dupa durata de timp de cand acestea au pornit, afisati PID-ul, PPID-ul, utilizatorul si durata respectiva.](#5-c-pentru-primele-10-procese-ordonate-dupa-durata-de-timp-de-cand-acestea-au-pornit-afisati-pid-ul-ppid-ul-utilizatorul-si-durata-respectiva)
-		- [5 (d) Scrieti script-ul `5d.sh` care primeste ca argument un PID si afiseaza PID-urile tuturor proceselor copil copil ale proceslului identificat prin PID-ul primit ca argument.](#5-d-scrieti-script-ul-5dsh-care-primeste-ca-argument-un-pid-si-afiseaza-pid-urile-tuturor-proceselor-copil-copil-ale-proceslului-identificat-prin-pid-ul-primit-ca-argument)
-		- [6 (a) Descarcati arhiva de la urmatorul link si dezarhivati-o : `http://elf.cs.pub.ro/uso/res/final/20-ian/four.zip`.](#6-a-descarcati-arhiva-de-la-urmatorul-link-si-dezarhivati-o--httpelfcspubrousoresfinal20-ianfourzip)
-		- [6 (b) Modificati `Makefile`-ul astfel incat compilarea sa functioneze.](#6-b-modificati-makefile-ul-astfel-incat-compilarea-sa-functioneze)
-		- [6 (c) Modificati `Makefile`-ul astfel incat fisierele obiect sa fie inaintea link-editarii lor intr-un executabil final.](#6-c-modificati-makefile-ul-astfel-incat-fisierele-obiect-sa-fie-inaintea-link-editarii-lor-intr-un-executabil-final)
-		- [6 (d) Adaugati in fieiserul `Makefile` o regula numita `pack` care va crea o arhiva `zip` continand fisierele sursa si fisierul `Makefile`.](#6-d-adaugati-in-fieiserul-makefile-o-regula-numita-pack-care-va-crea-o-arhiva-zip-continand-fisierele-sursa-si-fisierul-makefile)
-		- [6 (e) Adaugati in fisierul `Makefile` o regula numita `clean` care va sterge fisierele obtinute din procesul de compilare, inclusiv fisierul creat de regula `pack`. Asigurati-va ca regula `clean` poate sa fie rulata si in prezenta unui fisier numit `clean`.](#6-e-adaugati-in-fisierul-makefile-o-regula-numita-clean-care-va-sterge-fisierele-obtinute-din-procesul-de-compilare-inclusiv-fisierul-creat-de-regula-pack-asigurati-va-ca-regula-clean-poate-sa-fie-rulata-si-in-prezenta-unui-fisier-numit-clean)
-	- [VARIANTA 116](#varianta-116)
-		- [1 (a) In directorul home al utlizatorului `student`, creati urmatoarea iararhi de fisiere.](#1-a-in-directorul-home-al-utlizatorului-student-creati-urmatoarea-iararhi-de-fisiere)
-		- [1 (b) Redenumiti directorul `Rock` in `Rock '70s`.](#1-b-redenumiti-directorul-rock-in-rock-70s)
-		- [1 (c) Arhivati driectorul `Music` intr-o arhiva de tip `zip` numita `my_music.zip`.](#1-c-arhivati-driectorul-music-intr-o-arhiva-de-tip-zip-numita-my_musiczip)
-		- [2 (a) Adaugati utilizatorul `a-ha` in sistem cu parola `takeonme`.](#2-a-adaugati-utilizatorul-a-ha-in-sistem-cu-parola-takeonme)
-		- [2 (b) Faceti modificarile necesare astfel incat directorul home al utilizatorului `a-ha` sa ife `/home/toM`.](#2-b-faceti-modificarile-necesare-astfel-incat-directorul-home-al-utilizatorului-a-ha-sa-ife-hometom)
-		- [2 (c) Descarcati fisierul `users.csv` de la adresa `http://elf.cs.pub.ro/uso/res/final/116/users.csv` in directorul home al utilizatorului `student` si afisati doar utilizatorii.](#2-c-descarcati-fisierul-userscsv-de-la-adresa-httpelfcspubrousoresfinal116userscsv-in-directorul-home-al-utilizatorului-student-si-afisati-doar-utilizatorii)
-		- [`Nota:` Formataul fisierului este urmatorul `utilizator;director home`.](#nota-formataul-fisierului-este-urmatorul-utilizatordirector-home)
-		- [2 (d) Scrieti un script numit `add_users.sh` in directorul home al utilizatorul `student` care parseaza fsierul `users.csv` si adauga in sistem utilizatorii din fisier avand directoarele home conform informatiilor din fisier.](#2-d-scrieti-un-script-numit-add_userssh-in-directorul-home-al-utilizatorul-student-care-parseaza-fsierul-userscsv-si-adauga-in-sistem-utilizatorii-din-fisier-avand-directoarele-home-conform-informatiilor-din-fisier)
-		- [`Nota:` Pentru intrarea `tom;/home/tommy` din fisierul `users.csv`, scriptul adauga in sistem utilizatorul `tom` care are directorul home in calea `/home/tommy`.](#nota-pentru-intrarea-tomhometommy-din-fisierul-userscsv-scriptul-adauga-in-sistem-utilizatorul-tom-care-are-directorul-home-in-calea-hometommy)
-		- [3 (a) Descarcati arhiva `security.zip` de la adresa `http://elf.cs.pub.ro/uso/res/final/116/security.zip` in directorul home al utilizatorului `sutdent` si dezarhivati-o.](#3-a-descarcati-arhiva-securityzip-de-la-adresa-httpelfcspubrousoresfinal116securityzip-in-directorul-home-al-utilizatorului-sutdent-si-dezarhivati-o)
-		- [3 (b) Realizati un script care aplica algoritmul de `encodare base64` asupra fiecarei linii a fisierului `to_encode.txt` din arhiva de la subpunctul anterior.](#3-b-realizati-un-script-care-aplica-algoritmul-de-encodare-base64-asupra-fiecarei-linii-a-fisierului-to_encodetxt-din-arhiva-de-la-subpunctul-anterior)
-		- [3 (c) Aflati textul al carui hash se afla in fisierul `secret.txt` din arhiva de la subpunctul (a) si scrieti-l in fisierul `decoded.txt`.](#3-c-aflati-textul-al-carui-hash-se-afla-in-fisierul-secrettxt-din-arhiva-de-la-subpunctul-a-si-scrieti-l-in-fisierul-decodedtxt)
-		- [3 (d) Criptati, folosind algoritmul `AES` cu o cheie de 192 biti si modul de criptare `CBC`, fisierul `to_encrypt.txt` din rhiva de la subpunctul a.](#3-d-criptati-folosind-algoritmul-aes-cu-o-cheie-de-192-biti-si-modul-de-criptare-cbc-fisierul-to_encrypttxt-din-rhiva-de-la-subpunctul-a)
-		- [4 (a) Faceti modificaril necesare astfel incat la rularea comenzii `sl` sa ruleaza `ls -alR`.](#4-a-faceti-modificaril-necesare-astfel-incat-la-rularea-comenzii-sl-sa-ruleaza-ls--alr)
-		- [4 (b) Afisati toate fisierele al caror nume contine sirul de caractere `.log` din ierarhia de fisiere \`](#4-b-afisati-toate-fisierele-al-caror-nume-contine-sirul-de-caractere-log-din-ierarhia-de-fisiere-)
-		- [4 (c) Scrieti un script care afiseaza, pentru fiecare utilizator de pe sistem, mesajul `Run, <user>, run!`, uunde `<user>` este inlocuit cu numele utilizatorului.](#4-c-scrieti-un-script-care-afiseaza-pentru-fiecare-utilizator-de-pe-sistem-mesajul-run-user-run-uunde-user-este-inlocuit-cu-numele-utilizatorului)
-		- [4 (d) Extindeti script-ul de la subpunctul anterior astfel incat sa afiseze mesajul `Run, <user>, run!` pentru utilizatorul `curent` atunci cand este rulat cu argumentul `me`.](#4-d-extindeti-script-ul-de-la-subpunctul-anterior-astfel-incat-sa-afiseze-mesajul-run-user-run-pentru-utilizatorul-curent-atunci-cand-este-rulat-cu-argumentul-me)
-		- [5 (a) Creati un director gol numit `parsing` in directorul home al utilizatorului `student`. Adaugati in acesta un fisier numit `multiple_lines.txt` care contine textul `I shall pass this!` scris de 100 de ori.](#5-a-creati-un-director-gol-numit-parsing-in-directorul-home-al-utilizatorului-student-adaugati-in-acesta-un-fisier-numit-multiple_linestxt-care-contine-textul-i-shall-pass-this-scris-de-100-de-ori)
-		- [5 (b) Inlocuiti toate aparitiile cuvantului `shall` di fisierul `multiple_lines.txt` cu `will`. Initializati un repository nou in directorul creat anterior si realizati un commit cu un mesaj intuitiv.](#5-b-inlocuiti-toate-aparitiile-cuvantului-shall-di-fisierul-multiple_linestxt-cu-will-initializati-un-repository-nou-in-directorul-creat-anterior-si-realizati-un-commit-cu-un-mesaj-intuitiv)
-		- [5 (c) Afisati liniile 20-30 ale fisierului `/var/log/bootstrap.log` si salvati continutul in fisierul `bootstrap20-30.log`.](#5-c-afisati-liniile-20-30-ale-fisierului-varlogbootstraplog-si-salvati-continutul-in-fisierul-bootstrap20-30log)
-		- [5 (d) Scrieti un oneliner care afiseaza `doar` ora, minutul si secunda ultimului commit realizat.](#5-d-scrieti-un-oneliner-care-afiseaza-doar-ora-minutul-si-secunda-ultimului-commit-realizat)
-		- [6 (a) Scrieti un oneliner care afiseaza continutul directorului home din contul personal de pa \`\`fep.grid.pub.ro\`.](#6-a-scrieti-un-oneliner-care-afiseaza-continutul-directorului-home-din-contul-personal-de-pa-fepgridpubro)
-		- [`Nota:` utilizatorul vostr pentru `fep.grid.pub.ro` este numele de utilizator de pe Moodle, iar parola este parola folosita pentru Moodle.](#nota-utilizatorul-vostr-pentru-fepgridpubro-este-numele-de-utilizator-de-pe-moodle-iar-parola-este-parola-folosita-pentru-moodle)
-		- [6 (b) Copiati fisierul `/etc/passwd` in directorul home al contului personal de pe `fep.grid.pub.ro`.](#6-b-copiati-fisierul-etcpasswd-in-directorul-home-al-contului-personal-de-pe-fepgridpubro)
-		- [6 (c) Afisati numarul de utilizatori de pe sistemul local care au procese pornite.](#6-c-afisati-numarul-de-utilizatori-de-pe-sistemul-local-care-au-procese-pornite)
-		- [6 (d) Scrieti un oneliner care afiseaza toate procesele pornite de utilizatorii `syslog` si `avahi` in urmatorul format: nume utilizator, comanda executata, PID-ul procesului curent si PID-ul procesului parinte.](#6-d-scrieti-un-oneliner-care-afiseaza-toate-procesele-pornite-de-utilizatorii-syslog-si-avahi-in-urmatorul-format-nume-utilizator-comanda-executata-pid-ul-procesului-curent-si-pid-ul-procesului-parinte)
-	- [VARIANTA 117](#varianta-117)
-		- [1 (a) Creati urmatoarea ierarhie de directoare si fisiere](#1-a-creati-urmatoarea-ierarhie-de-directoare-si-fisiere-3)
-		- [1 (b) Scrieti in fisierul `Rook` calea absoluta a utilitarului `ls`.](#1-b-scrieti-in-fisierul-rook-calea-absoluta-a-utilitarului-ls)
-		- [1 (c) Creati o ariva denumita `files.zip` care sa contina iararhia de fisiere de mai sus.](#1-c-creati-o-ariva-denumita-fileszip-care-sa-contina-iararhia-de-fisiere-de-mai-sus)
-		- [1 (d) Creati un fisier ascuns al carui nume sa contina sirul de caractere `scret&moves` in directorul home al utilizatorului `student`.](#1-d-creati-un-fisier-ascuns-al-carui-nume-sa-contina-sirul-de-caractere-scretmoves-in-directorul-home-al-utilizatorului-student)
-		- [2 (a) Adaugati in sistem utilizatorii `andrei` si `maria`.](#2-a-adaugati-in-sistem-utilizatorii-andrei-si-maria)
-		- [2 (c) Scrieti un oneliner care afiseaza in ordine alfabetica utilizatorii din sistem care au procese pornite.](#2-c-scrieti-un-oneliner-care-afiseaza-in-ordine-alfabetica-utilizatorii-din-sistem-care-au-procese-pornite)
-		- [2 (d) Scrieti un oneliner care afiseaza numarul utilizatorilor de pe sistem care au directorul home in cadrul ierarhie de fisiere `/var`.](#2-d-scrieti-un-oneliner-care-afiseaza-numarul-utilizatorilor-de-pe-sistem-care-au-directorul-home-in-cadrul-ierarhie-de-fisiere-var)
-		- [3 (a) Afisati gateway-ul implicit configurat pe sistem.](#3-a-afisati-gateway-ul-implicit-configurat-pe-sistem)
-		- [3 (c) Scrieti un script care afiseaza `DOAR` adresa `IPv4` a unui domeniu primit ca argument in linia de comanda.](#3-c-scrieti-un-script-care-afiseaza-doar-adresa-ipv4-a-unui-domeniu-primit-ca-argument-in-linia-de-comanda)
-		- [4 (a) Creati un director numite `security` si initializati un repository nou in acesta.](#4-a-creati-un-director-numite-security-si-initializati-un-repository-nou-in-acesta)
-		- [4 (b) Scrieti un oneliner care genereaza o parola de 32 de caractere alfanumerica laeatoare si nu contine cifre pare.](#4-b-scrieti-un-oneliner-care-genereaza-o-parola-de-32-de-caractere-alfanumerica-laeatoare-si-nu-contine-cifre-pare)
-		- [4 (c) In directorul `security` creati un script `hash_it.sh` care primeste ca argument un sir de caractere, aplica algoritmul de encodare `base64` pe acesta si scrie rezultatul la finalul unui fisier numit `passwords.txt`.](#4-c-in-directorul-security-creati-un-script-hash_itsh-care-primeste-ca-argument-un-sir-de-caractere-aplica-algoritmul-de-encodare-base64-pe-acesta-si-scrie-rezultatul-la-finalul-unui-fisier-numit-passwordstxt)
-		- [4 (d) Creati un commit care contine scriptul `hash_it.sh` cu mesajul `Added awesome script`.](#4-d-creati-un-commit-care-contine-scriptul-hash_itsh-cu-mesajul-added-awesome-script)
-		- [5 (a) Creati un fisier numit `leet.txt` care sa contina inia `I can do this all day` de 1337 de ori. Hint! `man yes`.](#5-a-creati-un-fisier-numit-leettxt-care-sa-contina-inia-i-can-do-this-all-day-de-1337-de-ori-hint-man-yes)
-		- [5 (b) Modificati fisierul `leet.txt`, astfel incat in locul fiecarei aparitii al caracterului `spatiu` sa fie `tab`.](#5-b-modificati-fisierul-leettxt-astfel-incat-in-locul-fiecarei-aparitii-al-caracterului-spatiu-sa-fie-tab)
-		- [5 (c) Afisati numarul de linii care contin sirul de caractere `#include <stdio.h>` din iarahia de fisiere `/usr/include`.](#5-c-afisati-numarul-de-linii-care-contin-sirul-de-caractere-include-stdioh-din-iarahia-de-fisiere-usrinclude)
-		- [5 (d) Afisati primele 3 caractere de pe fiecare linie a fisierului `/etc/passwd`](#5-d-afisati-primele-3-caractere-de-pe-fiecare-linie-a-fisierului-etcpasswd)
-		- [6 (a) Creati un alias numit `binaries` care afiseaza continutul variabilei de mediu `PATH`.](#6-a-creati-un-alias-numit-binaries-care-afiseaza-continutul-variabilei-de-mediu-path)
-		- [6 (b) Descarcati arhiva de la adresa `http://elf.cs.pub.ro/usp.res.fina;/117/champons.zip` si dezarhivati-o in directorul home al utilizatorului `student`.](#6-b-descarcati-arhiva-de-la-adresa-httpelfcspubrouspresfina117champonszip-si-dezarhivati-o-in-directorul-home-al-utilizatorului-student)
-		- [6 (c) Afisati continutul fisierului `champions.csv` sortat descrscator dupa coloana `Rating`.](#6-c-afisati-continutul-fisierului-championscsv-sortat-descrscator-dupa-coloana-rating)
-	- [VARIANTA 118](#varianta-118)
-		- [1 (a) Creati urmatoare ierarhie de directoare si fisiere:](#1-a-creati-urmatoare-ierarhie-de-directoare-si-fisiere)
-		- [1 (b) Stergeti fisierul `izbitura` din directorul `mental`.](#1-b-stergeti-fisierul-izbitura-din-directorul-mental)
-		- [1 (c) Scrieti un oneliner care sa scrie in fisierul `aura sabiei` primele 6 linii din fisierul `/etc/passwd`.](#1-c-scrieti-un-oneliner-care-sa-scrie-in-fisierul-aura-sabiei-primele-6-linii-din-fisierul-etcpasswd)
-		- [1 (d) Faceti modificarile necesare astfel incat utilizatorul `student` sa nu mai aiba drepturi de scriere pe fisieruil `aura sabiei`.](#1-d-faceti-modificarile-necesare-astfel-incat-utilizatorul-student-sa-nu-mai-aiba-drepturi-de-scriere-pe-fisieruil-aura-sabiei)
-		- [2 (a) Scrieti un oneliner care adauga in sistem utilizatorul `grajdar` cu directorul home `/home/spatemap1`.](#2-a-scrieti-un-oneliner-care-adauga-in-sistem-utilizatorul-grajdar-cu-directorul-home-homespatemap1)
-		- [2 (b) Creati grupul `npc` si adaugati utilizatorul `grajdar` in acest grup.](#2-b-creati-grupul-npc-si-adaugati-utilizatorul-grajdar-in-acest-grup)
-		- [2 (c) Faceti modificarile necesare astfel incat utilizatorul `grajdar` sa nu se poata autentifica in sistem.](#2-c-faceti-modificarile-necesare-astfel-incat-utilizatorul-grajdar-sa-nu-se-poata-autentifica-in-sistem)
-		- [2 (d) Scrieti un oneliner care afiseaza grupurile de pe sistem al caror nume ncepe uc caracterul `s`, sortate descrescator duoa GID.](#2-d-scrieti-un-oneliner-care-afiseaza-grupurile-de-pe-sistem-al-caror-nume-ncepe-uc-caracterul-s-sortate-descrescator-duoa-gid)
-		- [3 (a) Descarcati arhiva `pairs` de la adresa `http://elf.cs.pub.ro/uso/res/final/118/pairs.tar.gz` si dezarhivati-o.](#3-a-descarcati-arhiva-pairs-de-la-adresa-httpelfcspubrousoresfinal118pairstargz-si-dezarhivati-o)
-		- [3 (d) Scrieti un script care primeste ca argument numele unui utilizator. Daca acesta exista, script-ul va afisa data ultimei autentificari a acestuia. Altfel, il va adauga in sistem.](#3-d-scrieti-un-script-care-primeste-ca-argument-numele-unui-utilizator-daca-acesta-exista-script-ul-va-afisa-data-ultimei-autentificari-a-acestuia-altfel-il-va-adauga-in-sistem)
-		- [4 (a) Faceti modificarile necesare astfel incat la rularea comenzii `susperlist` sa fie afisat continutul directorului curent cu dimensiunea fisierlor in format human-readable.](#4-a-faceti-modificarile-necesare-astfel-incat-la-rularea-comenzii-susperlist-sa-fie-afisat-continutul-directorului-curent-cu-dimensiunea-fisierlor-in-format-human-readable)
-		- [4 (b) Scrieti un oneliner care afiseaza locatia utilitarului `cowsay` in sistem si care instaleaza utilitarul in cazul in care acesta nu exista.](#4-b-scrieti-un-oneliner-care-afiseaza-locatia-utilitarului-cowsay-in-sistem-si-care-instaleaza-utilitarul-in-cazul-in-care-acesta-nu-exista)
-		- [4 (c) Afisati adresa `IP publica` a sistemului curent.](#4-c-afisati-adresa-ip-publica-a-sistemului-curent)
-		- [4 (d) Creati un fisier numit `9kilo` de dimensiune 9K care sa contina NUMAI caracterul ASCII 6. Hint! `man yes`.](#4-d-creati-un-fisier-numit-9kilo-de-dimensiune-9k-care-sa-contina-numai-caracterul-ascii-6-hint-man-yes)
-		- [5 (a) Scrieti un script numit `5a.sh` care primeste ca argument numele unui fisier si afiseaza numarul toatal de linii al acestuia.](#5-a-scrieti-un-script-numit-5ash-care-primeste-ca-argument-numele-unui-fisier-si-afiseaza-numarul-toatal-de-linii-al-acestuia)
-		- [5 (b) Extindeti script-ul creat la subpunctul anterior astfel incat sa afiseze o linie aleasa aleator din fisierul primit ca argument.](#5-b-extindeti-script-ul-creat-la-subpunctul-anterior-astfel-incat-sa-afiseze-o-linie-aleasa-aleator-din-fisierul-primit-ca-argument)
-		- [`Hint!` `variabila de mediu $RANDOM`.](#hint-variabila-de-mediu-random)
-		- [5 (c) Creati un director numit `final`. Initializati un reposiotry nou in cadrul acestuia si adaugati script-ul `5a.sh`. Realizati un commit cu mesajul `Mare script`.](#5-c-creati-un-director-numit-final-initializati-un-reposiotry-nou-in-cadrul-acestuia-si-adaugati-script-ul-5ash-realizati-un-commit-cu-mesajul-mare-script)
-		- [5 (d) Creati un branch numit `brenciu` si comutati din branch-ul principal in branch-ul nou creat.](#5-d-creati-un-branch-numit-brenciu-si-comutati-din-branch-ul-principal-in-branch-ul-nou-creat)
-		- [6 (a) Faceti modificarile necesare astfel incat sa va puteti conecta la contul personal de pe stati de la adresa `fep.grid.pub.ro` FARA PAROLA.](#6-a-faceti-modificarile-necesare-astfel-incat-sa-va-puteti-conecta-la-contul-personal-de-pe-stati-de-la-adresa-fepgridpubro-fara-parola)
-		- [Nota: pentru a va conecta la `fep.grid.pub.ro` folositi utilizatorul si parola de pe platforma Moodle.](#nota-pentru-a-va-conecta-la-fepgridpubro-folositi-utilizatorul-si-parola-de-pe-platforma-moodle)
-		- [6 (b) Faceti modificaril necesare astfel incat in urma rularii comenzii `ssh fep` sa va conectati la contul personal de pe statia de la adresa `fep.grid.pub.ro`.](#6-b-faceti-modificaril-necesare-astfel-incat-in-urma-rularii-comenzii-ssh-fep-sa-va-conectati-la-contul-personal-de-pe-statia-de-la-adresa-fepgridpubro)
-		- [6 (c) Afisati PID-ul, PPID-ul, utilizatorul, comanda cu care a fost creat si prcoentul de memorie pe care il consuma primele 10 procese sortate descrescator dupa procentul de memorie.](#6-c-afisati-pid-ul-ppid-ul-utilizatorul-comanda-cu-care-a-fost-creat-si-prcoentul-de-memorie-pe-care-il-consuma-primele-10-procese-sortate-descrescator-dupa-procentul-de-memorie)
-		- [6 (d) Afisati toate procesle `daemon` din sistem.](#6-d-afisati-toate-procesle-daemon-din-sistem)
-	- [VARIANTA 119](#varianta-119)
-		- [1 (a) Creati urmatoarea ierarhie de directoare si fisiere.](#1-a-creati-urmatoarea-ierarhie-de-directoare-si-fisiere-4)
-		- [1 (b) Mutati toate fisierele din directorul `Frutis` in directorul `Misc`.](#1-b-mutati-toate-fisierele-din-directorul-frutis-in-directorul-misc)
-		- [1 (c) Creati in directorul `Misc` o legatura simbolica numitva `Favourtie` catre fisierul `Carrots`.](#1-c-creati-in-directorul-misc-o-legatura-simbolica-numitva-favourtie-catre-fisierul-carrots)
-		- [2 (a) Scrieti un oneliner care adauga in sistem utilizatorul `ana` cu shell-ul implicit `/bin/nologin`.](#2-a-scrieti-un-oneliner-care-adauga-in-sistem-utilizatorul-ana-cu-shell-ul-implicit-binnologin)
-		- [2 (b) Afisti numele si directorul `home` pentru fiecare utilizator al carui director `home` se afla in cadrul ierarhiei de fisiere `/home`.](#2-b-afisti-numele-si-directorul-home-pentru-fiecare-utilizator-al-carui-director-home-se-afla-in-cadrul-ierarhiei-de-fisiere-home)
-		- [2 (c) Afisati pentru toate procesele din sistem `DOAR` PID-ul, utilizatorul care le-a creat si comanda folosita.](#2-c-afisati-pentru-toate-procesele-din-sistem-doar-pid-ul-utilizatorul-care-le-a-creat-si-comanda-folosita)
-		- [2 (d) Scrieti un oneliner care afiseaza suma PID-uirlor tuturor proceselor de pe sistem.](#2-d-scrieti-un-oneliner-care-afiseaza-suma-pid-uirlor-tuturor-proceselor-de-pe-sistem)
-		- [`Hint!` `man bc`.](#hint-man-bc)
-		- [3 (a) Creati un director numit `final-exam` si initializati un repository nou de git in acesta.](#3-a-creati-un-director-numit-final-exam-si-initializati-un-repository-nou-de-git-in-acesta)
-		- [3 (b) Creati un branch nou numit `student/final_exam_branch` in repository-ul creat anterior si comutati pe acest branch.](#3-b-creati-un-branch-nou-numit-studentfinal_exam_branch-in-repository-ul-creat-anterior-si-comutati-pe-acest-branch)
-		- [3 (c) Creati, in cadrul repository-ului `final-exam`, un fisier `work.txt` care contine ultimele 10 liniie ale fisierului `/etc/passwd` in ordin inversa. Realizati un commit cu mesajul `Cea mai munca`.](#3-c-creati-in-cadrul-repository-ului-final-exam-un-fisier-worktxt-care-contine-ultimele-10-liniie-ale-fisierului-etcpasswd-in-ordin-inversa-realizati-un-commit-cu-mesajul-cea-mai-munca)
-		- [4 (a) Afisati `DOAR` adresa `IPv4` care corespunde domeniului `uso.cs.pub.ro`.](#4-a-afisati-doar-adresa-ipv4-care-corespunde-domeniului-usocspubro)
-		- [4 (b) Afisati `DOAR` adresa `IPv6` configurata pe interfata `ens3`.](#4-b-afisati-doar-adresa-ipv6-configurata-pe-interfata-ens3)
-		- [4 (c) Scrieti o comanda care verifica conectivitatea cu sistemul de la adresa `uso.cs.pub.ro` prin trimiterea a 4 pachete, cate unul la fiecare 200 de milisecunde.](#4-c-scrieti-o-comanda-care-verifica-conectivitatea-cu-sistemul-de-la-adresa-usocspubro-prin-trimiterea-a-4-pachete-cate-unul-la-fiecare-200-de-milisecunde)
-		- [4 (d) Scrieti un oneliner care instaleaza utilizatarul `tree` dace acesta nu exista in sistem sau il dezinstaleaza in caz contrar.](#4-d-scrieti-un-oneliner-care-instaleaza-utilizatarul-tree-dace-acesta-nu-exista-in-sistem-sau-il-dezinstaleaza-in-caz-contrar)
-		- [5 (a) Descarcati fisierul `story` de la adresa `https://elf.cs.pub.ro/uso/res/final/119/story`. Afisati numarul total de caractere ale fisierului.](#5-a-descarcati-fisierul-story-de-la-adresa-httpselfcspubrousoresfinal119story-afisati-numarul-total-de-caractere-ale-fisierului)
-		- [5 (b) Afisati `doar` cuvintele care incep cu o majuscula diferita de `P` din fisierul descarcat mai sus.](#5-b-afisati-doar-cuvintele-care-incep-cu-o-majuscula-diferita-de-p-din-fisierul-descarcat-mai-sus)
-		- [5 (c) Inlocuiti toate aparitiile caracterului `a` cu caracterul `8` din fisierul descarcat mai sus.](#5-c-inlocuiti-toate-aparitiile-caracterului-a-cu-caracterul-8-din-fisierul-descarcat-mai-sus)
-		- [5 (d) Criptati textul `Goo luck, student!` folosind algoritmul de criptare `DES CBC` si parola `fina-exam`.](#5-d-criptati-textul-goo-luck-student-folosind-algoritmul-de-criptare-des-cbc-si-parola-fina-exam)
-		- [6 (c) Scrieti un oneliner care genereaza o parola de 24 de caractere ce contine DOAR litere, mai putin `b`, `h` si `x` si cel putin o majuscula.](#6-c-scrieti-un-oneliner-care-genereaza-o-parola-de-24-de-caractere-ce-contine-doar-litere-mai-putin-b-h-si-x-si-cel-putin-o-majuscula)
-		- [6 (d) Afisati TOATE fisierele din ierarhie de fisiere `/var/log` cu dimensiunea mai mare de 1 Kb.](#6-d-afisati-toate-fisierele-din-ierarhie-de-fisiere-varlog-cu-dimensiunea-mai-mare-de-1-kb)
-	- [VARIANTA 120](#varianta-120)
-		- [1 (a) Creati urmatoare structura de directoare si fisiere:](#1-a-creati-urmatoare-structura-de-directoare-si-fisiere)
-		- [1 (b) Mutati fisierele `Tesla` si `Ford` din directorul `Motorcycles` in directorul `Cars` printr-o singura comanda.](#1-b-mutati-fisierele-tesla-si-ford-din-directorul-motorcycles-in-directorul-cars-printr-o-singura-comanda)
-		- [1 (c) Creati in directorul home al utilizatorului `student` o legatura simbolica, numita `3l0n_mu5k` catre fisierul `Tesla`.](#1-c-creati-in-directorul-home-al-utilizatorului-student-o-legatura-simbolica-numita-3l0n_mu5k-catre-fisierul-tesla)
-		- [1 (d) Creati in driectorul `home` al utilizatorului `student` arhiva `pdfs.tar.gz` care sa contina toate fisierele cu extensia `.pdf` din ierarhia creata anterior.](#1-d-creati-in-driectorul-home-al-utilizatorului-student-arhiva-pdfstargz-care-sa-contina-toate-fisierele-cu-extensia-pdf-din-ierarhia-creata-anterior)
-		- [2 (a) Adaugati in sistem utilizatorii `elliott` si `mir`.](#2-a-adaugati-in-sistem-utilizatorii-elliott-si-mir)
-		- [2 (c) Descarcat fisierul `clients.txt` de la adresa `https://elf.cs.pub.ro/uso/res/restanta/120/clients.txt` si afisati continututl acestuia, sortat lexicografic.](#2-c-descarcat-fisierul-clientstxt-de-la-adresa-httpselfcspubrousoresrestanta120clientstxt-si-afisati-continututl-acestuia-sortat-lexicografic)
-		- [2 (d) Afisati DOAR numarul de caractere din fisierul `clients.txt`.](#2-d-afisati-doar-numarul-de-caractere-din-fisierul-clientstxt)
-		- [3 (a) Clonati repository-ul de la adresa `https://github.com/Sergiu121/test-repo`.](#3-a-clonati-repository-ul-de-la-adresa-httpsgithubcomsergiu121test-repo)
-		- [3 (b) Fisierul `oups.base64`, se afla in directorul `31-aug-2021` din repositroy-ul clonat este codificat in `base64`. Decodificati-l si afisati continutul acestuia.](#3-b-fisierul-oupsbase64-se-afla-in-directorul-31-aug-2021-din-repositroy-ul-clonat-este-codificat-in-base64-decodificati-l-si-afisati-continutul-acestuia)
-		- [3 (c) Criptati fisierul `Oups.base64` folosind protocolul `AES-256-CBC` si parola `hardtoguess`.](#3-c-criptati-fisierul-oupsbase64-folosind-protocolul-aes-256-cbc-si-parola-hardtoguess)
-		- [3 (d) Afisati toate fisierele din cadrul ierarhiei `/etc/` care au dimensiunea mai mica de `7 Mb`.](#3-d-afisati-toate-fisierele-din-cadrul-ierarhiei-etc-care-au-dimensiunea-mai-mica-de-7-mb)
-		- [4 (a) Afisati `DOAR` adresa `IP` corespunzatoare adresei web `fep.grid.pub.ro`.](#4-a-afisati-doar-adresa-ip-corespunzatoare-adresei-web-fepgridpubro)
-		- [4 (b) Scrieti un script care primeste ca argument un domeniu si trimite `7` pachte catre acesta.](#4-b-scrieti-un-script-care-primeste-ca-argument-un-domeniu-si-trimite-7-pachte-catre-acesta)
-		- [4 (c) Modificati script-ul anterior astfel incat sa afiseze si numarul toatal de hop-uri pana la domeniu.](#4-c-modificati-script-ul-anterior-astfel-incat-sa-afiseze-si-numarul-toatal-de-hop-uri-pana-la-domeniu)
-		- [5 (a) Descarcati arhiva `s5.zip` de la dresa `https://elf.cs.pub.ro/uso/res/restanta/120/s5.zip` si dezarhivati-o.](#5-a-descarcati-arhiva-s5zip-de-la-dresa-httpselfcspubrousoresrestanta120s5zip-si-dezarhivati-o)
-		- [5 (b) Scrieti un script care afiseaza numele si salariul personaelor din fisierul `employees.csv` care au 26 de ani.](#5-b-scrieti-un-script-care-afiseaza-numele-si-salariul-personaelor-din-fisierul-employeescsv-care-au-26-de-ani)
-		- [5 (c) Scrieti un one-liner care sterge `ultimele 3` caractere de pe fiecare linie a fisierului `poems.txt`.](#5-c-scrieti-un-one-liner-care-sterge-ultimele-3-caractere-de-pe-fiecare-linie-a-fisierului-poemstxt)
-		- [5 (d) Scrieit un one-liner care afiseaza numarul angajatilor al caror adresa de email se termina cu sirul de caractere `.com`.](#5-d-scrieit-un-one-liner-care-afiseaza-numarul-angajatilor-al-caror-adresa-de-email-se-termina-cu-sirul-de-caractere-com)
-		- [6 (a) Afisati toate liniile din `/etc/passwd` care `nu` contin sirul de caractere `nologin`.](#6-a-afisati-toate-liniile-din-etcpasswd-care-nu-contin-sirul-de-caractere-nologin)
-		- [6 (b) Porniti procesul `sleep` pentr 10 secunde in BACKGROUND.](#6-b-porniti-procesul-sleep-pentr-10-secunde-in-background)
-		- [6 (c) Afisati, pentru fiecare proces din sistem, PID-ul, comanda cu care a fost lansat in executie si procesul de memorie ocupata.](#6-c-afisati-pentru-fiecare-proces-din-sistem-pid-ul-comanda-cu-care-a-fost-lansat-in-executie-si-procesul-de-memorie-ocupata)
-		- [6 (d) Afisati `doar` PID-ul procesului care consuma cea mai multa memoria memorie.](#6-d-afisati-doar-pid-ul-procesului-care-consuma-cea-mai-multa-memoria-memorie)
-	- [VARIANTA 121](#varianta-121)
-		- [1 (a) Creati urmatoare structura de directoare si fisiere.](#1-a-creati-urmatoare-structura-de-directoare-si-fisiere-1)
-		- [1 (b) Mutati fisierul `soundtrack.mp3` in cadrul directoruli `Disenchantment`.](#1-b-mutati-fisierul-soundtrackmp3-in-cadrul-directoruli-disenchantment)
-		- [1 (c) Arhivati directorul `Disenchantment` intr-o arhiva de tip `gzip` numita `series desenchantment.tar.gz`.](#1-c-arhivati-directorul-disenchantment-intr-o-arhiva-de-tip-gzip-numita-series-desenchantmenttargz)
-		- [1 (d) Scrieti un oneliner care sterge directorul `Part 1/`.](#1-d-scrieti-un-oneliner-care-sterge-directorul-part-1)
-		- [2 (a) Adaugati in sistem utilizatorii `bean` si `elfo`.](#2-a-adaugati-in-sistem-utilizatorii-bean-si-elfo)
-		- [2 (b) Mutati directoarele `home` astfel:](#2-b-mutati-directoarele-home-astfel)
-		- [2 (c) Schimbati parola utilizatorului `bean` in `queen-D4gmar#`.](#2-c-schimbati-parola-utilizatorului-bean-in-queen-d4gmar)
-		- [3 (a) Afisati toate fisierele obisnuite (nu si directoarele) din radacina `/etc`.](#3-a-afisati-toate-fisierele-obisnuite-nu-si-directoarele-din-radacina-etc)
-		- [3 (b) Scrieti un oneliner care returneaza numarul de dispozitive de tip `bloc` din sistem.](#3-b-scrieti-un-oneliner-care-returneaza-numarul-de-dispozitive-de-tip-bloc-din-sistem)
-		- [3 (c) Scrieti un script care primeste ca argument doua numere pozitive si afiseaza toate numerele din intervalul inchis determinat de cele doua argumente.](#3-c-scrieti-un-script-care-primeste-ca-argument-doua-numere-pozitive-si-afiseaza-toate-numerele-din-intervalul-inchis-determinat-de-cele-doua-argumente)
-		- [4 (d) Modificati script-ul care primeste ca argument doua numere pozitive si afiseaza toate numerele din intervalul inchis determinat de cele doua argumente.](#4-d-modificati-script-ul-care-primeste-ca-argument-doua-numere-pozitive-si-afiseaza-toate-numerele-din-intervalul-inchis-determinat-de-cele-doua-argumente)
-		- [4 (a) Afisati adresa `IP` care corespunde domeniului `uso.cs.pub.ro`.](#4-a-afisati-adresa-ip-care-corespunde-domeniului-usocspubro)
-		- [4 (b) Faceti modificarile necesare astfel incat sa va puteti autentifica prin ssh cu utilizatorul vostru la statia de la adresa `fep.grid.pub.ro`.](#4-b-faceti-modificarile-necesare-astfel-incat-sa-va-puteti-autentifica-prin-ssh-cu-utilizatorul-vostru-la-statia-de-la-adresa-fepgridpubro)
-		- [5 (a) Afisati toate serviciile pornite pe sistem.](#5-a-afisati-toate-serviciile-pornite-pe-sistem)
-		- [5 (b) Afisati DOAR numele fiecarui utilizator care are configurat ca shell implicit executabilul `/bin/false`.](#5-b-afisati-doar-numele-fiecarui-utilizator-care-are-configurat-ca-shell-implicit-executabilul-binfalse)
-		- [5 (c) Creati un fisier numit `random10M` de dimensiune `10 Mb` cu octeti aleatori.](#5-c-creati-un-fisier-numit-random10m-de-dimensiune-10-mb-cu-octeti-aleatori)
-		- [5 (d) Formatati fisierul creat anterior in format `ext4`.](#5-d-formatati-fisierul-creat-anterior-in-format-ext4)
-		- [6 (a) Afisati `doar` numele fiecarei variabile de mediu care incepe cu caracterul `X`.](#6-a-afisati-doar-numele-fiecarei-variabile-de-mediu-care-incepe-cu-caracterul-x)
-		- [6 (b) Afisati arhitectura procesorului si dimensiunea memoriei cache de nivel 2 fosloind un oneliner.](#6-b-afisati-arhitectura-procesorului-si-dimensiunea-memoriei-cache-de-nivel-2-fosloind-un-oneliner)
-		- [6 (c) Afisati `doar` cate memorie este folosita pe sistem in format human-readable.](#6-c-afisati-doar-cate-memorie-este-folosita-pe-sistem-in-format-human-readable)
-		- [6 (d) Descarcati si dezarhivati arhiva de la adresa `http://elf.cs.pub.ro/uso/res/final/121/enc.zip`.](#6-d-descarcati-si-dezarhivati-arhiva-de-la-adresa-httpelfcspubrousoresfinal121enczip)
-		- [Decodati continutul fisierului `file.enc` folosind base64 si aplicati functia de encodare base32 pe rezultat.](#decodati-continutul-fisierului-fileenc-folosind-base64-si-aplicati-functia-de-encodare-base32-pe-rezultat)
-	- [VARIANTA 125](#varianta-125)
-		- [1 (a) In directorul home al utilizatorului `student`, creati urmatoarea ierarhie de fisiere](#1-a-in-directorul-home-al-utilizatorului-student-creati-urmatoarea-ierarhie-de-fisiere)
-		- [1 (b) Creati utilizatorul `IronMan` cu grupul default `Avengers` astfel incat acesta sa aiba directorul `home` asociat la calea `/home/avengers/Iron-Man`.](#1-b-creati-utilizatorul-ironman-cu-grupul-default-avengers-astfel-incat-acesta-sa-aiba-directorul-home-asociat-la-calea-homeavengersiron-man)
-		- [1 (c) Instalati utilitarul `zsh`.](#1-c-instalati-utilitarul-zsh)
-		- [1 (d) Faceti modificarile necesare astfel incat utilizatorul `IronMan` sa aiba ca shell implicit `zsh`.](#1-d-faceti-modificarile-necesare-astfel-incat-utilizatorul-ironman-sa-aiba-ca-shell-implicit-zsh)
-		- [1 (e) Creati un script in directorul `home` al utilizatorului `IronMan` care sa printeze mesajul `I am Iron Man` si care sa poate fi rulat doar de utilizatorul `IronMan`.](#1-e-creati-un-script-in-directorul-home-al-utilizatorului-ironman-care-sa-printeze-mesajul-i-am-iron-man-si-care-sa-poate-fi-rulat-doar-de-utilizatorul-ironman)
-		- [2 (a) Descarcati fisierul de la adresa `https://elf.cs.pub.ro/uso/res/final/30-jan/users.csv` .](#2-a-descarcati-fisierul-de-la-adresa-httpselfcspubrousoresfinal30-januserscsv-)
-		- [2 (b) Creati un script care sa parseze fisierul `users.csv` si sa creeze cate un utilizator cu datele din fisier (nume si parola).](#2-b-creati-un-script-care-sa-parseze-fisierul-userscsv-si-sa-creeze-cate-un-utilizator-cu-datele-din-fisier-nume-si-parola)
-		- [2 (c) Afisati liniile cu numar par din fisierul `user.csv`.](#2-c-afisati-liniile-cu-numar-par-din-fisierul-usercsv)
-		- [2 (d) Realizati un script numit `task2c.sh` care primeste un numar variabil de parametrii de tip `intreg` si calculeaza suma acestora.](#2-d-realizati-un-script-numit-task2csh-care-primeste-un-numar-variabil-de-parametrii-de-tip-intreg-si-calculeaza-suma-acestora)
-		- [3 (a) Afisati modelul procesorului de pe masina de lucru.](#3-a-afisati-modelul-procesorului-de-pe-masina-de-lucru)
-		- [3 (b) Afisati memoria disponibila de pe masina de lucur in format `human-readable`.](#3-b-afisati-memoria-disponibila-de-pe-masina-de-lucur-in-format-human-readable)
-		- [3 (c) Afisati porturile de tip TCP care asculta pe masina de lucru.](#3-c-afisati-porturile-de-tip-tcp-care-asculta-pe-masina-de-lucru)
-		- [4 (a) Creati o arhiva cu parola care sa cuprinda continutul directorului `/home/student`.](#4-a-creati-o-arhiva-cu-parola-care-sa-cuprinda-continutul-directorului-homestudent)
-		- [`Nota:` folositi parola `parola`.](#nota-folositi-parola-parola)
-		- [4 (b) Creati un one-liner care genereaza o parola de 10 carcatere care sa contina doar litere si cifre.](#4-b-creati-un-one-liner-care-genereaza-o-parola-de-10-carcatere-care-sa-contina-doar-litere-si-cifre)
-		- [4 (c) Descarcati fisierul de la adresa `https://elf.cs.pub.ro/uso/res/final/30-jan/encrypted_file` si decriptati continutul acestuia, stiind ca a fost criptat folosind `aes-256-cbc`. Parola este `uso_rullz`.](#4-c-descarcati-fisierul-de-la-adresa-httpselfcspubrousoresfinal30-janencrypted_file-si-decriptati-continutul-acestuia-stiind-ca-a-fost-criptat-folosind-aes-256-cbc-parola-este-uso_rullz)
-		- [4 (d) Creati un fisier cu numele `hash_this` cu continutul `USO RULLZ!`. Calculati hash-ul `md5` al fisierului creat.](#4-d-creati-un-fisier-cu-numele-hash_this-cu-continutul-uso-rullz-calculati-hash-ul-md5-al-fisierului-creat)
-		- [5 (a) Clonati repository-ul de la adresa `https://github.com/systems-cs-pub-ro/uso-practic-public.git`. Mutati-va pe branch-ul `final-125` si rulati comanda `make`. Rezolvati problema de dependente ale fisierului `Makefile`.](#5-a-clonati-repository-ul-de-la-adresa-httpsgithubcomsystems-cs-pub-rouso-practic-publicgit-mutati-va-pe-branch-ul-final-125-si-rulati-comanda-make-rezolvati-problema-de-dependente-ale-fisierului-makefile)
-		- [5 (b) Faceti modificarile necesare astfel incat comanda `la` sa nu mai functioneze.](#5-b-faceti-modificarile-necesare-astfel-incat-comanda-la-sa-nu-mai-functioneze)
-		- [5 (c) Rulati comanda `echo "I am $USER, with uid $UID"` de pe alt utilizator, fara a va autentifica in mod interactiv ca acesta.](#5-c-rulati-comanda-echo-i-am-user-with-uid-uid-de-pe-alt-utilizator-fara-a-va-autentifica-in-mod-interactiv-ca-acesta)
-		- [5 (d) Afisati toti utilizatorii care `nu` au configurat ce shell implicit `/bin/bash`.](#5-d-afisati-toti-utilizatorii-care-nu-au-configurat-ce-shell-implicit-binbash)
-		- [6 Pentru acest task, veti folosi containerele `blue` si `green`. Pentru conectare la consola containerelor, folositi comanda `go_<host>`.](#6-pentru-acest-task-veti-folosi-containerele-blue-si-green-pentru-conectare-la-consola-containerelor-folositi-comanda-go_host)
-		- [`Nota:` Pentru a porni containerele este necesar sa rulati comanda `sudo exam_prepare`.](#nota-pentru-a-porni-containerele-este-necesar-sa-rulati-comanda-sudo-exam_prepare)
-		- [6 (a) Conectati-va la statia `blue`. Verificati conectivitatea la internet trimitand 5 pachete de tip `ICMP` catre statia de la `8.8.8.8`.](#6-a-conectati-va-la-statia-blue-verificati-conectivitatea-la-internet-trimitand-5-pachete-de-tip-icmp-catre-statia-de-la-8888)
-		- [6 (b) Afisati toate interfetele de retea de pe statia `blue`.](#6-b-afisati-toate-interfetele-de-retea-de-pe-statia-blue)
-		- [6 (c) Afisati `doar` adresa `IPv4` a statiei `green` si conectati-va de pe statia locala pe statia `green`, utilizatorul `student`, folosind `SSH`.](#6-c-afisati-doar-adresa-ipv4-a-statiei-green-si-conectati-va-de-pe-statia-locala-pe-statia-green-utilizatorul-student-folosind-ssh)
-		- [6 (d) Copiatia fisierul `/var/log/syslog` de pe statia locala pe statia `green` in `home-ul` utilizatorului `student`.](#6-d-copiatia-fisierul-varlogsyslog-de-pe-statia-locala-pe-statia-green-in-home-ul-utilizatorului-student)
-	- [VARIANTA 132](#varianta-132)
-		- [1 (a) Creati urmatoarea ierarhie de directoare si fisiere.](#1-a-creati-urmatoarea-ierarhie-de-directoare-si-fisiere-5)
-		- [1 (b) Creati legatura simbolica `d.c` in directorul `b` care sa indice catre fisierul `c.c`/ Dupa ce creati legatura, mutati fisierul `d.c` in directorul `c`. Legautra trebuie sa se pestreze si sa functioneze si dupa mutare.](#1-b-creati-legatura-simbolica-dc-in-directorul-b-care-sa-indice-catre-fisierul-cc-dupa-ce-creati-legatura-mutati-fisierul-dc-in-directorul-c-legautra-trebuie-sa-se-pestreze-si-sa-functioneze-si-dupa-mutare)
-		- [1 (c) Modificati printr-un one-liner toate fisierele di directorul `c` astfel incat sa aiba sufixul `uso` inainte de extensie.](#1-c-modificati-printr-un-one-liner-toate-fisierele-di-directorul-c-astfel-incat-sa-aiba-sufixul-uso-inainte-de-extensie)
-		- [`Nota:` `a.c` va deveni `a_uso.c`. La fel si pentru fisierelor.](#nota-ac-va-deveni-a_usoc-la-fel-si-pentru-fisierelor)
-		- [1 (d) Creati un fisier care va contine doar byes de 0, de dimensiune `10MB` si formatati-l la `ext3`.](#1-d-creati-un-fisier-care-va-contine-doar-byes-de-0-de-dimensiune-10mb-si-formatati-l-la-ext3)
-		- [2 (a) Afisati toate pachtele instalate in sistem.](#2-a-afisati-toate-pachtele-instalate-in-sistem)
-		- [2 (b) Afisati pentru toate procesele utilizatorului `root`, PID-ul, comanda cu care a fost pornit si procentul de memorie folosit. Ordonati procesele descrescator dupa procentul de memorie folosit.](#2-b-afisati-pentru-toate-procesele-utilizatorului-root-pid-ul-comanda-cu-care-a-fost-pornit-si-procentul-de-memorie-folosit-ordonati-procesele-descrescator-dupa-procentul-de-memorie-folosit)
-		- [2 (c) Afisati toate procesele care au proces parinte pe `init`.](#2-c-afisati-toate-procesele-care-au-proces-parinte-pe-init)
-		- [2 (d) Porniti utilitaroul `vim` si bagati-l in background.](#2-d-porniti-utilitaroul-vim-si-bagati-l-in-background)
-		- [3 (a) Afisati pe cate o linie toate shell-urile din sistem](#3-a-afisati-pe-cate-o-linie-toate-shell-urile-din-sistem)
-		- [`Nota:` Fiecare shell trebuie sa fie afisat `doar` o singura data!](#nota-fiecare-shell-trebuie-sa-fie-afisat-doar-o-singura-data)
-		- [3 (b) Faceti modificarile necesare astfel incat la rularea comenzii `ssh blue` sa va conectati cu utilizatorul `student` pe `172.20.128.4`.](#3-b-faceti-modificarile-necesare-astfel-incat-la-rularea-comenzii-ssh-blue-sa-va-conectati-cu-utilizatorul-student-pe-172201284)
-		- [`Nota:` Parola utilizatorului `student` este `student`.](#nota-parola-utilizatorului-student-este-student)
-		- [3 (d) Folosind o singura comanda, creati fisierul `half.txt` care sa contina exact a doua jumatate de octeti din fisierul `full.txt`.](#3-d-folosind-o-singura-comanda-creati-fisierul-halftxt-care-sa-contina-exact-a-doua-jumatate-de-octeti-din-fisierul-fulltxt)
-		- [Pentru a descarca fisierul `full.txt`, rulati comanda `wget http://elf.cs.pub.ro/uso.res.final/132/full.txt`.](#pentru-a-descarca-fisierul-fulltxt-rulati-comanda-wget-httpelfcspubrousoresfinal132fulltxt)
-		- [`Hint: man dd`](#hint-man-dd)
-		- [4 (a) Realizati un script numit `getps` care primeste calea absoluta a unui executabil si afiseaza toate procesele pornite de acel executabil.](#4-a-realizati-un-script-numit-getps-care-primeste-calea-absoluta-a-unui-executabil-si-afiseaza-toate-procesele-pornite-de-acel-executabil)
-		- [4 (b) Faceti modificarile necesare astfel incat la rularea comenzii `uso` sa se afiseze la terminal textul `rullz`. Modificarile trebuie sa fie persistente!](#4-b-faceti-modificarile-necesare-astfel-incat-la-rularea-comenzii-uso-sa-se-afiseze-la-terminal-textul-rullz-modificarile-trebuie-sa-fie-persistente)
-		- [`Hint:` alias](#hint-alias)
-		- [4 (c) Realizati un script care citeste fiecare linie din fisierul `grades.csv` si o afiseaza sub forma `<prenume> <nume> a luat nota <nota>`.](#4-c-realizati-un-script-care-citeste-fiecare-linie-din-fisierul-gradescsv-si-o-afiseaza-sub-forma-prenume-nume-a-luat-nota-nota)
-		- [Pentru a descarca fisierul `grades.csv` rulati comanda `wget http://elf.cs.pub.ro/uso/res/final/132/grades.csv`.](#pentru-a-descarca-fisierul-gradescsv-rulati-comanda-wget-httpelfcspubrousoresfinal132gradescsv)
-		- [`Nota`: Pentur o linie de tipul `POPESCU,Ion,8.75` trebuie afisat textul `Ion POPESCU a luat 8.75`.](#nota-pentur-o-linie-de-tipul-popescuion875-trebuie-afisat-textul-ion-popescu-a-luat-875)
-		- [5 (a) Aduagati in sistem utilizatorii `ana`, `bogdan` si `cornel` cu parolele `ana`, `bogdan` si `cornel`.](#5-a-aduagati-in-sistem-utilizatorii-ana-bogdan-si-cornel-cu-parolele-ana-bogdan-si-cornel)
-		- [5 (b) Pentru utilizatorul `ana` schimbati directorul home implicit din `/home/ana` in `/home/student/ana`.](#5-b-pentru-utilizatorul-ana-schimbati-directorul-home-implicit-din-homeana-in-homestudentana)
-		- [5 (c) Faceti modificarile necesare astfel incat utilizatorul `ana` sa poata crea fisiere in directorul home al utilizatorului `bogdan` (`/home/bogdan`).](#5-c-faceti-modificarile-necesare-astfel-incat-utilizatorul-ana-sa-poata-crea-fisiere-in-directorul-home-al-utilizatorului-bogdan-homebogdan)
-		- [5 (d) Faceit modificarile necesare astfel incat la urmatoarea autentificare a utilizatorului `cornel` sa i se ceara schimbarea parolei.](#5-d-faceit-modificarile-necesare-astfel-incat-la-urmatoarea-autentificare-a-utilizatorului-cornel-sa-i-se-ceara-schimbarea-parolei)
-		- [6 (a) Faceti modificarile necesare astfel incat DNS-ul folosit de sistem sa fie `9.9.9.9`.](#6-a-faceti-modificarile-necesare-astfel-incat-dns-ul-folosit-de-sistem-sa-fie-9999)
-		- [6 (b) Creati un director numit `repo` si initializati un repository local de git in acel director.](#6-b-creati-un-director-numit-repo-si-initializati-un-repository-local-de-git-in-acel-director)
-		- [6 (c) Faceti modificarile necesare astfel incat daca se restarteaza sistemul, serviciul de `snap` nu mai porneasca automat la startup.](#6-c-faceti-modificarile-necesare-astfel-incat-daca-se-restarteaza-sistemul-serviciul-de-snap-nu-mai-porneasca-automat-la-startup)
-		- [6 (d) Adaugati in sitem un utilizator privilegiat numit `razvan`.](#6-d-adaugati-in-sitem-un-utilizator-privilegiat-numit-razvan)
-		- [`Nota:` Este suficient ca utilizatorul sa poata rula comanda `sudo` cu succes.](#nota-este-suficient-ca-utilizatorul-sa-poata-rula-comanda-sudo-cu-succes)
-	- [VARIANTA 133](#varianta-133)
-		- [1 (a) In directorul `home/logs` aveti urmatoararea structura de fisiere:](#1-a-in-directorul-homelogs-aveti-urmatoararea-structura-de-fisiere)
-		- [Faceti urmatoarele modificari: creati fisierele `err.log` in directorul `System Errors/` si `warn06.log` in directorul `System Warnings/` folosind o singura comanda.](#faceti-urmatoarele-modificari-creati-fisierele-errlog-in-directorul-system-errors-si-warn06log-in-directorul-system-warnings-folosind-o-singura-comanda)
-		- [1 (b) Mytati fisierele `warn04.log` si `warn05.log` in directorul `System Warning`.](#1-b-mytati-fisierele-warn04log-si-warn05log-in-directorul-system-warning)
-		- [1 (c) Creati o legatura simbolica catre `warn01.log` numita `warn-link` in directorul `logs/`.](#1-c-creati-o-legatura-simbolica-catre-warn01log-numita-warn-link-in-directorul-logs)
-		- [1 (d) Redenumiti toate fisierele `warn*` din directorul `System Warnings/` in `sys_warn*` folosind o singura comanda.](#1-d-redenumiti-toate-fisierele-warn-din-directorul-system-warnings-in-sys_warn-folosind-o-singura-comanda)
-		- [De exemplu, fisierul `warn03.log` va deveni `sys_warn03.log`.](#de-exemplu-fisierul-warn03log-va-deveni-sys_warn03log)
-		- [2 (a) Creati un script ce deschide 30 de procese `sleep 100`, apoi omorati-le pe toate din linia de comanda.](#2-a-creati-un-script-ce-deschide-30-de-procese-sleep-100-apoi-omorati-le-pe-toate-din-linia-de-comanda)
-		- [2 (b) Afisati `doar` pid-ul, ppid-ul si procentul de memorie utilizata pentru primele 3 procese din sistem ordonate descrescator dupa procentul de procesor utilizat.](#2-b-afisati-doar-pid-ul-ppid-ul-si-procentul-de-memorie-utilizata-pentru-primele-3-procese-din-sistem-ordonate-descrescator-dupa-procentul-de-procesor-utilizat)
-		- [2 (c) Conectati-va folosind `TCP` la adresa `tcpbin.com` pe portul 4242 si trimiteti stringul `I'll be back`.](#2-c-conectati-va-folosind-tcp-la-adresa-tcpbincom-pe-portul-4242-si-trimiteti-stringul-ill-be-back)
-		- [2 (d) Sortati toate obiectele JSON din fisierul `ip-names.json` aflat la adresa `http://elf.cs.pub.ro/uso/res/final/133/ip-names.json` dupa campul `ip_address`.](#2-d-sortati-toate-obiectele-json-din-fisierul-ip-namesjson-aflat-la-adresa-httpelfcspubrousoresfinal133ip-namesjson-dupa-campul-ip_address)
-		- [3 (a) Afisati `doar` numele utilizatorilor cu shellul `/bin/bash`.](#3-a-afisati-doar-numele-utilizatorilor-cu-shellul-binbash)
-		- [3 (b) Faceti modificarile necesare pe utilizatorul `student` pentru a putea folosi `sudo` fara a vi se cere parola.](#3-b-faceti-modificarile-necesare-pe-utilizatorul-student-pentru-a-putea-folosi-sudo-fara-a-vi-se-cere-parola)
-		- [3 (c) Creati un fisier numit `hi_ana` in directorul `/home/student` si faceti modificarile necesare astfel incat `doar` utilizatorii `student` si `ana` sa poate modifica fisierul.](#3-c-creati-un-fisier-numit-hi_ana-in-directorul-homestudent-si-faceti-modificarile-necesare-astfel-incat-doar-utilizatorii-student-si-ana-sa-poate-modifica-fisierul)
-		- [3 (d) Faceti modificarile necesare astfel incat parola utilizatorului `ana` sa fie `are-mere`.](#3-d-faceti-modificarile-necesare-astfel-incat-parola-utilizatorului-ana-sa-fie-are-mere)
-		- [4 (a) Creati un director nou numit `my-app` in directorul `/home/student` si initalizati un repository local nou in el.](#4-a-creati-un-director-nou-numit-my-app-in-directorul-homestudent-si-initalizati-un-repository-local-nou-in-el)
-		- [4 (b) Aplicati patch-ul aflat la adresa `http://elf.cs.pub.ro/uso/res/final/133/0001-Add-README.md-file.patch` peste repository-ul nou creat.](#4-b-aplicati-patch-ul-aflat-la-adresa-httpelfcspubrousoresfinal1330001-add-readmemd-filepatch-peste-repository-ul-nou-creat)
-		- [Hint: `git am`](#hint-git-am)
-		- [4 (c) Creati un fisier nou numit `main.c` si faceti un commit cu el.](#4-c-creati-un-fisier-nou-numit-mainc-si-faceti-un-commit-cu-el)
-		- [4 (d) Adauagati un fisier `.gitignore` care ignoare fisierele cu extensia `.old` sau `.tmp`.](#4-d-adauagati-un-fisier-gitignore-care-ignoare-fisierele-cu-extensia-old-sau-tmp)
-		- [5 (c) Scireit un script cu numele `get_ip.sh` care primeste ca argument numele unui website si printeaza adresa `IP` asociata.](#5-c-scireit-un-script-cu-numele-get_ipsh-care-primeste-ca-argument-numele-unui-website-si-printeaza-adresa-ip-asociata)
-		- [`Exemplu`: `./get_ip.sh upb.ro` va afisa `141.85.220.33`.](#exemplu-get_ipsh-upbro-va-afisa-1418522033)
-		- [6 (a) Scrieti un script numit `many_files` care creaza 100 de fisiere text, de la `00.txt` la `99.txt` si le imparte in directoare diferite, fiecare fisier fiind la final aflat in directorul `index fisier / 10`.](#6-a-scrieti-un-script-numit-many_files-care-creaza-100-de-fisiere-text-de-la-00txt-la-99txt-si-le-imparte-in-directoare-diferite-fiecare-fisier-fiind-la-final-aflat-in-directorul-index-fisier--10)
-		- [6 (b) Realizati modificarile necesare astfel incat scriptul de la punctul anterior sa poate fi rulat de oriunde din sistem ca `many_files`.](#6-b-realizati-modificarile-necesare-astfel-incat-scriptul-de-la-punctul-anterior-sa-poate-fi-rulat-de-oriunde-din-sistem-ca-many_files)
-		- [6 (c) Scrieti un script care genereaza un numar aleator mai mic ca 100 si il printeaza la stdout.](#6-c-scrieti-un-script-care-genereaza-un-numar-aleator-mai-mic-ca-100-si-il-printeaza-la-stdout)
-		- [6 (d) Modificati scriptul de la subpunctul `c` stfel incat acesta sa citeasca de la tastatura numer si sa afiseze daca numerul introuds este mia mare sau mai mic ca cel generat, pana cand utilizatorul gaseste numarul generat initia.](#6-d-modificati-scriptul-de-la-subpunctul-c-stfel-incat-acesta-sa-citeasca-de-la-tastatura-numer-si-sa-afiseze-daca-numerul-introuds-este-mia-mare-sau-mai-mic-ca-cel-generat-pana-cand-utilizatorul-gaseste-numarul-generat-initia)
-	- [VARIANTA 136](#varianta-136)
-		- [1 (a) Creati urmatoarea ierarhie de directoare si fisiere.](#1-a-creati-urmatoarea-ierarhie-de-directoare-si-fisiere-6)
-		- [1 (b) Creati o arhiva `.tar` a ierarhie de directoare creata anterior in directorul `home` al utilizatorului `student`.](#1-b-creati-o-arhiva-tar-a-ierarhie-de-directoare-creata-anterior-in-directorul-home-al-utilizatorului-student)
-		- [1 (c) Scrieti un one-liner prin care sa afisati calea unde se afla instaltat utilitarul `cat`.](#1-c-scrieti-un-one-liner-prin-care-sa-afisati-calea-unde-se-afla-instaltat-utilitarul-cat)
-		- [1 (e) Creati o legatura simbolica numita `Protocoale` in directorul `home` al utilizatorului `student` care sa face referinta la folderul `Protocoale de Rutare`.](#1-e-creati-o-legatura-simbolica-numita-protocoale-in-directorul-home-al-utilizatorului-student-care-sa-face-referinta-la-folderul-protocoale-de-rutare)
-		- [Mutati apoi aceast legatura simbolica pentru a verifica daca ramane valida si dupa mutare.](#mutati-apoi-aceast-legatura-simbolica-pentru-a-verifica-daca-ramane-valida-si-dupa-mutare)
-		- [`Nota: ` Legatura trebuie sa poata fi accesata indiferent de locul in care se afla in sistem.](#nota--legatura-trebuie-sa-poata-fi-accesata-indiferent-de-locul-in-care-se-afla-in-sistem)
-		- [2 (a) Creati directorul `examen uso` si initializati-l ca repository gol, local.](#2-a-creati-directorul-examen-uso-si-initializati-l-ca-repository-gol-local)
-		- [2 (b) Creati 3 fisiere care sa aiba `minim 8MB` cu date aleatorii in directorul `examne uso`.](#2-b-creati-3-fisiere-care-sa-aiba-minim-8mb-cu-date-aleatorii-in-directorul-examne-uso)
-		- [2 (c) Afisati `doar` permisiunile si numele fisierelor de la calea `/usr/bin/` care au permisiuni diferit de `rwxr-xr-x`.](#2-c-afisati-doar-permisiunile-si-numele-fisierelor-de-la-calea-usrbin-care-au-permisiuni-diferit-de-rwxr-xr-x)
-		- [2 (d) Realizati un commit in repository-ul creat la subpunctul `a)`, aduagat cele 3 fisiere create anterior.](#2-d-realizati-un-commit-in-repository-ul-creat-la-subpunctul-a-aduagat-cele-3-fisiere-create-anterior)
-		- [2 (e) Realizati un script numit `occurences.sh` care primeste ca argument un `<cuvant>`. Trebuie afisata toate aparitiile acestui cuvant in fisierele de la calea `/usr/`.](#2-e-realizati-un-script-numit-occurencessh-care-primeste-ca-argument-un-cuvant-trebuie-afisata-toate-aparitiile-acestui-cuvant-in-fisierele-de-la-calea-usr)
-		- [Daca nu apara nici macar o data, trebuie afisat mesajul `<cuvant> nu a fost gasit.`](#daca-nu-apara-nici-macar-o-data-trebuie-afisat-mesajul-cuvant-nu-a-fost-gasit)
-		- [3 (d) Scrieti un one-liner care sa afiseze `DOAR` porturile deschise si numele serviciului de la adresa `ocw.cs.pub.ro`.](#3-d-scrieti-un-one-liner-care-sa-afiseze-doar-porturile-deschise-si-numele-serviciului-de-la-adresa-ocwcspubro)
-		- [`Hint:` `nmap`.](#hint-nmap)
-		- [4 (a) Aduagati in sistem 2 utilizatori: `ian` si `azteca`.](#4-a-aduagati-in-sistem-2-utilizatori-ian-si-azteca)
-		- [4 (c) Afisati toti utilizatorii logati in sistem.](#4-c-afisati-toti-utilizatorii-logati-in-sistem)
-		- [4 (d) Rulati comanda `wget http://elf.cs.pub.ro/uso/res/final/136/users.txt` pentru a descarca fisierul `users.txt`.](#4-d-rulati-comanda-wget-httpelfcspubrousoresfinal136userstxt-pentru-a-descarca-fisierul-userstxt)
-		- [Relizati un script care primeste ca argument un fisier care va avea fiecare linie de forma `user-name:parola`. Se doreste ca sriptul sa adauge utilizatourl in sistme cu parola respectiva.](#relizati-un-script-care-primeste-ca-argument-un-fisier-care-va-avea-fiecare-linie-de-forma-user-nameparola-se-doreste-ca-sriptul-sa-adauge-utilizatourl-in-sistme-cu-parola-respectiva)
-		- [Daca utilizatorul exista deja in sistem, script-ul trebuie sa actualizeze parola acestuia cu cea mentionata in fisierul primit ca argument.](#daca-utilizatorul-exista-deja-in-sistem-script-ul-trebuie-sa-actualizeze-parola-acestuia-cu-cea-mentionata-in-fisierul-primit-ca-argument)
-		- [Pentru testare puteti folosir fisierul `users.txt`](#pentru-testare-puteti-folosir-fisierul-userstxt)
-		- [`Atentie!` Pentru verificare recomandam crearea unui fisier personal care sa respecta structura.](#atentie-pentru-verificare-recomandam-crearea-unui-fisier-personal-care-sa-respecta-structura)
-		- [5 (a) Afisati toate fisierele cu extensia `.gz` de la calea `/var/log/`.](#5-a-afisati-toate-fisierele-cu-extensia-gz-de-la-calea-varlog)
-		- [5 (b) Rulati comanda `wget http://elf.cs.pub.ro/uso/res/final/136/tasks.txt` pentru a descarca fisierul `tasks.txt`.](#5-b-rulati-comanda-wget-httpelfcspubrousoresfinal136taskstxt-pentru-a-descarca-fisierul-taskstxt)
-		- [Rulati un script numit `run_tasks.sh` care va primi ca argument fisierul `tasks.txt`, iar fiecare linie va fi de forma `comanda argument`.](#rulati-un-script-numit-run_taskssh-care-va-primi-ca-argument-fisierul-taskstxt-iar-fiecare-linie-va-fi-de-forma-comanda-argument)
-		- [Afisati cuvantul care reiese in urma combinarii tuturor cuvintelor din coloana `argument`.](#afisati-cuvantul-care-reiese-in-urma-combinarii-tuturor-cuvintelor-din-coloana-argument)
-		- [5 (c) Pornind de la script-ul `run_tasks.sh`, realizati o encriptie de tip `AES-192-CBC` cu parola `cea_mai_buna_parola333` asupra cuvantului format anterior si salvati-o in fisierul `tasks_encrypted.enc`.](#5-c-pornind-de-la-script-ul-run_taskssh-realizati-o-encriptie-de-tip-aes-192-cbc-cu-parola-cea_mai_buna_parola333-asupra-cuvantului-format-anterior-si-salvati-o-in-fisierul-tasks_encryptedenc)
-		- [5 (d) Pornind de la script-ul `run_tasks.sh`, rulati toate comenzile de tip `comanda argument`.](#5-d-pornind-de-la-script-ul-run_taskssh-rulati-toate-comenzile-de-tip-comanda-argument)
-		- [Toate erorile aparute in urma rularii script-ului trebuie redirectionate intr-un fisier numit `tasks_errors`.](#toate-erorile-aparute-in-urma-rularii-script-ului-trebuie-redirectionate-intr-un-fisier-numit-tasks_errors)
-		- [6 (a) Afisati adresa `IPv4 publica` de pe sistem.](#6-a-afisati-adresa-ipv4-publica-de-pe-sistem)
-		- [6 (b) Afisati numarul de utilizatori de pe sistemul local care `NU` au procese pornite.](#6-b-afisati-numarul-de-utilizatori-de-pe-sistemul-local-care-nu-au-procese-pornite)
-		- [6 (c) Conectati-va la statia `172.20.128.3` cu utilizatorul `student` si parola `student`. Afisati continutul directorului `/lib` de pe statie afisand si dimensiunea fisierelor si sub-directoarelor in format `human-readable`.](#6-c-conectati-va-la-statia-172201283-cu-utilizatorul-student-si-parola-student-afisati-continutul-directorului-lib-de-pe-statie-afisand-si-dimensiunea-fisierelor-si-sub-directoarelor-in-format-human-readable)
-		- [6 (d) Copiati toate fisierele si directoarele de la calea `/home/student` de pe sistemul vostru catre un nou director numit `student_files` pe statia `172.20.128.3`. Folositi `student:student` pentru autentificare.](#6-d-copiati-toate-fisierele-si-directoarele-de-la-calea-homestudent-de-pe-sistemul-vostru-catre-un-nou-director-numit-student_files-pe-statia-172201283-folositi-studentstudent-pentru-autentificare)
-- [Abrevieri](#abrevieri)
-- [alte comenzi](#alte-comenzi)
-- [neofetch (system info)](#neofetch-system-info)
-- [LINUX interview questions](#linux-interview-questions)
-	- [1. How can you see which kernel version a system is currently running?](#1-how-can-you-see-which-kernel-version-a-system-is-currently-running)
-	- [2. How can you check a system's current IP Address?](#2-how-can-you-check-a-systems-current-ip-address)
-	- [3. How do you check for free disk space?](#3-how-do-you-check-for-free-disk-space)
-	- [4. How do you manage services on a system?](#4-how-do-you-manage-services-on-a-system)
-	- [5. How would you check the size of a directory's contents on disk?](#5-how-would-you-check-the-size-of-a-directorys-contents-on-disk)
-	- [6. How would you check for open ports on a LIUNUX machine?](#6-how-would-you-check-for-open-ports-on-a-liunux-machine)
-	- [7. How do you check CPU usage for a process?](#7-how-do-you-check-cpu-usage-for-a-process)
-	- [8. Dealing with Mounts?](#8-dealing-with-mounts)
-	- [9. How do you look up something you don't know?](#9-how-do-you-look-up-something-you-dont-know)
-	- [10. What do you do when you can't find an answer in a man page?](#10-what-do-you-do-when-you-cant-find-an-answer-in-a-man-page)
-- [70 LINUX QUESTIONS](#70-linux-questions)
-	- [1. What is `RHEL Linux` stands for?](#1-what-is-rhel-linux-stands-for)
-	- [2. Give some examples of Linux distibutions?](#2-give-some-examples-of-linux-distibutions)
-	- [3. What is `kernel`?](#3-what-is-kernel)
-	- [4. What is `swap space`?](#4-what-is-swap-space)
-	- [5. How to search a word in afile and replace it in entire file?](#5-how-to-search-a-word-in-afile-and-replace-it-in-entire-file)
-	- [6. What is use of `SCP` command?](#6-what-is-use-of-scp-command)
-	- [7. What is the use of `FTP` command?](#7-what-is-the-use-of-ftp-command)
-	- [8. What is `alias` and how to setup?](#8-what-is-alias-and-how-to-setup)
-	- [9. Difference between upgrade and update?](#9-difference-between-upgrade-and-update)
-	- [10. Name default ports used for `DNS`, `SMTP`, `FTP`, `SSH`, `DHCP` and squid.](#10-name-default-ports-used-for-dns-smtp-ftp-ssh-dhcp-and-squid)
-	- [11. How to check if a package is installed or not?](#11-how-to-check-if-a-package-is-installed-or-not)
-	- [12. Which of the following commands sends exactly three `ping` packets to google.com?](#12-which-of-the-following-commands-sends-exactly-three-ping-packets-to-googlecom)
-	- [13. Which file contains a list of `group names` and `GIDs`?](#13-which-file-contains-a-list-of-group-names-and-gids)
-	- [14. Which of the following contains the value of the `exit status` of the previously executed command?](#14-which-of-the-following-contains-the-value-of-the-exit-status-of-the-previously-executed-command)
-	- [15. Which command displays the number and type of processors used by Linux system?](#15-which-command-displays-the-number-and-type-of-processors-used-by-linux-system)
-	- [16. Which command should you use to get a list connected `USB` devices?](#16-which-command-should-you-use-to-get-a-list-connected-usb-devices)
-	- [17. Which environment variables is used as the default argument for the `cd` command when no directory is provided?](#17-which-environment-variables-is-used-as-the-default-argument-for-the-cd-command-when-no-directory-is-provided)
-	- [18. True of False. A command following a semicolon will be executed no matter the exit status of the command that preceded the simicolon?](#18-true-of-false-a-command-following-a-semicolon-will-be-executed-no-matter-the-exit-status-of-the-command-that-preceded-the-simicolon)
-	- [19. What are the valid vales of the `exit status`?](#19-what-are-the-valid-vales-of-the-exit-status)
-	- [20. According to the `FHS`, what is the correct directory for log files?](#20-according-to-the-fhs-what-is-the-correct-directory-for-log-files)
-	- [21. What `port` must be open to `ping` a given host?](#21-what-port-must-be-open-to-ping-a-given-host)
-	- [22. How will transfer file from a LINUX server to your windows OS and vice versa?](#22-how-will-transfer-file-from-a-linux-server-to-your-windows-os-and-vice-versa)
-	- [23. Can you split a file intro two? If yes, then how?](#23-can-you-split-a-file-intro-two-if-yes-then-how)
-	- [24. How you can get the unique values from a list?](#24-how-you-can-get-the-unique-values-from-a-list)
-	- [25. Using `VI` editor, how you will edit and save a file?](#25-using-vi-editor-how-you-will-edit-and-save-a-file)
-	- [26. What is the difference between `find` and `locate` command?](#26-what-is-the-difference-between-find-and-locate-command)
-	- [27. Wha t is the `tee` command used for?](#27-wha-t-is-the-tee-command-used-for)
-	- [28. What is `xargs` used for?](#28-what-is-xargs-used-for)
-	- [29. How can you find the number of files, folders in directory?](#29-how-can-you-find-the-number-of-files-folders-in-directory)
-	- [30. I want to read only line 25 to 30th line. How you will do it?](#30-i-want-to-read-only-line-25-to-30th-line-how-you-will-do-it)
-	- [31. What is the use of `tar` command?](#31-what-is-the-use-of-tar-command)
-	- [32. How to redirect both standard output and error to a file?](#32-how-to-redirect-both-standard-output-and-error-to-a-file)
-	- [33. Name some commands for `DNS` resolution.](#33-name-some-commands-for-dns-resolution)
-	- [34. What is the use of `at` command?](#34-what-is-the-use-of-at-command)
-	- [35. Which service is used by `at` command?](#35-which-service-is-used-by-at-command)
-	- [36. Which command assigns read only permission to everyone adn write permision to the owner of the file?](#36-which-command-assigns-read-only-permission-to-everyone-adn-write-permision-to-the-owner-of-the-file)
-	- [37. Which command changes the group ownership of the `/var/www` directory to the `nginx` group?](#37-which-command-changes-the-group-ownership-of-the-varwww-directory-to-the-nginx-group)
-	- [38. What is `chmod 777 file_name`?](#38-what-is-chmod-777-file_name)
-	- [39. What is `ACL` and it's advantage?](#39-what-is-acl-and-its-advantage)
-	- [40. Waht are `links` in LINUX and it's type?](#40-waht-are-links-in-linux-and-its-type)
-	- [41. Differecne between hard and soft (symbolic) links?](#41-differecne-between-hard-and-soft-symbolic-links)
-	- [42. What command you can use to see all the environment variables?](#42-what-command-you-can-use-to-see-all-the-environment-variables)
-	- [43. What are the different ways to set environment variables?](#43-what-are-the-different-ways-to-set-environment-variables)
-	- [44. How can you set environment variables in Linux?](#44-how-can-you-set-environment-variables-in-linux)
-	- [45. What command allows you to display all the process ID of te running `nginx` processes?](#45-what-command-allows-you-to-display-all-the-process-id-of-te-running-nginx-processes)
-	- [46. What is `nice value` of `process`?](#46-what-is-nice-value-of-process)
-	- [47. How to check the `nice value` of a `process`?](#47-how-to-check-the-nice-value-of-a-process)
-	- [48. You want a `process` with a `PID` of `8675` to complete its task fater than the default rate. Which command should you run to accomplish this goal?](#48-you-want-a-process-with-a-pid-of-8675-to-complete-its-task-fater-than-the-default-rate-which-command-should-you-run-to-accomplish-this-goal)
-	- [49. What command can be used to check the `%CPU` and `%Memory` of a `process`?](#49-what-command-can-be-used-to-check-the-cpu-and-memory-of-a-process)
-	- [50. If you want to run a task/script in `background` even if you clase your terminal, what is the way?](#50-if-you-want-to-run-a-taskscript-in-background-even-if-you-clase-your-terminal-what-is-the-way)
-	- [51. How to see la the active `jobs`?](#51-how-to-see-la-the-active-jobs)
-	- [52. How to resume a stopped `job` in `background` or `foreground`?](#52-how-to-resume-a-stopped-job-in-background-or-foreground)
-	- [53. Which command displays information about kernel-related messages along with hardware and system startup messages stored in kernel ring buffer?](#53-which-command-displays-information-about-kernel-related-messages-along-with-hardware-and-system-startup-messages-stored-in-kernel-ring-buffer)
-	- [54. In a directory you have a combination of files like xml, yml, scripts, logs etc. How to get/see only xml files?](#54-in-a-directory-you-have-a-combination-of-files-like-xml-yml-scripts-logs-etc-how-to-getsee-only-xml-files)
-	- [55. Create 100 files with nameing file1, file2, file3 .. file100.](#55-create-100-files-with-nameing-file1-file2-file3--file100)
-	- [56. How would you display all the files int the present working directory that start with either the letter `c` or `m`?](#56-how-would-you-display-all-the-files-int-the-present-working-directory-that-start-with-either-the-letter-c-or-m)
-	- [57. Run a command that show all the lines except any lines starting with the character `#` in a file?](#57-run-a-command-that-show-all-the-lines-except-any-lines-starting-with-the-character--in-a-file)
-	- [58. Which commands lists all files and directories except those beginning with the letter `a`?](#58-which-commands-lists-all-files-and-directories-except-those-beginning-with-the-letter-a)
-	- [59. Which bash command produces the output of `bat bet bit bot`?](#59-which-bash-command-produces-the-output-of-bat-bet-bit-bot)
-	- [60. What is a `VM`?](#60-what-is-a-vm)
-	- [61.](#61)
-
-<!-- vim-markdown-toc -->
-
-
-
-
-
-# STRINGS
-
-## Strip pattern from start of string
+### Strip pattern from start of string
 
 **Example Function:**
 
@@ -4269,7 +3596,7 @@ $ lstrip "The Quick Brown Fox" "The "
 Quick Brown Fox
 ```
 
-## Strip pattern from end of string
+### Strip pattern from end of string
 
 **Example Function:**
 
@@ -4287,7 +3614,7 @@ $ rstrip "The Quick Brown Fox" " Fox"
 The Quick Brown
 ```
 
-## Trim leading and trailing white-space from string
+### Trim leading and trailing white-space from string
 
 This is an alternative to `sed`, `awk`, `perl` and other tools. The
 function below works by finding all leading and trailing white-space and
@@ -4324,7 +3651,7 @@ $ trim_string "$name"
 John Black
 ```
 
-## Trim all white-space from string and truncate spaces
+### Trim all white-space from string and truncate spaces
 
 This is an alternative to `sed`, `awk`, `perl` and other tools. The
 function below works by abusing word splitting to create a new string
@@ -4364,7 +3691,7 @@ $ trim_all "$name"
 John Black is my name.
 ```
 
-## Check if string contains a sub-string
+### Check if string contains a sub-string
 
 **Using a case statement:**
 
@@ -4384,7 +3711,7 @@ case $var in
 esac
 ```
 
-## Check if string starts with sub-string
+### Check if string starts with sub-string
 
 **Using a case statement:**
 
@@ -4404,7 +3731,7 @@ case $var in
 esac
 ```
 
-## Check if string ends with sub-string
+### Check if string ends with sub-string
 
 **Using a case statement:**
 
@@ -4424,7 +3751,7 @@ case $var in
 esac
 ```
 
-## Split a string on a delimiter
+### Split a string on a delimiter
 
 This is an alternative to `cut`, `awk` and other tools.
 
@@ -4530,9 +3857,9 @@ $ trim_quotes "$var"
 Hello, World
 ```
 
-# FILES
+## FILES
 
-## Parsing a `key=val` file.
+### Parsing a `key=val` file.
 
 This could be used to parse a simple `key=value` configuration file.
 
@@ -4560,7 +3887,7 @@ while IFS='=' read -r key val; do
 done < "file"
 ```
 
-## Get the first N lines of a file
+### Get the first N lines of a file
 
 Alternative to the `head` command.
 
@@ -4600,7 +3927,7 @@ $ head 1 ~/.bashrc
 # Prompt
 ```
 
-## Get the number of lines in a file
+### Get the number of lines in a file
 
 Alternative to `wc -l`.
 
@@ -4632,7 +3959,7 @@ $ lines ~/.bashrc
 48
 ```
 
-## Count files or directories in directory
+### Count files or directories in directory
 
 This works by passing the output of the glob to the function and then counting the number of arguments.
 
@@ -4664,7 +3991,7 @@ $ count ~/Pictures/*.jpg
 64
 ```
 
-## Create an empty file
+### Create an empty file
 
 Alternative to `touch`.
 
@@ -4675,9 +4002,9 @@ Alternative to `touch`.
 >file
 ```
 
-# FILE PATHS
+## FILE PATHS
 
-## Get the directory name of a file path
+### Get the directory name of a file path
 
 Alternative to the `dirname` command.
 
@@ -4728,7 +4055,7 @@ $ dirname ~/Pictures/Downloads/
 /home/black/Pictures/
 ```
 
-## Get the base-name of a file path
+### Get the base-name of a file path
 
 Alternative to the `basename` command.
 
@@ -4775,9 +4102,9 @@ $ basename ~/Pictures/Downloads/
 Downloads
 ```
 
-# LOOPS
+## LOOPS
 
-## Loop over a (*small*) range of numbers
+### Loop over a (*small*) range of numbers
 
 Alternative to `seq` and only suitable for small and static number ranges. The number list can also be replaced with a list of words, variables etc.
 
@@ -4788,7 +4115,7 @@ for i in 0 1 2 3 4 5 6 7 8 9 10; do
 done
 ```
 
-## Loop over a variable range of numbers
+### Loop over a variable range of numbers
 
 Alternative to `seq`.
 
@@ -4803,7 +4130,7 @@ while [ "$start" -le "$end" ]; do
 done
 ```
 
-## Loop over the contents of a file
+### Loop over the contents of a file
 
 ```shell
 while IFS= read -r line || [ -n "$line" ]; do
@@ -4811,7 +4138,7 @@ while IFS= read -r line || [ -n "$line" ]; do
 done < "file"
 ```
 
-## Loop over files and directories
+### Loop over files and directories
 
 Don’t use `ls`.
 
@@ -4837,9 +4164,9 @@ for dir in ~/Downloads/*/; do
 done
 ```
 
-# VARIABLES
+## VARIABLES
 
-## Name and access a variable based on another variable
+### Name and access a variable based on another variable
 
 ```shell
 $ var="world"
@@ -4848,11 +4175,11 @@ $ eval printf '%s\n' "\$hello_$var"
 value
 ```
 
-# ESCAPE SEQUENCES
+## ESCAPE SEQUENCES
 
 Contrary to popular belief, there is no issue in utilizing raw escape sequences. Using `tput` abstracts the same ANSI sequences as if printed manually. Worse still, `tput` is not actually portable. There are a number of `tput` variants each with different commands and syntaxes (*try `tput setaf 3` on a FreeBSD system*). Raw sequences are fine.
 
-## Text Colors
+### Text Colors
 
 **NOTE:** Sequences requiring RGB values only work in True-Color Terminal Emulators.
 
@@ -4863,7 +4190,7 @@ Contrary to popular belief, there is no issue in utilizing raw escape sequences.
 | `\033[38;2;<R>;<G>;<B>m` | Set text foreground color to RGB color. | `R`, `G`, `B`
 | `\033[48;2;<R>;<G>;<B>m` | Set text background color to RGB color. | `R`, `G`, `B`
 
-## Text Attributes
+### Text Attributes
 
 | Sequence | What does it do? |
 | -------- | ---------------- |
@@ -4878,7 +4205,7 @@ Contrary to popular belief, there is no issue in utilizing raw escape sequences.
 | `\033[9m` | Strike-through text. |
 
 
-## Cursor Movement
+### Cursor Movement
 
 | Sequence | What does it do? | Value |
 | -------- | ---------------- | ----- |
@@ -4905,9 +4232,9 @@ Contrary to popular belief, there is no issue in utilizing raw escape sequences.
 | `\033[2J\033[H` | Clear the screen and move cursor to `0,0`.
 
 
-# PARAMETER EXPANSION
+## PARAMETER EXPANSION
 
-## Prefix and Suffix Deletion
+### Prefix and Suffix Deletion
 
 | Parameter | What does it do? |
 | --------- | ---------------- |
@@ -4916,13 +4243,13 @@ Contrary to popular belief, there is no issue in utilizing raw escape sequences.
 | `${VAR%PATTERN}` | Remove shortest match of pattern from end of string. |
 | `${VAR%%PATTERN}` | Remove longest match of pattern from end of string. |
 
-## Length
+### Length
 
 | Parameter | What does it do? |
 | --------- | ---------------- |
 | `${#VAR}` | Length of var in characters.
 
-## Default Value
+### Default Value
 
 | Parameter | What does it do? |
 | --------- | ---------------- |
@@ -4936,11 +4263,11 @@ Contrary to popular belief, there is no issue in utilizing raw escape sequences.
 | `${VAR?STRING}` | Display an error if unset.
 
 
-# CONDITIONAL EXPRESSIONS
+## CONDITIONAL EXPRESSIONS
 
 For use in `[ ]` `if [ ]; then` and `test`.
 
-## File Conditionals
+### File Conditionals
 
 | Expression | Value  | What does it do? |
 | ---------- | ------ | ---------------- |
@@ -4961,14 +4288,14 @@ For use in `[ ]` `if [ ]; then` and `test`.
 | `-L`       | `file` | If file exists and is a symbolic link.
 | `-S`       | `file` | If file exists and is a socket.
 
-## Variable Conditionals
+### Variable Conditionals
 
 | Expression | Value | What does it do? |
 | ---------- | ----- | ---------------- |
 | `-z`       | `var` | If the length of string is zero.
 | `-n`       | `var` | If the length of string is non-zero.
 
-## Variable Comparisons
+### Variable Comparisons
 
 | Expression | What does it do? |
 | ---------- | ---------------- |
@@ -4982,15 +4309,15 @@ For use in `[ ]` `if [ ]; then` and `test`.
 | `var -le var2` | Less than or equal to (*algebraically*).
 
 
-# ARITHMETIC OPERATORS
+## ARITHMETIC OPERATORS
 
-## Assignment
+### Assignment
 
 | Operators | What does it do? |
 | --------- | ---------------- |
 | `=`       | Initialize or change the value of a variable.
 
-## Arithmetic
+### Arithmetic
 
 | Operators | What does it do? |
 | --------- | ---------------- |
@@ -5005,7 +4332,7 @@ For use in `[ ]` `if [ ]; then` and `test`.
 | `/=` | Slash-Equal (*Divide a variable.*)
 | `%=` | Mod-Equal (*Remainder of dividing a variable.*)
 
-## Bitwise
+### Bitwise
 
 | Operators | What does it do? |
 | --------- | ---------------- |
@@ -5021,7 +4348,7 @@ For use in `[ ]` `if [ ]; then` and `test`.
 | `^` | Bitwise XOR
 | `^=` | Bitwise XOR-Equal
 
-## Logical
+### Logical
 
 | Operators | What does it do? |
 | --------- | ---------------- |
@@ -5029,16 +4356,16 @@ For use in `[ ]` `if [ ]; then` and `test`.
 | `&&` | AND
 | `\|\|` | OR
 
-## Miscellaneous
+### Miscellaneous
 
 | Operators | What does it do? | Example |
 | --------- | ---------------- | ------- |
 | `,` | Comma Separator | `((a=1,b=2,c=3))`
 
 
-# ARITHMETIC
+## ARITHMETIC
 
-## Ternary Tests
+### Ternary Tests
 
 ```shell
 # Set the value of var to var2 if var2 is greater than var.
@@ -5048,7 +4375,7 @@ For use in `[ ]` `if [ ]; then` and `test`.
 var=$((var2 > var ? var2 : var))
 ```
 
-## Check if a number is a float
+### Check if a number is a float
 
 **Example Function:**
 
@@ -5073,7 +4400,7 @@ $ is_float 1.1 && echo true
 $ true
 ```
 
-## Check if a number is an integer
+### Check if a number is an integer
 
 **Example Function:**
 
@@ -5094,13 +4421,13 @@ $ is_int 1.1 && echo true
 $
 ```
 
-# TRAPS
+## TRAPS
 
 Traps allow a script to execute code on various signals. In [pxltrm](https://github.com/dylanaraps/pxltrm) (*a pixel art editor written in bash*)  traps are used to redraw the user interface on window resize. Another use case is cleaning up temporary files on script exit.
 
 Traps should be added near the start of scripts so any early errors are also caught.
 
-## Do something on script exit
+### Do something on script exit
 
 ```shell
 # Clear screen on script exit.
@@ -5111,15 +4438,15 @@ trap 'printf \\033[2J\\033[H\\033[m' EXIT
 trap clean_up EXIT
 ```
 
-## Ignore terminal interrupt (CTRL+C, SIGINT)
+### Ignore terminal interrupt (CTRL+C, SIGINT)
 
 ```shell
 trap '' INT
 ```
 
-# OBSOLETE SYNTAX
+## OBSOLETE SYNTAX
 
-## Command Substitution
+### Command Substitution
 
 Use `$()` instead of `` ` ` ``.
 
@@ -5134,9 +4461,9 @@ var=`command`
 var="$(command "$(command)")"
 ```
 
-# INTERNAL AND ENVIRONMENT VARIABLES
+## INTERNAL AND ENVIRONMENT VARIABLES
 
-## Open the user's preferred text editor
+### Open the user's preferred text editor
 
 ```shell
 "$EDITOR" "$file"
@@ -5145,7 +4472,7 @@ var="$(command "$(command)")"
 "${EDITOR:-vi}" "$file"
 ```
 
-## Get the current working directory
+### Get the current working directory
 
 This is an alternative to the `pwd` built-in.
 
@@ -5153,19 +4480,19 @@ This is an alternative to the `pwd` built-in.
 "$PWD"
 ```
 
-## Get the PID of the current shell
+### Get the PID of the current shell
 
 ```
 "$$"
 ```
 
-## Get the current shell options
+### Get the current shell options
 
 ```
 "$-"
 ```
 
-# AFTERWORD
+## AFTERWORD
 
 Thanks for reading! If this bible helped you in any way and you'd like to give back, consider donating. Donations give me the time to make this the best resource possible. Can't donate? That's OK, star the repo and share it with your friends!
 
@@ -5183,13 +4510,518 @@ Rock on.
 
 
 
+# 50 cool Bash scripts! and what they do...
+
+[50 bash scripts](https://medium.com/aimonks/50-cool-bash-scripts-and-what-they-do-b38b4e841ba2)
+
+
+
+## Hello Word
+```bash
+#!/bin/bash
+echo "Hello, World!"
+```
+
+## File Backup
+```bash
+#!/bin/bash
+source_dir="/path/to/source"
+backup_dir="/path/to/backup"
+timestamp=$(date +%Y%m%d%H%M%S)
+backup_file="backup_$timestamp.tar.gz"
+tar -czvf "$backup_dir/$backup_file" "$source_dir"
+```
+
+
+
+## Directory Listing
+```bash
+#!/bin/bash
+ls -l
+```
+
+
+## File Count
+```bash
+#!/bin/bash
+file_count=$(ls | wc -l)
+echo "Number of files: $file_count"
+```
+
+
+
+## Disk Usage
+```bash
+#!/bin/bash
+df -h
+```
+
+
+## System Info
+```bash
+#!/bin/bash
+uname -a
+```
+
+
+## File Rename
+```bash
+#!/bin/bash
+old_name="old.txt"
+new_name="new.txt"
+mv "$old_name" "$new_name"
+```
+
+
+## File Permissions
+```bash
+#!/bin/bash
+file="file.txt"
+chmod +x "$file"
+```
+
+
+
+## User Info
+```bash
+#!/bin/bash
+username=$(whoami)
+echo "Current user: $username"
+```
+
+
+## Process List
+```bash
+#!/bin/bash
+ps aux
+```
+
+
+## Process Kill
+```bash
+#!/bin/bash
+process_id=12345
+kill -9 "$process_id"
+```
+
+
+## Check Internet Connection
+```bash
+#!/bin/bash
+ping -c 5 google.com
+```
+
+
+## Disk Cleanup
+```bash
+#!/bin/bash
+sudo du -sh /var/log/*
+sudo rm -rf /var/log/*
+```
+
+
+## System Shutdown
+```bash
+#!/bin/bash
+shutdown -h now
+```
+
+
+
+## System Reboot
+```bash
+#!/bin/bash
+reboot
+```
+
+
+
+## File Search
+```bash
+#!/bin/bash
+search_dir="/path/to/search"
+search_term="pattern"
+grep -r "$search_term" "$search_dir"
+```
+
+
+
+## Disk Space Alert
+```bash
+#!/bin/bash
+threshold=90
+current_usage=$(df -h / | awk 'NR==2 {print $5}' | tr -d '%')
+if [ "$current_usage" -ge "$threshold" ]; then
+    echo "Disk space is running low!"
+else
+    echo "Disk space is okay."
+fi
+```
+
+
+
+## Check Service Status
+```bash
+#!/bin/bash
+service_name="nginx"
+if systemctl is-active --quiet "$service_name"; then
+    echo "$service_name is running."
+else
+    echo "$service_name is not running."
+fi
+```
+
+
+
+## System Backup Script
+```bash
+#!/bin/bash
+source_dir="/path/to/source"
+backup_dir="/path/to/backup"
+timestamp=$(date +%Y%m%d%H%M%S)
+backup_file="backup_$timestamp.tar.gz"
+tar -czvf "$backup_dir/$backup_file" "$source_dir"
+```
+
+
+## Log Rotation
+```bash
+#!/bin/bash
+log_file="/path/to/logfile.log"
+max_log_size=10M
+if [ -f "$log_file" ]; then
+    current_size=$(du -b "$log_file" | awk '{print $1}')
+    if [ "$current_size" -ge "$max_log_size" ]; then
+        mv "$log_file" "$log_file.old"
+        touch "$log_file"
+    fi
+fi
+```
+
+
+
+## User Management (changing user password)
+```bash
+#!/bin/bash
+username="newuser"
+password="password123"
+useradd "$username"
+echo "$username:$password" | chpasswd
+```
+
+
+
+## File Encryption
+```bash
+#!/bin/bash
+file_to_encrypt="file.txt"
+gpg -c "$file_to_encrypt"
+```
+
+
+## File Descryption
+```bash
+#!/bin/bash
+encrypted_file="file.txt.gpg"
+gpg -d "$encrypted_file" > "decrypted_file.txt"
+```
+
+
+
+## File Compression
+```bash
+#!/bin/bash
+compressed_file="compressed_file.tar.gz"
+tar -xzvf "$compressed_file"
+```
+
+
+## File Docompression
+```bash
+#!/bin/bash
+compressed_file="compressed_file.tar.gz"
+tar -xzvf "$compressed_file"
+```
+
+
+## CSV File Processing (`awk`)
+```bash
+#!/bin/bash
+input_csv="data.csv"
+output_file="output.txt"
+awk -F ',' '{print $1,$2}' "$input_csv" > "$output_file"
+```
+
+
+## Log Analysis
+```bash
+#!/bin/bash
+log_file="access.log"
+unique_ips=$(awk '{print $1}' "$log_file" | sort -u | wc -l)
+error_count=$(grep -c 'ERROR' "$log_file")
+echo "Unique IPs: $unique_ips"
+echo "Total Errors: $error_count"
+```
+
+
+
+## Send Email Alert
+```bash
+#!/bin/bash
+email="user@example.com"
+subject="Alert"
+message="Disk space is running low!"
+echo "$message" | mail -s "$subject" "$email"
+```
+
+
+
+
+## Database Backup
+```bash
+#!/bin/bash
+db_name="mydb"
+backup_file="backup.sql"
+mysqldump -u username -p$password "$db_name" > "$backup_file"
+```
+
+
+## SSH Key Generation
+```bash
+#!/bin/bash
+ssh-keygen -t rsa -b 4096 -f ~/.ssh/mykey
+```
+
+
+## SSH Key Copy
+```bash
+#!/bin/bash
+ssh-copy-id user@hostname
+```
+
+
+
+## File Comparison (`diff`, `cmp`)
+```bash
+#!/bin/bash
+file1="file1.txt"
+file2="file2.txt"
+
+# `diff` - compare files line by line
+# `cmp` - compare two files byte by byte
+
+if cmp -s "$file1" "$file2"; then
+    echo "Files are identical."
+else
+    echo "Files are different."
+fi
+```
+
+
+
+## Cron Job Example
+```bash
+#!/bin/bash
+backup_dir="/path/to/backup"
+timestamp=$(date +%Y%m%d%H%M%S)
+backup_file="backup_$timestamp.tar.gz"
+tar -czvf "$backup_dir/$backup_file" /path/to/source
+```
+
+
+
+## Folder Synchronization (`rsync`)
+```bash
+#!/bin/bash
+source_dir="/path/to/source"
+destination_dir="/path/to/destination"
+
+# `rsync` - a fast, versatile, remote (and local) file-copying tool
+
+rsync -av "$source_dir/" "$destination_dir/"
+```
+
+
+
+## URL Download
+```bash
+#!/bin/bash
+url="https://example.com/file.txt"
+output_file="downloaded_file.txt"
+wget "$url" -O "$output_file"
+```
+
+
+
+## Input Validation
+```bash
+#!/bin/bash
+read -p "Enter a number: " number
+if [[ ! "$number" =~ ^[0-9]+$ ]]; then
+    echo "Invalid input. Please enter a number."
+else
+    echo "You entered: $number"
+fi
+```
+
+
+
+## String Manipulation
+```bash
+#!/bin/bash
+string="Hello, World!"
+uppercase_string=$(echo "$string" | tr '[:lower:]' '[:upper:]')
+echo "$uppercase_string"
+```
+
+
+
+
+## File Watcher
+```bash
+#!/bin/bash
+directory="/path/to/watch"
+inotifywait -m -r -e create,modify,delete "$directory" |
+while read path action file; do
+    echo "File $file was $action."
+done
+```
+
+
+
+
+## JSON Parsing (`jq`)
+```bash
+#!/bin/bash
+json_string='{"name": "John", "age": 30}'
+
+# `jq` - Command-line JSON processor
+
+name=$(echo "$json_string" | jq -r '.name')
+age=$(echo "$json_string" | jq -r '.age')
+
+echo "Name: $name, Age: $age"
+```
+
+
+
+
+## Zip File Compression
+```bash
+#!/bin/bash
+file_to_compress="file.txt"
+zip "compressed_file.zip" "$file_to_compress"
+```
+
+
+## Zip File Extraction
+```bash
+#!/bin/bash
+zip_file="compressed_file.zip"
+unzip "$zip_file"
+```
+
+
+
+## PDF Conversion
+```bash
+#!/bin/bash
+input_file="document.docx"
+output_file="document.pdf"
+
+libreoffice --headless --convert-to pdf "$input_file"	# file -> .pdf
+```
+
+
+
+
+
+## CSV to Excel
+```bash
+#!/bin/bash
+input_csv="data.csv"
+output_xlsx="data.xlsx"
+ssconvert "$input_csv" "$output_xlsx"
+```
+
+
+
+
+## File Splitting (`split`)
+```bash
+#!/bin/bash
+input_file="large_file.txt"
+split -b 1M "$input_file" "split_file"
+```
+
+
+
+
+## File Joining (`cat`)
+```bash
+#!/bin/bash
+cat split_file* > "large_file.txt"
+```
+
+
+
+## IP Address Validation
+```bash
+#!/bin/bash
+
+read -p "Enter an IP address: " ip_address
+
+if [[ $ip_address =~ ^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+
+    echo "Valid IP address: $ip_address"
+else
+
+    echo "Invalid IP address."
+fi
+```
+
+
+
+
+## URL Validation
+```bash
+#!/bin/bash
+
+read -p "Enter a URL: " url
+
+if [[ $url =~ ^(http|https)://[A-Za-z0-9.-/]+$ ]]; then
+    echo "Valid URL: $url"
+else
+    echo "Invalid URL."
+fi
+```
+
+
+
+
+## File Permissions Report
+```bash
+#!/bin/bash
+find /path/to/files -type f -exec ls -l {} \; > permissions_report.txt
+```
+
+
+## Password Generator
+```bash
+#!/bin/bash
+length=12
+characters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()"****
+password=$(head /dev/urandom | tr -dc "$characters" | head -c "$length")
+echo "Generated Password: $password"
+```
 
 
 
 
 
 
-# PC POWER / ENERGY MANAGEMENT COMMANDS
+
+# PC POWER MANAGEMENT / ENERGY MANAGEMENT COMMANDS
 
 
 ```sh
@@ -5203,7 +5035,262 @@ $ reboot										# will `restart` the computer
 
 $ poweroff										# will instantly shut down the system
 $ sleep 300 && poweroff							# will shut down the system after 300 seconds
+
+
+
+
+
+# checking the batery
+upower -i /org/freedesktop/UPower/devices/battery_BAT0
+upower -i `upower -e | grep 'BAT'`
+upower -i $(upower -e | grep BAT) | grep --color=never -E "state|to\ full|to\ empty|percentage"	# state, time to empty, percentage
+acpi -V
+acpi
+acpi -t		# temperatura bateriei
+acpi -a
+
+
+
+sensors		# va afia temperatura procesorului
 ```
+
+
+
+
+
+
+
+
+
+```bash
+#!/usr/bin/env bash
+
+# this script displays relevant system information
+# current date, how long the system has been running
+# internet connection, battery, CPU heat, RAM usage
+
+
+file='system_info.log'
+nr_max_lines=10000
+cpu_max_temp=80
+
+red='\033[31m'
+green='\033[32m'
+yellow='\033[33m'
+blue='\033[34m'
+clr='\033[0m'
+
+init_file() {
+    echo -e "$(whoami) @ $(hostname)\n\n" > $file
+
+    echo "User: $(whoami)" >> $file
+    echo "Host machine: $(hostname)" >> $file
+
+    echo -e "\n\n" >> $file
+}
+
+ret=true
+
+ping -c 1 8.8.8.8 &> /dev/null
+is_online=[[ $? == 0]]
+
+cpu_temp_ok=true
+battery_percantage_ok=true
+battery_temp_ok=true
+
+while [[ $ret = true ]] ; do
+
+    date >> $file
+
+    uptime --pretty >> $file
+
+
+    # internet connection verification
+
+    ping -c 1 8.8.8.8 &> /dev/null
+    exit_code=$?
+
+
+    if [[ $exit_code -ne 0 ]] ; then
+
+        if [ $is_online = true ] ; then
+            echo -e "$red Lost internet connection $clr"
+        fi
+
+
+        echo -e "$red No internet connection $clr"
+        is_online=false
+
+    else
+
+        if [[ $is_online = false ]] ;  then
+            echo -e "$green The system is back online again $clr"
+        fi
+
+        echo -e "$blue Is online $clr"
+        is_online=true
+    fi
+
+
+    # check battery status
+
+    # $ acpi
+    # Battery 0: Discharging, 52%, 01:47:43 remaining
+
+    acpi >> $file           # stare, procent, timp ramans
+    acpi -t >> $file         # informatii termice
+
+    acpi | grep -i 'no support' &> /dev/null
+    exit_code=$?
+
+    if [ $exit_code -ne 0 ]; then
+        # the server is running on a battery powered computer
+        percent=$(acpi | awk -F ': |, |%'  '{print $3}')
+    
+
+        if [[ $percent -gt 100 ]] ; then
+            echo -e "$yellow Error at calculating the battery percentage $clr"
+ 
+        elif [[ $percent -gt 25 ]] ; then
+            # 25 < battery
+            echo -e "$green Battery: $percent% $clr" 
+        
+        elif [[ $percent -gt 20 && $percent -le 25 ]] ; then
+            # 20 < battery <= 25
+            echo -e "$yellow Battery: $percent% $clr"
+            echo -e "$yellow The battery is running low $clr"
+        
+        elif [[ $percent -le 20 ]] ; then
+            # 15 <= battery <= 20 
+            echo -e "$yellow Battery: $percent% $clr"
+            echo -e "$yellow The battery is running low $clr"
+        
+        elif [[ $percent -le 15 ]] ; then
+            # battery < 15
+            echo -e "$red Low Battery Level $clr"
+            echo -e "$red Automatical shutdown $clr"
+            sleep 30
+            poweroff
+
+        else
+            echo -e "$yellow Error at calculating the battery percentage $clr"
+        fi
+
+
+
+        acpi -t | grep -i 'ok\|good' &> /dev/null
+        exit_code=$?
+
+        if [[ $exit_code -ne 0 ]] ; then
+            acpi -t | awk -v red=$(echo -e $red) -v clr=$(echo -e $clr) '{printf " Battery: %s%s%s %s %s\n", red, $4, clr, $5, $6}'
+            echo -e "$red High Battery Temperature"
+            echo -e "$ red Automatical shutdown $clr"
+            
+            sleep 30
+            poweroff
+        else
+            # awk -v green='\033[32m' -v clr='\033[0m'
+            acpi -t | awk -v green=$(echo -e $green) -v clr=$(echo -e $clr) '{printf " Battery: %s%s%s %s %s\n", green, $4, clr, $5, $6}'
+            echo -e "$green OK$clr battery temperature"
+        fi
+
+    fi
+
+
+
+
+
+
+
+
+    # CPU temperature
+    echo 'CPU' >> system_info.log
+    sensors | grep --color=never '°C' | grep -i 'core' >> system_info.log
+    sensors | grep --color=never '°C' > aux.txt
+
+    overheat=false
+
+    while IFS= read -r line ; do
+        # Extract the temperature value from the line
+        idx_core=$(echo "$line" | grep -i -w 'core' | awk -F [':-+. '] '{print $2}' | tr -d '\n')
+        temp=$(echo "$line" | grep -i -w 'core' | awk -F ['-+.'] '{print $2, $4, $6}' | awk '{print $1}' | tr -d '\n')
+        high=$(echo "$line" | grep -i -w 'core' | awk -F ['-+.'] '{print $2, $4, $6}' | awk '{print $2}' | tr -d '\n')
+        crit=$(echo "$line" | grep -i -w 'core' | awk -F ['-+.'] '{print $2, $4, $6}' | awk '{print $3}' | tr -d '\n')
+
+
+        if [[ "$temp" != "" && "$high" != "" && "$crit" != "" ]] ; then
+            if [[ $temp -ge $crit ]] ; then
+                echo -e "$red CPU Core $idx_core: $temp°C $clr"
+                overheat=true
+            elif [[ $temp -ge $high ]] ; then
+                echo -e "$yellow CPU Core $idx_core: $temp°C $clr"
+                overheat=true
+            else
+                echo -e " CPU Core $idx_core: $green$temp°C $clr"
+            fi
+        fi
+
+
+        # if [[ $temp -gt $cpu_max_temp ]]; then
+        #     echo -e "$red High CPU temperature $temp $clr"
+        # fi
+    done < aux.txt
+
+    rm -f aux.txt
+
+
+    if [[ "$overheat" = true ]] ; then
+        echo -e "$red The CPU is overheating $clr"
+    fi
+
+
+
+
+    # RAM
+    echo "RAM" >> $file
+    free -h >> $file
+
+    total_ram=$(free | awk 'NR==2 {print $2}' | tr -d '\n')
+    used_ram=$(free | awk 'NR==2 {print $3}' | tr -d '\n')
+    free_ram=$(($toal_ram - $used_ram ))
+    
+
+    ratio=$(($used_ram  * 100 / $total_ram))
+    
+    if [[ $ratio -gt 100 ]] ; then
+        echo -e "$yellow Error at caluling the RAM percentage"
+    elif [[ $ratio -ge 80 ]] ; then
+        echo -e " RAM: $red$ratio%$clr"
+    elif [[ $ratio -ge 50 ]] ; then
+        echo -e " RAM: $yellow$ratio%$clr"
+    elif [[ $ratio -ge 20 ]] ; then
+        echo -e " RAM: $blue$ratio%$clr"
+    elif [[ $ratio -ge 0 ]] ; then
+        echo -e " RAM: $green$ratio%$clr"
+    else
+        echo "$yellow Error at caluling the RAM percentage"
+    fi
+
+
+    # the number of lines of the file
+    nr_lines=$(wc -l $file | awk '{print $1}')
+
+
+    if [[ $nr_lines -ge $nr_max_lines ]] ; then
+        echo -e "$yellow The file <$file> has reached $nr_max_lines lines! $clr"
+        echo -e "$yellow Overriding the file $clr"
+        init_file
+    fi
+
+
+    echo "" >> $file
+    echo ""
+    sleep 5
+
+done
+
+```
+
 
 
 
@@ -5330,7 +5417,7 @@ echo $OSTYPE		# specifies the operating system type
 
 ```bash
 echo $(date)		# the current date
-echo $(date)		# the current date
+date				# the current date
 
 
 date +'%Y-%m-%d %H:%M:%S'    # Full year, month, day, hour, minute, second
@@ -5610,9 +5697,11 @@ cmd1 || cmd2			# executa `cmd2` doar daca `cmd1` a esuat
 xargs					# build and execute command lines from standard input. It takes input froma a pipe or from standard input and converts it into arguments for a command
 xargs -I str mv str ..	# nu stiu ce face
 
+
+## REDIRECTARI
 cmd 1> fisier			# 1 = stdout
 cmd 2> fisier			# 2 = stderr
-cmd 1> f1 2> f2
+cmd 1> result.txt 2> errors.txt
 cmd &					# porneste in background (`bg`)
 cmd &> fisier			# stdout + stderr in fisier
 cmd > fisier 2>&1		# stdout in fisier ; stderr in terminal
@@ -5934,7 +6023,7 @@ sed 's/[ce-inlocuim]/[cu-ce]/g'				# toate aparitiile
 sed '3s' [fisier]							# sterge linia 3
 sed '/[ce-stergem]/d'						# sterge secventa
 
-cond [[__ $a -eq $b __ ]]					# for, if etc
+cond [[ __ $a -eq $b __ ]]					# for, if etc
 
 # script adaugare string la final de linii pare
 
@@ -5960,6 +6049,11 @@ users						# utilizatorii logati
 groups [user]				# grupurile din care face un user
 blank [user]				# userul curent
 
+
+
+sleep infinite				# ruleaza sleep la infinit
+
+lsof						# list open files
 
 
 ```
@@ -8602,7 +8696,11 @@ sl			# o animatie cu un trenulet
 
 	```sh
 	touch add_users.sh
+	
 	chmod +x add_users.sh
+	# <=> `chmod a+x file`
+	# <=> `chmod ugo+x file`
+	
 	nano -l add_users.sh		# deschide fisierul si numeroteaza liniile
 		
 		#!/bin/bash
@@ -8647,7 +8745,11 @@ sl			# o animatie cu un trenulet
 
 	# verificare
 	touch check_users.sh
+
 	chmod +x check_users.sh
+	# <=> `chmod a+x file`
+	# <=> `chmod ugo+x file`
+	
 	nano -l check_users.sh		# deschide fisierul si numeroteaza liniile
 
 		#!/bin/bash
@@ -8689,7 +8791,11 @@ sl			# o animatie cu un trenulet
 
 	# stergere
 	touch del_users.sh
+	
 	chmod +x del_users.sh
+	# <=> `chmod a+x file`
+	# <=> `chmod ugo+x file`
+
 	nano -l del_users.sh		# deschide fisierul si numeroteaza liniile
 
 		#!/bin/bash
@@ -8761,7 +8867,11 @@ sl			# o animatie cu un trenulet
 
 	```sh
 	touch encodare.sh
+	
 	chmod +x encodare.sh
+	# <=> `chmod a+x file`
+	# <=> `chmod ugo+x file`
+
 	nano -l encodare.sh
 
 		#!/bin/bash
@@ -8862,7 +8972,11 @@ sl			# o animatie cu un trenulet
 
 	```sh
 	touch user_name.sh
+
 	chmod +x user_name.sh
+	# <=> `chmod a+x file`
+	# <=> `chmod ugo+x file`
+	
 	nano -l user_name.sh	# deschide fisierul si numeroteaza liniile
 
 		#!/bin/bash
@@ -9245,6 +9359,9 @@ sl			# o animatie cu un trenulet
 
 
 	chmod +x IPv4_address.sh
+	# <=> `chmod a+x file`
+	# <=> `chmod ugo+x file`
+
 	./IPv4_address.sh
 	# sau executam ruland:
 	bash IPv4_address.sh
@@ -9283,6 +9400,9 @@ sl			# o animatie cu un trenulet
 
 
 	chmod +x hash_it.sh
+	# <=> `chmod a+x file`
+	# <=> `chmod ugo+x file`
+
 	./hash_it.sh
 	# sau executam ruland:
 	bash hash_it.sh
@@ -9540,7 +9660,11 @@ sl			# o animatie cu un trenulet
 	man last			# show a listing of last logged in users
 
 	touch user_history.sh
+
 	chmod +x user_history.sh
+	# <=> `chmod a+x file`
+	# <=> `chmod ugo+x file`
+	
 	nano -l user_history.sh		# deschide fisierul si numeroteaza liniile
 
 		#!/bin/bash
@@ -9758,6 +9882,9 @@ sl			# o animatie cu un trenulet
 
 
 	chmod +x 5a.sh
+	# <=> `chmod a+x file`
+	# <=> `chmod ugo+x file`
+
 	./5a.sh
 	# sau executam:
 	bash 5a.sh
@@ -9791,6 +9918,9 @@ sl			# o animatie cu un trenulet
 
 
 	chmod +x 5a.sh
+	# <=> `chmod a+x file`
+	# <=> `chmod ugo+x file`
+
 	./5a.sh
 	# sau :
 	bash 5a.sh
@@ -10503,6 +10633,9 @@ sl			# o animatie cu un trenulet
 		CTRL + X		(inchide fisierul)
 
 	chmod +x send_packages.sh
+	# <=> `chmod a+x file`
+	# <=> `chmod ugo+x file`
+
 	./send_packages.sh
 	# sau:
 	bash send_packages.sh
@@ -10531,6 +10664,9 @@ sl			# o animatie cu un trenulet
 		CTRL + X		(inchide fisierul)
 
 	chmod +x send_packages.sh
+	# <=> `chmod a+x file`
+	# <=> `chmod ugo+x file`
+
 	./send_packages.sh
 	# sau: 
 	bash send_packages.sh
@@ -10573,6 +10709,9 @@ sl			# o animatie cu un trenulet
 	```sh
 	touch select_emp.sh
 	chmod +x select_emp.sh
+	# <=> `chmod a+x file`
+	# <=> `chmod ugo+x file`
+
 	nano +x select_emp.sh		# deschide fisierul si numeroteaza liniile
 
 		#!/bin/bash
@@ -10837,6 +10976,9 @@ sl			# o animatie cu un trenulet
 	```sh
 	touch numbers.sh
 	chmod +x numbers.sh
+	# <=> `chmod a+x file`
+	# <=> `chmod ugo+x file`
+
 	nano -l numbers.sh		# deschide fisierul si nemorteaza liniile
 
 		#!/bin/bash
@@ -11327,6 +11469,9 @@ sl			# o animatie cu un trenulet
 		CTRL + X		(inchide fisierul)
 
 	chmod +x utilizatori_si_parole.sh
+	# <=> `chmod a+x file`
+	# <=> `chmod ugo+x file`
+
 	./utilizatori_si_parole.sh
 	# sau :
 	bash utilizatori_si_parole.sh
@@ -11367,6 +11512,9 @@ sl			# o animatie cu un trenulet
 	```sh
 	touch task2c.sh
 	chmod +x task2c.sh
+	# <=> `chmod a+x file`
+	# <=> `chmod ugo+x file`
+
 	nano -l task2c.sh		# deschide fisierul si numeroteaza liniile
 
 		#!/bin/bash
@@ -11837,7 +11985,11 @@ sl			# o animatie cu un trenulet
 	ps -eaux | grep -w '$(which pipewire)'
 	
 	touch getps.sh
+
 	chmod +x getps.sh
+	# <=> `chmod a+x file`
+	# <=> `chmod ugo+x file`
+
 	nano -l getps.sh		# deschide fisierul si numeroteaza liniile
 
 		#!/bin/bash
@@ -11915,7 +12067,11 @@ sl			# o animatie cu un trenulet
 	cat grades.csv
 
 	touch notare.sh
+
 	chmod +x notare.sh
+	# <=> `chmod a+x file`
+	# <=> `chmod ugo+x file`
+
 	nano -l notare.sh		# deschide fisierul si numeroteaza liniile
 
 		#/bin/bash
@@ -12143,6 +12299,9 @@ sl			# o animatie cu un trenulet
 		for i in {1..30}; do sleep 100; done
 
 	chmod +x sleeper.sh
+	# <=> `chmod a+x file`
+	# <=> `chmod ugo+x file`
+
 	./sleeper.sh
 	# sau
 	bash sleeper.sh
@@ -12446,6 +12605,9 @@ sl			# o animatie cu un trenulet
 
 
 	chmod +x get_ip.sh
+	# <=> `chmod a+x file`
+	# <=> `chmod ugo+x file`
+
 	./get_ip.sh
 	```
 
@@ -12523,6 +12685,9 @@ sl			# o animatie cu un trenulet
 
 
 	chmod +x many_files.sh
+	# <=> `chmod a+x file`
+	# <=> `chmod ugo+x file`
+
 	./many_files.sh
 	# sau
 	bash many_files.sh
@@ -12607,6 +12772,9 @@ sl			# o animatie cu un trenulet
 
 
 	chmod +x numbers.sh
+	# <=> `chmod a+x file`
+	# <=> `chmod ugo+x file`
+
 	./numbers.sh
 	# sau
 	bash numbers.sh
@@ -12662,6 +12830,9 @@ Good job!
 
 
 	chmod +x numbers.sh
+	# <=> `chmod a+x file`
+	# <=> `chmod ugo+x file`
+
 	./numbers.sh
 	# sau
 	bash numbers.sh
@@ -12839,7 +13010,10 @@ Good job!
 
 	```sh
 	touch occurences.sh
+
 	chmod +x occurences.sh
+	# <=> `chmod a+x file`
+	# <=> `chmod ugo+x file`
 
 	nano -l occurences.sh
 
@@ -12978,7 +13152,11 @@ Good job!
 
 
 	touch add_users.sh
+	
 	chmod +x add_users.sh
+	# <=> `chmod a+x file`
+	# <=> `chmod ugo+x file`
+
 	nano -l add_users.sh		# deschide fisierul si numeroteaza liniile
 
 		#!/bin/bash
@@ -13023,7 +13201,11 @@ Good job!
 
 
 	touch check_users.sh
+	
 	chmod +x check_users.sh
+	# <=> `chmod a+x file`
+	# <=> `chmod ugo+x file`
+
 	nano -l check_users.sh		# deschide fisierul si numeroteaza liniile
 
 		#!/bin/bash
@@ -13060,7 +13242,11 @@ Good job!
 
 
 	touch delete_users.sh
+	
 	chmod +x delete_users.sh
+	# <=> `chmod a+x file`
+	# <=> `chmod ugo+x file`
+
 	nano -l delete_users.sh		# deschide fisierul si numeroteaza liniile
 
 		#!/bin/bash
@@ -13225,8 +13411,13 @@ Good job!
 	
 	
 	python3 ends_with_gz.py
+	
 	# sau
+
 	chmod +x ends_with_gz.py
+	# <=> `chmod a+x file`
+	# <=> `chmod ugo+x file`
+	
 	./ends_with_gz.py
 	```
 
@@ -13279,7 +13470,11 @@ mkdir yooo
 	
 	bash run_tasks.sh tasks.txt
 	# sau
+
 	chmod +x run_tasks.sh
+	# <=> `chmod a+x file`
+	# <=> `chmod ugo+x file`
+	
 	./run_tasks.sh tasks.txt
 	```
 
@@ -13472,6 +13667,9 @@ mkdir yooo
 
 
 	chmod +x solver.sh
+	# <=> `chmod a+x file`
+	# <=> `chmod ugo+x file`
+	
 	./solver.sh
 	```
 
@@ -13485,7 +13683,11 @@ mkdir yooo
 	```sh
 	# eu
 	touch mysolver.sh
+
 	chmod +x mysolver.sh
+	# <=> `chmod a+x file`
+	# <=> `chmod ugo+x file`
+	
 	nano -l mysolver.sh		# deschide fisierul si numeroteaza liniile
 
 		#!/bin/bash
@@ -13688,10 +13890,37 @@ xiii
 
 
 
-# alte comenzi
+# Alte Comenzi
 ```sh
 cmatrix							# simulates the display from "The Matrix"
+
 npx periodic-table-cli			# tabel periodic
+
+docker run --rm -it bcbcarl/hollywood	# arata de parca se intampla un `hack`
+# se opreste cu `CTRL+C` si `exit`
+
+telnet mapscii.me				# afiseaza harta lumii
+
+
+
+telnet -4 telehack.com			# ne conectam la un server TCP
+starwars
+
+
+
+
+# rusty-rain
+# downloading instructions: https://github.com/cowboy8625/rusty-rain.git
+cargo install rusty-rain
+reset
+rusty-rain -c crab
+rusty-rain -c clock
+rusty-rain -c card -C blue -d south
+rusty-rain -c card -C blue -d north
+rust-rain -C 0,139,139 -H 255,255,255 -c jap
+rusty-rain -C 0,139,139 -H 255,255,255 -c jap
+rusty-rain -C blue -H 255,255,255 -c jap
+rusty-rain -c emojis
 ```
 
 
